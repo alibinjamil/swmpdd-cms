@@ -1,0 +1,62 @@
+/* CSS Document */
+
+	p, a, td, tr, table, ol, li, ul, h4, h5, h6, label {
+	font-family: Verdana, Arial, Myriad, Helvetica, sans-serif;
+	font-size: 12px;
+   	line-height: 16px;
+	/* color: #333; */
+	/* background-color: inherit; */
+ 	/*  max-width: 55em; */
+	}
+
+	/* h1, h2 { 
+	font-size: 16px;
+	font-weight: bold;
+	color: #333;
+	background-color: inherit;
+	} */
+
+        h3 {
+	font-family: Verdana, Geneva, Arial, Helvetica, sans-serif;
+	font-size: 14px;
+/*	font-variant: small-caps; */
+	font-weight: bold;
+	/* color: #5D7B9D; */
+        }
+
+label   {
+	cursor: pointer;
+	cursor: hand;
+	}
+
+
+/* input.capitalize { text-transform: capitalize; } */
+/* input { border: 1px solid #999; } */
+/* input:focus { border: 1px solid #000; } */
+
+
+.TopMenuBar {
+	font-family: Verdana, Arial, Myriad, Helvetica, sans-serif;
+	font-size: 12px;
+	line-height: 16px;
+	color: #ffffff;
+}
+
+
+.footer {
+	font-family: Verdana, Arial, Myriad, Helvetica, sans-serif;
+	font-size: 11px;
+	line-height: 15px;
+	color: #D0CCB3;
+}
+
+.LeftMenu {
+   font-family: Verdana, Geneva, Arial, Helvetica, sans-serif;
+	font-size: smaller;
+	font-variant: small-caps;	
+	}
+	
+/* .Footer {
+	font-family: Verdana, Geneva, Arial, Helvetica, sans-serif;
+	font-size: xx-small;
+   } */
