@@ -1,0 +1,7 @@
+F:\SWMPDD\SWMPDD.Web\bin\SWMPDD.Web.dll
+F:\SWMPDD\SWMPDD.Web\bin\SWMPDD.Web.pdb
+F:\SWMPDD\SWMPDD.Web\obj\Debug\SWMPDD.Web.dll
+F:\SWMPDD\SWMPDD.Web\obj\Debug\SWMPDD.Web.pdb
+F:\SWMPDD\SWMPDD.Web\obj\Debug\SWMPDD.Web.csprojResolveAssemblyReference.cache
+F:\SWMPDD\SWMPDD.Web\bin\SWMPDD.Data.dll
+F:\SWMPDD\SWMPDD.Web\bin\SWMPDD.Data.pdb

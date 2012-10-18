@@ -1,0 +1,628 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="2.0" xmlns:edmx="http://schemas.microsoft.com/ado/2008/10/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="SWMPDDModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/02/edm/ssdl">
+        <EntityContainer Name="SWMPDDModelStoreContainer">
+          <EntitySet Name="Clients" EntityType="SWMPDDModel.Store.Clients" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="Details" EntityType="SWMPDDModel.Store.Details" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="Documents" EntityType="SWMPDDModel.Store.Documents" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="ProvidersInProgress" EntityType="SWMPDDModel.Store.ProvidersInProgress" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="Users" EntityType="SWMPDDModel.Store.Users" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="Versions" EntityType="SWMPDDModel.Store.Versions" store:Type="Tables" Schema="dbo" />
+          <AssociationSet Name="FK_Details_Clients" Association="SWMPDDModel.Store.FK_Details_Clients">
+            <End Role="Clients" EntitySet="Clients" />
+            <End Role="Details" EntitySet="Details" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Documents_Clients" Association="SWMPDDModel.Store.FK_Documents_Clients">
+            <End Role="Clients" EntitySet="Clients" />
+            <End Role="Documents" EntitySet="Documents" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Documents_Versions" Association="SWMPDDModel.Store.FK_Documents_Versions">
+            <End Role="Versions" EntitySet="Versions" />
+            <End Role="Documents" EntitySet="Documents" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ProvidersInProgress_Clients" Association="SWMPDDModel.Store.FK_ProvidersInProgress_Clients">
+            <End Role="Clients" EntitySet="Clients" />
+            <End Role="ProvidersInProgress" EntitySet="ProvidersInProgress" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="Clients">
+          <Key>
+            <PropertyRef Name="ClientId" />
+          </Key>
+          <Property Name="ClientId" Type="varchar" Nullable="false" MaxLength="50" />
+          <Property Name="FirstName" Type="varchar" MaxLength="50" />
+          <Property Name="MiddleInitial" Type="varchar" MaxLength="50" />
+          <Property Name="LastName" Type="varchar" MaxLength="50" />
+          <Property Name="DateOfBirth" Type="date" />
+          <Property Name="Address1" Type="varchar" MaxLength="50" />
+          <Property Name="Address2" Type="varchar" MaxLength="50" />
+          <Property Name="City" Type="varchar" MaxLength="50" />
+          <Property Name="State" Type="varchar" MaxLength="50" />
+          <Property Name="Zip" Type="varchar" MaxLength="50" />
+          <Property Name="Phone" Type="varchar" MaxLength="50" />
+          <Property Name="County" Type="varchar" MaxLength="50" />
+          <Property Name="Email" Type="varchar" MaxLength="100" />
+          <Property Name="Gender" Type="varchar" MaxLength="50" />
+          <Property Name="OtherComments" Type="varchar" MaxLength="500" />
+          <Property Name="ParticipantSignature" Type="varchar" MaxLength="50" />
+          <Property Name="SignatureDate" Type="varchar" MaxLength="50" />
+          <Property Name="ClientTypeId" Type="int" />
+          <Property Name="ServicesNeeded" Type="int" />
+          <Property Name="CreationDate" Type="datetime" />
+          <Property Name="CreationUser" Type="varchar" MaxLength="50" />
+          <Property Name="LastUpdateTime" Type="datetime" />
+          <Property Name="LastUpdateUser" Type="varchar" MaxLength="50" />
+          <Property Name="ApplicationApprovedBy" Type="varchar" MaxLength="50" />
+          <Property Name="IPAddress" Type="varchar" MaxLength="50" />
+          <Property Name="ClientAt" Type="varchar" MaxLength="50" />
+          <Property Name="InOtherCase" Type="varchar" MaxLength="500" />
+          <Property Name="SSN" Type="varchar" MaxLength="50" />
+          <Property Name="Medicare" Type="varchar" MaxLength="50" />
+          <Property Name="Medicaid" Type="varchar" MaxLength="50" />
+          <Property Name="ContactPerson" Type="varchar" MaxLength="50" />
+          <Property Name="RelationshipToClient" Type="varchar" MaxLength="50" />
+          <Property Name="ContactPhone" Type="varchar" MaxLength="50" />
+          <Property Name="Direction" Type="varchar" MaxLength="500" />
+          <Property Name="ReferralSoruce" Type="varchar" MaxLength="150" />
+          <Property Name="ReferralPhone" Type="varchar" MaxLength="50" />
+          <Property Name="Physician" Type="varchar" MaxLength="50" />
+          <Property Name="PhysicianPhone" Type="varchar" MaxLength="50" />
+          <Property Name="PhysicianAddress" Type="varchar" MaxLength="50" />
+          <Property Name="PhysicianCity" Type="varchar" MaxLength="50" />
+          <Property Name="PhysicianZip" Type="varchar" MaxLength="50" />
+          <Property Name="Diagnostic" Type="varchar" MaxLength="150" />
+          <Property Name="Diet" Type="varchar" MaxLength="50" />
+          <Property Name="AdditionalPertinent" Type="varchar(max)" />
+          <Property Name="VerificationOfMedicaidStatus" Type="bit" />
+          <Property Name="VerificationDate" Type="date" />
+          <Property Name="LockinStatus" Type="bit" />
+          <Property Name="DateClientContacted" Type="date" />
+          <Property Name="ByWhom" Type="varchar" MaxLength="50" />
+          <Property Name="MethodofContact" Type="varchar" MaxLength="50" />
+          <Property Name="PersonResidenceCode" Type="varchar" MaxLength="50" />
+          <Property Name="OfficalComments" Type="varchar(max)" />
+          <Property Name="InTakeDate" Type="date" />
+          <Property Name="StatusId" Type="int" />
+          <Property Name="StatusText" Type="varchar" MaxLength="500" />
+          <Property Name="RemovalDate" Type="date" />
+          <Property Name="ParticipantId" Type="int" />
+        </EntityType>
+        <EntityType Name="Details">
+          <Key>
+            <PropertyRef Name="DetailId" />
+          </Key>
+          <Property Name="DetailId" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="ClientId" Type="varchar" Nullable="false" MaxLength="50" />
+          <Property Name="Text" Type="varchar" Nullable="false" MaxLength="2000" />
+          <Property Name="CreationDate" Type="datetime" Nullable="false" />
+          <Property Name="CreationUser" Type="varchar" Nullable="false" MaxLength="50" />
+          <Property Name="Type" Type="char" Nullable="false" MaxLength="1" />
+        </EntityType>
+        <EntityType Name="Documents">
+          <Key>
+            <PropertyRef Name="DocumentId" />
+          </Key>
+          <Property Name="DocumentId" Type="varchar" Nullable="false" MaxLength="50" />
+          <Property Name="ClientId" Type="varchar" Nullable="false" MaxLength="50" />
+          <Property Name="DocumentTypeId" Type="int" Nullable="false" />
+          <Property Name="VersionId" Type="int" Nullable="false" />
+          <Property Name="FileName" Type="varchar" Nullable="false" MaxLength="50" />
+          <Property Name="Path" Type="varchar" Nullable="false" MaxLength="500" />
+        </EntityType>
+        <EntityType Name="ProvidersInProgress">
+          <Key>
+            <PropertyRef Name="ProviderId" />
+          </Key>
+          <Property Name="ProviderId" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="ClientId" Type="varchar" Nullable="false" MaxLength="50" />
+          <Property Name="Discipline" Type="varchar" MaxLength="50" />
+          <Property Name="Frequency" Type="varchar" MaxLength="50" />
+          <Property Name="Provider" Type="varchar" MaxLength="50" />
+          <Property Name="CreationDate" Type="datetime" Nullable="false" />
+          <Property Name="CreationUser" Type="varchar" Nullable="false" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="Users">
+          <Key>
+            <PropertyRef Name="UserId" />
+          </Key>
+          <Property Name="UserId" Type="varchar" Nullable="false" MaxLength="50" />
+          <Property Name="UserName" Type="varchar" Nullable="false" MaxLength="50" />
+          <Property Name="Password" Type="varchar" Nullable="false" MaxLength="50" />
+          <Property Name="Name" Type="varchar" Nullable="false" MaxLength="50" />
+          <Property Name="Email" Type="varchar" Nullable="false" MaxLength="50" />
+          <Property Name="Active" Type="bit" Nullable="false" />
+          <Property Name="UserType" Type="varchar" Nullable="false" MaxLength="50" />
+          <Property Name="LastLoginTime" Type="datetime" />
+          <Property Name="UserTitle" Type="varchar" MaxLength="50" />
+          <Property Name="Address" Type="varchar" MaxLength="50" />
+          <Property Name="City" Type="varchar" MaxLength="50" />
+          <Property Name="State" Type="varchar" MaxLength="50" />
+          <Property Name="Zip" Type="varchar" MaxLength="50" />
+          <Property Name="Phone" Type="varchar" MaxLength="50" />
+          <Property Name="FirstLoginTime" Type="bit" />
+          <Property Name="LastPasswordChangeTime" Type="datetime" />
+          <Property Name="LastUpdateTime" Type="datetime" />
+          <Property Name="LastupdateUser" Type="varchar" MaxLength="50" />
+          <Property Name="CreationTime" Type="datetime" />
+          <Property Name="CreationUser" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="Versions">
+          <Key>
+            <PropertyRef Name="VersionId" />
+          </Key>
+          <Property Name="VersionId" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="DocumentTypeId" Type="int" Nullable="false" />
+          <Property Name="Name" Type="varchar" Nullable="false" MaxLength="50" />
+          <Property Name="MajorVersion" Type="varchar" Nullable="false" MaxLength="50" />
+          <Property Name="MinorVersion" Type="varchar" Nullable="false" MaxLength="50" />
+          <Property Name="FileName" Type="varchar" Nullable="false" MaxLength="50" />
+          <Property Name="Path" Type="varchar" Nullable="false" MaxLength="500" />
+          <Property Name="StartDate" Type="datetime" Nullable="false" />
+          <Property Name="EndDate" Type="datetime" />
+        </EntityType>
+        <Association Name="FK_Details_Clients">
+          <End Role="Clients" Type="SWMPDDModel.Store.Clients" Multiplicity="1" />
+          <End Role="Details" Type="SWMPDDModel.Store.Details" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Clients">
+              <PropertyRef Name="ClientId" />
+            </Principal>
+            <Dependent Role="Details">
+              <PropertyRef Name="ClientId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Documents_Clients">
+          <End Role="Clients" Type="SWMPDDModel.Store.Clients" Multiplicity="1" />
+          <End Role="Documents" Type="SWMPDDModel.Store.Documents" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Clients">
+              <PropertyRef Name="ClientId" />
+            </Principal>
+            <Dependent Role="Documents">
+              <PropertyRef Name="ClientId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Documents_Versions">
+          <End Role="Versions" Type="SWMPDDModel.Store.Versions" Multiplicity="1" />
+          <End Role="Documents" Type="SWMPDDModel.Store.Documents" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Versions">
+              <PropertyRef Name="VersionId" />
+            </Principal>
+            <Dependent Role="Documents">
+              <PropertyRef Name="VersionId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ProvidersInProgress_Clients">
+          <End Role="Clients" Type="SWMPDDModel.Store.Clients" Multiplicity="1" />
+          <End Role="ProvidersInProgress" Type="SWMPDDModel.Store.ProvidersInProgress" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Clients">
+              <PropertyRef Name="ClientId" />
+            </Principal>
+            <Dependent Role="ProvidersInProgress">
+              <PropertyRef Name="ClientId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="SWMPDDModel" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2008/09/edm">
+        <EntityContainer Name="SWMPDDEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Clients" EntityType="SWMPDDModel.Client" />
+          <EntitySet Name="Details" EntityType="SWMPDDModel.Detail" />
+          <EntitySet Name="Documents" EntityType="SWMPDDModel.Document" />
+          <EntitySet Name="ProvidersInProgresses" EntityType="SWMPDDModel.ProvidersInProgress" />
+          <EntitySet Name="Users" EntityType="SWMPDDModel.User" />
+          <EntitySet Name="Versions" EntityType="SWMPDDModel.Version" />
+          <AssociationSet Name="FK_Details_Clients" Association="SWMPDDModel.FK_Details_Clients">
+            <End Role="Client" EntitySet="Clients" />
+            <End Role="Detail" EntitySet="Details" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Documents_Clients" Association="SWMPDDModel.FK_Documents_Clients">
+            <End Role="Client" EntitySet="Clients" />
+            <End Role="Document" EntitySet="Documents" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ProvidersInProgress_Clients" Association="SWMPDDModel.FK_ProvidersInProgress_Clients">
+            <End Role="Client" EntitySet="Clients" />
+            <End Role="ProvidersInProgress" EntitySet="ProvidersInProgresses" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Documents_Versions" Association="SWMPDDModel.FK_Documents_Versions">
+            <End Role="Version" EntitySet="Versions" />
+            <End Role="Document" EntitySet="Documents" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="Client">
+          <Key>
+            <PropertyRef Name="ClientId" />
+          </Key>
+          <Property Type="String" Name="ClientId" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="FirstName" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="MiddleInitial" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="LastName" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="DateTime" Name="DateOfBirth" />
+          <Property Type="String" Name="Address1" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="Address2" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="City" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="State" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="Zip" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="Phone" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="County" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="Email" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="Gender" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="OtherComments" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="ParticipantSignature" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="SignatureDate" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="Int32" Name="ClientTypeId" />
+          <Property Type="Int32" Name="ServicesNeeded" />
+          <Property Type="DateTime" Name="CreationDate" />
+          <Property Type="String" Name="CreationUser" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="DateTime" Name="LastUpdateTime" />
+          <Property Type="String" Name="LastUpdateUser" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="ApplicationApprovedBy" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="IPAddress" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="ClientAt" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="InOtherCase" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="SSN" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="Medicare" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="Medicaid" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="ContactPerson" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="RelationshipToClient" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="ContactPhone" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="Direction" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="ReferralSoruce" MaxLength="150" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="ReferralPhone" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="Physician" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="PhysicianPhone" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="PhysicianAddress" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="PhysicianCity" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="PhysicianZip" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="Diagnostic" MaxLength="150" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="Diet" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="AdditionalPertinent" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Type="Boolean" Name="VerificationOfMedicaidStatus" />
+          <Property Type="DateTime" Name="VerificationDate" />
+          <Property Type="Boolean" Name="LockinStatus" />
+          <Property Type="DateTime" Name="DateClientContacted" />
+          <Property Type="String" Name="ByWhom" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="MethodofContact" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="PersonResidenceCode" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="OfficalComments" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Type="DateTime" Name="InTakeDate" />
+          <Property Type="Int32" Name="StatusId" />
+          <Property Type="String" Name="StatusText" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Type="Int32" Name="ParticipantId" />
+          <NavigationProperty Name="Details" Relationship="SWMPDDModel.FK_Details_Clients" FromRole="Client" ToRole="Detail" />
+          <NavigationProperty Name="Documents" Relationship="SWMPDDModel.FK_Documents_Clients" FromRole="Client" ToRole="Document" />
+          <NavigationProperty Name="ProvidersInProgresses" Relationship="SWMPDDModel.FK_ProvidersInProgress_Clients" FromRole="Client" ToRole="ProvidersInProgress" />
+          <Property Type="DateTime" Name="RemovalDate" />
+        </EntityType>
+        <EntityType Name="Detail">
+          <Key>
+            <PropertyRef Name="DetailId" />
+          </Key>
+          <Property Type="Int32" Name="DetailId" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="String" Name="ClientId" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="Text" Nullable="false" MaxLength="2000" FixedLength="false" Unicode="false" />
+          <Property Type="DateTime" Name="CreationDate" Nullable="false" />
+          <Property Type="String" Name="CreationUser" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="Type" Nullable="false" MaxLength="1" FixedLength="true" Unicode="false" />
+          <NavigationProperty Name="Client" Relationship="SWMPDDModel.FK_Details_Clients" FromRole="Detail" ToRole="Client" />
+        </EntityType>
+        <EntityType Name="Document">
+          <Key>
+            <PropertyRef Name="DocumentId" />
+          </Key>
+          <Property Type="String" Name="DocumentId" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="ClientId" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="Int32" Name="DocumentTypeId" Nullable="false" />
+          <Property Type="Int32" Name="VersionId" Nullable="false" />
+          <Property Type="String" Name="FileName" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="Path" Nullable="false" MaxLength="500" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Client" Relationship="SWMPDDModel.FK_Documents_Clients" FromRole="Document" ToRole="Client" />
+          <NavigationProperty Name="Version" Relationship="SWMPDDModel.FK_Documents_Versions" FromRole="Document" ToRole="Version" />
+        </EntityType>
+        <EntityType Name="ProvidersInProgress">
+          <Key>
+            <PropertyRef Name="ProviderId" />
+          </Key>
+          <Property Type="Int32" Name="ProviderId" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="String" Name="ClientId" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="Discipline" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="Frequency" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="Provider" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="DateTime" Name="CreationDate" Nullable="false" />
+          <Property Type="String" Name="CreationUser" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Client" Relationship="SWMPDDModel.FK_ProvidersInProgress_Clients" FromRole="ProvidersInProgress" ToRole="Client" />
+        </EntityType>
+        <EntityType Name="User">
+          <Key>
+            <PropertyRef Name="UserId" />
+          </Key>
+          <Property Type="String" Name="UserId" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="UserName" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="Password" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="Name" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="Email" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="Boolean" Name="Active" Nullable="false" />
+          <Property Type="String" Name="UserType" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="DateTime" Name="LastLoginTime" />
+          <Property Type="String" Name="UserTitle" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="Address" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="City" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="State" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="Zip" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="Phone" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="Boolean" Name="FirstLoginTime" />
+          <Property Type="DateTime" Name="LastPasswordChangeTime" />
+          <Property Type="DateTime" Name="LastUpdateTime" />
+          <Property Type="String" Name="LastupdateUser" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="DateTime" Name="CreationTime" />
+          <Property Type="String" Name="CreationUser" MaxLength="50" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="Version">
+          <Key>
+            <PropertyRef Name="VersionId" />
+          </Key>
+          <Property Type="Int32" Name="VersionId" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="Int32" Name="DocumentTypeId" Nullable="false" />
+          <Property Type="String" Name="Name" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="MajorVersion" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="MinorVersion" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="FileName" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="Path" Nullable="false" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Type="DateTime" Name="StartDate" Nullable="false" />
+          <Property Type="DateTime" Name="EndDate" />
+          <NavigationProperty Name="Documents" Relationship="SWMPDDModel.FK_Documents_Versions" FromRole="Version" ToRole="Document" />
+        </EntityType>
+        <Association Name="FK_Details_Clients">
+          <End Type="SWMPDDModel.Client" Role="Client" Multiplicity="1" />
+          <End Type="SWMPDDModel.Detail" Role="Detail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Client">
+              <PropertyRef Name="ClientId" />
+            </Principal>
+            <Dependent Role="Detail">
+              <PropertyRef Name="ClientId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Documents_Clients">
+          <End Type="SWMPDDModel.Client" Role="Client" Multiplicity="1" />
+          <End Type="SWMPDDModel.Document" Role="Document" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Client">
+              <PropertyRef Name="ClientId" />
+            </Principal>
+            <Dependent Role="Document">
+              <PropertyRef Name="ClientId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ProvidersInProgress_Clients">
+          <End Type="SWMPDDModel.Client" Role="Client" Multiplicity="1" />
+          <End Type="SWMPDDModel.ProvidersInProgress" Role="ProvidersInProgress" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Client">
+              <PropertyRef Name="ClientId" />
+            </Principal>
+            <Dependent Role="ProvidersInProgress">
+              <PropertyRef Name="ClientId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Documents_Versions">
+          <End Type="SWMPDDModel.Version" Role="Version" Multiplicity="1" />
+          <End Type="SWMPDDModel.Document" Role="Document" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Version">
+              <PropertyRef Name="VersionId" />
+            </Principal>
+            <Dependent Role="Document">
+              <PropertyRef Name="VersionId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2008/09/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="SWMPDDModelStoreContainer" CdmEntityContainer="SWMPDDEntities">
+          <EntitySetMapping Name="Clients">
+            <EntityTypeMapping TypeName="SWMPDDModel.Client">
+              <MappingFragment StoreEntitySet="Clients">
+                <ScalarProperty Name="RemovalDate" ColumnName="RemovalDate" />
+                <ScalarProperty Name="ParticipantId" ColumnName="ParticipantId" />
+                <ScalarProperty Name="StatusText" ColumnName="StatusText" />
+                <ScalarProperty Name="StatusId" ColumnName="StatusId" />
+                <ScalarProperty Name="InTakeDate" ColumnName="InTakeDate" />
+                <ScalarProperty Name="OfficalComments" ColumnName="OfficalComments" />
+                <ScalarProperty Name="PersonResidenceCode" ColumnName="PersonResidenceCode" />
+                <ScalarProperty Name="MethodofContact" ColumnName="MethodofContact" />
+                <ScalarProperty Name="ByWhom" ColumnName="ByWhom" />
+                <ScalarProperty Name="DateClientContacted" ColumnName="DateClientContacted" />
+                <ScalarProperty Name="LockinStatus" ColumnName="LockinStatus" />
+                <ScalarProperty Name="VerificationDate" ColumnName="VerificationDate" />
+                <ScalarProperty Name="VerificationOfMedicaidStatus" ColumnName="VerificationOfMedicaidStatus" />
+                <ScalarProperty Name="AdditionalPertinent" ColumnName="AdditionalPertinent" />
+                <ScalarProperty Name="Diet" ColumnName="Diet" />
+                <ScalarProperty Name="Diagnostic" ColumnName="Diagnostic" />
+                <ScalarProperty Name="PhysicianZip" ColumnName="PhysicianZip" />
+                <ScalarProperty Name="PhysicianCity" ColumnName="PhysicianCity" />
+                <ScalarProperty Name="PhysicianAddress" ColumnName="PhysicianAddress" />
+                <ScalarProperty Name="PhysicianPhone" ColumnName="PhysicianPhone" />
+                <ScalarProperty Name="Physician" ColumnName="Physician" />
+                <ScalarProperty Name="ReferralPhone" ColumnName="ReferralPhone" />
+                <ScalarProperty Name="ReferralSoruce" ColumnName="ReferralSoruce" />
+                <ScalarProperty Name="Direction" ColumnName="Direction" />
+                <ScalarProperty Name="ContactPhone" ColumnName="ContactPhone" />
+                <ScalarProperty Name="RelationshipToClient" ColumnName="RelationshipToClient" />
+                <ScalarProperty Name="ContactPerson" ColumnName="ContactPerson" />
+                <ScalarProperty Name="Medicaid" ColumnName="Medicaid" />
+                <ScalarProperty Name="Medicare" ColumnName="Medicare" />
+                <ScalarProperty Name="SSN" ColumnName="SSN" />
+                <ScalarProperty Name="InOtherCase" ColumnName="InOtherCase" />
+                <ScalarProperty Name="ClientAt" ColumnName="ClientAt" />
+                <ScalarProperty Name="IPAddress" ColumnName="IPAddress" />
+                <ScalarProperty Name="ApplicationApprovedBy" ColumnName="ApplicationApprovedBy" />
+                <ScalarProperty Name="LastUpdateUser" ColumnName="LastUpdateUser" />
+                <ScalarProperty Name="LastUpdateTime" ColumnName="LastUpdateTime" />
+                <ScalarProperty Name="CreationUser" ColumnName="CreationUser" />
+                <ScalarProperty Name="CreationDate" ColumnName="CreationDate" />
+                <ScalarProperty Name="ServicesNeeded" ColumnName="ServicesNeeded" />
+                <ScalarProperty Name="ClientTypeId" ColumnName="ClientTypeId" />
+                <ScalarProperty Name="SignatureDate" ColumnName="SignatureDate" />
+                <ScalarProperty Name="ParticipantSignature" ColumnName="ParticipantSignature" />
+                <ScalarProperty Name="OtherComments" ColumnName="OtherComments" />
+                <ScalarProperty Name="Gender" ColumnName="Gender" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="County" ColumnName="County" />
+                <ScalarProperty Name="Phone" ColumnName="Phone" />
+                <ScalarProperty Name="Zip" ColumnName="Zip" />
+                <ScalarProperty Name="State" ColumnName="State" />
+                <ScalarProperty Name="City" ColumnName="City" />
+                <ScalarProperty Name="Address2" ColumnName="Address2" />
+                <ScalarProperty Name="Address1" ColumnName="Address1" />
+                <ScalarProperty Name="DateOfBirth" ColumnName="DateOfBirth" />
+                <ScalarProperty Name="LastName" ColumnName="LastName" />
+                <ScalarProperty Name="MiddleInitial" ColumnName="MiddleInitial" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="ClientId" ColumnName="ClientId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Details">
+            <EntityTypeMapping TypeName="SWMPDDModel.Detail">
+              <MappingFragment StoreEntitySet="Details">
+                <ScalarProperty Name="Type" ColumnName="Type" />
+                <ScalarProperty Name="CreationUser" ColumnName="CreationUser" />
+                <ScalarProperty Name="CreationDate" ColumnName="CreationDate" />
+                <ScalarProperty Name="Text" ColumnName="Text" />
+                <ScalarProperty Name="ClientId" ColumnName="ClientId" />
+                <ScalarProperty Name="DetailId" ColumnName="DetailId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Documents">
+            <EntityTypeMapping TypeName="SWMPDDModel.Document">
+              <MappingFragment StoreEntitySet="Documents">
+                <ScalarProperty Name="Path" ColumnName="Path" />
+                <ScalarProperty Name="FileName" ColumnName="FileName" />
+                <ScalarProperty Name="VersionId" ColumnName="VersionId" />
+                <ScalarProperty Name="DocumentTypeId" ColumnName="DocumentTypeId" />
+                <ScalarProperty Name="ClientId" ColumnName="ClientId" />
+                <ScalarProperty Name="DocumentId" ColumnName="DocumentId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ProvidersInProgresses">
+            <EntityTypeMapping TypeName="SWMPDDModel.ProvidersInProgress">
+              <MappingFragment StoreEntitySet="ProvidersInProgress">
+                <ScalarProperty Name="CreationUser" ColumnName="CreationUser" />
+                <ScalarProperty Name="CreationDate" ColumnName="CreationDate" />
+                <ScalarProperty Name="Provider" ColumnName="Provider" />
+                <ScalarProperty Name="Frequency" ColumnName="Frequency" />
+                <ScalarProperty Name="Discipline" ColumnName="Discipline" />
+                <ScalarProperty Name="ClientId" ColumnName="ClientId" />
+                <ScalarProperty Name="ProviderId" ColumnName="ProviderId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Users">
+            <EntityTypeMapping TypeName="SWMPDDModel.User">
+              <MappingFragment StoreEntitySet="Users">
+                <ScalarProperty Name="CreationUser" ColumnName="CreationUser" />
+                <ScalarProperty Name="CreationTime" ColumnName="CreationTime" />
+                <ScalarProperty Name="LastupdateUser" ColumnName="LastupdateUser" />
+                <ScalarProperty Name="LastUpdateTime" ColumnName="LastUpdateTime" />
+                <ScalarProperty Name="LastPasswordChangeTime" ColumnName="LastPasswordChangeTime" />
+                <ScalarProperty Name="FirstLoginTime" ColumnName="FirstLoginTime" />
+                <ScalarProperty Name="Phone" ColumnName="Phone" />
+                <ScalarProperty Name="Zip" ColumnName="Zip" />
+                <ScalarProperty Name="State" ColumnName="State" />
+                <ScalarProperty Name="City" ColumnName="City" />
+                <ScalarProperty Name="Address" ColumnName="Address" />
+                <ScalarProperty Name="UserTitle" ColumnName="UserTitle" />
+                <ScalarProperty Name="LastLoginTime" ColumnName="LastLoginTime" />
+                <ScalarProperty Name="UserType" ColumnName="UserType" />
+                <ScalarProperty Name="Active" ColumnName="Active" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="UserName" ColumnName="UserName" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Versions">
+            <EntityTypeMapping TypeName="SWMPDDModel.Version">
+              <MappingFragment StoreEntitySet="Versions">
+                <ScalarProperty Name="EndDate" ColumnName="EndDate" />
+                <ScalarProperty Name="StartDate" ColumnName="StartDate" />
+                <ScalarProperty Name="Path" ColumnName="Path" />
+                <ScalarProperty Name="FileName" ColumnName="FileName" />
+                <ScalarProperty Name="MinorVersion" ColumnName="MinorVersion" />
+                <ScalarProperty Name="MajorVersion" ColumnName="MajorVersion" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="DocumentTypeId" ColumnName="DocumentTypeId" />
+                <ScalarProperty Name="VersionId" ColumnName="VersionId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2008/10/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="True" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="True" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams>
+      <Diagram Name="SWMPDD" ZoomLevel="73">
+        <EntityTypeShape EntityType="SWMPDDModel.Client" Width="1.5" PointX="0.75" PointY="2" Height="12.364563802083332" />
+        <EntityTypeShape EntityType="SWMPDDModel.Detail" Width="1.5" PointX="3" PointY="5.375" Height="2.3648893229166674" />
+        <EntityTypeShape EntityType="SWMPDDModel.Document" Width="1.5" PointX="6" PointY="7" Height="2.5571907552083317" />
+        <EntityTypeShape EntityType="SWMPDDModel.ProvidersInProgress" Width="1.5" PointX="3" PointY="11.75" Height="2.5571907552083317" />
+        <EntityTypeShape EntityType="SWMPDDModel.User" Width="1.5" PointX="8.75" PointY="1.375" Height="4.8648079427083317" />
+        <EntityTypeShape EntityType="SWMPDDModel.Version" Width="1.5" PointX="3.75" PointY="0.75" Height="2.9417936197916674" />
+        <AssociationConnector Association="SWMPDDModel.FK_Details_Clients" >
+          <ConnectorPoint PointX="2.25" PointY="6.5574446614583337" />
+          <ConnectorPoint PointX="3" PointY="6.5574446614583337" />
+        </AssociationConnector>
+        <AssociationConnector Association="SWMPDDModel.FK_Documents_Clients" >
+          <ConnectorPoint PointX="2.25" PointY="8.6797900390625" />
+          <ConnectorPoint PointX="6" PointY="8.6797900390625" />
+        </AssociationConnector>
+        <AssociationConnector Association="SWMPDDModel.FK_ProvidersInProgress_Clients" >
+          <ConnectorPoint PointX="2.25" PointY="13.028595377604166" />
+          <ConnectorPoint PointX="3" PointY="13.028595377604166" />
+        </AssociationConnector>
+        <AssociationConnector Association="SWMPDDModel.FK_Documents_Versions" >
+          <ConnectorPoint PointX="4.90625" PointY="3.6917936197916674" />
+          <ConnectorPoint PointX="4.90625" PointY="8.2098371809895827" />
+          <ConnectorPoint PointX="6" PointY="8.2098371809895827" />
+        </AssociationConnector>
+      </Diagram>
+    </Diagrams>
+  </Designer>
+</edmx:Edmx>
