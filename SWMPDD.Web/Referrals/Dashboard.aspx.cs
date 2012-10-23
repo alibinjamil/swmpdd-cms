@@ -13,6 +13,10 @@ namespace SWMPDD.Web.Referrals
 {
     public partial class Dashboard : AuthenticatedPage
     {
+        public override string GetTabName()
+        {
+            return "REFERRALS";
+        }
         protected void Page_Load(object sender, EventArgs e)
         {
             gvDashboard.DataSource = DashboardFactory.Instance.PopulateDashboardObjects();

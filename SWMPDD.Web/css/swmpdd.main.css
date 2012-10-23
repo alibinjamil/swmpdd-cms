@@ -7,41 +7,46 @@
     width:100%;
     /*background-color:#D0CCB3;*/
 }
+#contentArea
+{
+    margin-left:5px;margin-right:5px;margin-top:6px;
+}
 #topNavBar
 {
     width:100%;
-    /*background-color:#5D5D5D;*/
-    /*height:20px;
-    color: White;*/
-    /*padding:5px;*/
 }
-#topNavBar a
+#topNavBar .tab
 {
-    margin:20px;
-    text-decoration:none;
-    color: White;    
+    background-image:url('../img/tab-blank-grey.png');width:134px;height:30px;float:left;margin-left:4px;color:#FFF;
 }
-#topNavBar a:hover
+#topNavBar .tab span
 {
-    text-decoration:underline;
-    color: White;
+  display:inline-block;margin-left:50px;margin-top:4px;
 }
-#topNavBar span
+#topNavBar .tab a
 {
-    margin:20px;
+  display:inline-block;margin-left:4px;margin-top:6px;
+  font-size:8pt;
+  font-weight:bold;
 }
+#topNavBar .selected
+{
+    background-image:url('../img/tab-blank-blue.png');
+}
+
+
 #main
 {
     width:100%;
 }
-#leftNavBar
+#leftMenu
 {
-    width:30%;
+    width:162px;
     float:left;
+    background-color:#D3DDE4;
 }
 #content
-{
-    width:70%;
+{ 
     float:left;
 }
 #tabBar 
@@ -76,3 +81,37 @@
 .clear  {clear:both;}
 .errorField {border: 2px solid #ddd;background: #FBE3E4; color: #D12F19; border-color: #FBC2C4; }
 .errorValidator span {color: #D12F19; font-weight:bold;}
+
+#leftMenu .heading
+{
+    border: 1px solid #FFFFFF;
+    background-color: #336699;
+    color: #FFFFFF;
+    padding:6px;
+}
+
+#leftMenu .itemImage
+{
+    float:left;
+    padding:6px;
+    border: 1px solid #FFFFFF;
+    width:12px;
+    text-align:center;
+    padding-top:11px;
+    padding-bottom:11px;
+}
+
+#leftMenu .itemImage .doubleLine
+{
+    padding-top:33px;
+    padding-bottom:33px;
+}
+
+
+#leftMenu .itemText
+{
+    float:left;
+    padding:6px;
+    border:1px solid #FFFFFF;    
+    width:121px;
+}

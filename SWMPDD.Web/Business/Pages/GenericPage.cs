@@ -21,8 +21,8 @@ using System.Collections.Generic;
 /// </summary>
 namespace SWMPDD.Web.Business.Pages
 {
-    public class GenericPage : System.Web.UI.Page
-    {
+    public abstract class GenericPage : System.Web.UI.Page
+    {        
         public static NameValueCollection AppSettings = System.Configuration.ConfigurationManager.AppSettings;
         //private SWMPDD.Data.User loggedInUser = null;
         public GenericPage()

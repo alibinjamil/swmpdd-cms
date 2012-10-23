@@ -10,7 +10,11 @@ using SWMPDD.Web.Business.Pages;
 namespace SWMPDD.Web.Referrals
 {
     public partial class Search : AuthenticatedPage
-    {       
+    {
+        public override string GetTabName()
+        {
+            return "REFERRALS";
+        }
         protected void Page_Load(object sender, EventArgs e)
         {
             if (Request["county"] != null)
