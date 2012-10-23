@@ -15,6 +15,10 @@ namespace SWMPDD.Web.Referrals
 {
     public partial class AddReferral : AuthenticatedPage
     {
+        public override string GetTabName()
+        {
+            return "REFERRALS";
+        }
         Client client = null;
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -65,7 +69,7 @@ namespace SWMPDD.Web.Referrals
                     PhysicianCity.Text = client.PhysicianCity;
                     PhysicianZip.Text = client.PhysicianZip;
                     Diagnosis.Text = client.Diagnostic;
-                    ByWhom.Text = LoggedIsUser.Name + " [" + LoggedIsUser.UserType + "]";
+                    ByWhom.Text = LoggedInUser.Name + " [" + LoggedInUser.UserType + "]";
                     
                     foreach (ListItem li in ServicesNeeded.Items)
                     {
@@ -95,7 +99,7 @@ namespace SWMPDD.Web.Referrals
                     LockInStatus.SelectedValue = GetStringFromBool(client.LockinStatus);
                     MethodofContact.SelectedValue = client.MethodofContact;
                     if (client.DateClientContacted.HasValue) DateClientContacted.Text = client.DateClientContacted.Value.ToShortDateString();
-                    client.ByWhom = LoggedIsUser.UserName;
+                    client.ByWhom = LoggedInUser.UserName;
                     if (client.StatusId.HasValue) ReasonforRemovalCode.SelectedValue = client.StatusId.Value.ToString();
                     Code8Other.Text = client.StatusText;
                     if (client.RemovalDate.HasValue) RemovalDate.Text = client.RemovalDate.Value.ToShortDateString();
@@ -183,7 +187,7 @@ namespace SWMPDD.Web.Referrals
                 {
                     Detail detail = new Detail();
                     detail.CreationDate = DateTime.Now;
-                    detail.CreationUser = LoggedIsUser.UserName;
+                    detail.CreationUser = LoggedInUser.UserName;
                     detail.Text = li.Text;
                     detail.Type = Constants.DetailTypes.SERVICES_NEEDED;
                     client.Details.Add(detail);
@@ -228,7 +232,7 @@ namespace SWMPDD.Web.Referrals
                 if (doAdd)
                 {
                     providerInProgress.CreationDate = DateTime.Now;
-                    providerInProgress.CreationUser = LoggedIsUser.UserName;
+                    providerInProgress.CreationUser = LoggedInUser.UserName;
                     client.ProvidersInProgresses.Add(providerInProgress);
                 }
             }
@@ -238,7 +242,7 @@ namespace SWMPDD.Web.Referrals
             client.LockinStatus = GetBoolFromString(LockInStatus.SelectedValue);
             client.MethodofContact = MethodofContact.SelectedValue;
             if (DateClientContacted.Text.Length > 0) client.DateClientContacted = DateTime.Parse(DateClientContacted.Text);
-            client.ByWhom = LoggedIsUser.UserName;
+            client.ByWhom = LoggedInUser.UserName;
             int statusId = int.Parse(ReasonforRemovalCode.SelectedValue);
             if (statusId > 0) client.StatusId = statusId;
             client.StatusText = Code8Other.Text;
@@ -294,7 +298,7 @@ namespace SWMPDD.Web.Referrals
                 Detail detail = new Detail();
                 detail.Text = text;
                 detail.CreationDate = DateTime.Now;
-                detail.CreationUser = LoggedIsUser.UserName;
+                detail.CreationUser = LoggedInUser.UserName;
                 detail.ClientId = client.ClientId;
                 detail.Type = type;
                 DatabaseContext.AddToDetails(detail);

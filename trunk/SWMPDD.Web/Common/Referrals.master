@@ -3,12 +3,24 @@
     <asp:ContentPlaceHolder ID="HeadContentPlaceHolder" runat="server"></asp:ContentPlaceHolder>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="LeftMenuPlaceHolder" runat="server">
-    <asp:HyperLink ID="HyperLink2" runat="server" NavigateUrl="~/Referrals/Dashboard.aspx">Dashboard</asp:HyperLink>
-    <br />
-    <asp:HyperLink runat="server" NavigateUrl="~/Referrals/AddReferral.aspx">Add New Referral</asp:HyperLink>
-    <br />
-    <asp:HyperLink ID="HyperLink1" runat="server" NavigateUrl="~/Referrals/Search.aspx">Search</asp:HyperLink>
-    <br />
+    <div class="heading">
+        REFERRALS
+    </div>
+    <div>
+        <div class="itemImage" style="padding-top:19px;padding-bottom:19px"><asp:Image ImageUrl="~/img/greater_than.gif" runat="server" /></div>
+        <div class="itemText" ><asp:HyperLink NavigateUrl="~/Referrals/Dashboard.aspx" runat="server">View All Active Referrals</asp:HyperLink></div>
+        <div style="clear:both"></div>
+    </div>
+    <div>
+        <div class="itemImage"><asp:Image ID="Image1" ImageUrl="~/img/greater_than.gif" runat="server" /></div>
+        <div class="itemText"><asp:HyperLink ID="HyperLink3" NavigateUrl="~/Referrals/AddReferral.aspx" runat="server">Add New Referral</asp:HyperLink></div>
+        <div style="clear:both"></div>
+    </div>
+    <div>
+        <div class="itemImage"><asp:Image ID="Image2" ImageUrl="~/img/greater_than.gif" runat="server" /></div>
+        <div class="itemText"><asp:HyperLink ID="HyperLink4" NavigateUrl="~/Referrals/Search.aspx" runat="server">Search Referrals</asp:HyperLink></div>
+        <div style="clear:both"></div>
+    </div>
 </asp:Content>
 <asp:Content ID="Content3" ContentPlaceHolderID="MainContentPlaceHolder" runat="server">
     <asp:ContentPlaceHolder ID="MainContentPlaceHolder" runat="server"></asp:ContentPlaceHolder>

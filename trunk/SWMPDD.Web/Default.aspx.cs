@@ -13,13 +13,14 @@ namespace SWMPDD.Web
 {
     public partial class Default : AuthenticatedPage
     {
+        public override string GetTabName()
+        {
+            return "HOME";
+        }
+
         protected void Page_Load(object sender, EventArgs e)
         {
-            EntityDataSource1.Where = "it.County = @County1";
-            if (IsPostBack == false)
-            {
-                EntityDataSource1.WhereParameters.Add("County1", System.Data.DbType.String, "Wilkinson");
-            }
+            
         }
     }
 }

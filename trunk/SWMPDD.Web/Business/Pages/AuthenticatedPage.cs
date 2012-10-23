@@ -8,8 +8,9 @@ using SWMPDD.Data;
 
 namespace SWMPDD.Web.Business.Pages
 {
-    public class AuthenticatedPage : GenericPage
-    {        
+    public abstract class AuthenticatedPage : GenericPage
+    {
+        abstract public string GetTabName();
         protected override void OnLoad(EventArgs e)
         {
             if (Session[Constants.Session.LOGGED_IN_USER] == null)
@@ -22,7 +23,7 @@ namespace SWMPDD.Web.Business.Pages
             }
         }
 
-        protected SWMPDD.Data.User LoggedIsUser
+        public SWMPDD.Data.User LoggedInUser
         {
             get
             {
