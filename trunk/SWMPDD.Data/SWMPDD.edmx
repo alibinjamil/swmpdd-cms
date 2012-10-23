@@ -9,6 +9,8 @@
           <EntitySet Name="Clients" EntityType="SWMPDDModel.Store.Clients" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="Details" EntityType="SWMPDDModel.Store.Details" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="Documents" EntityType="SWMPDDModel.Store.Documents" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="HomeVisits" EntityType="SWMPDDModel.Store.HomeVisits" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="HomeVisitServices" EntityType="SWMPDDModel.Store.HomeVisitServices" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="ProvidersInProgress" EntityType="SWMPDDModel.Store.ProvidersInProgress" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="Users" EntityType="SWMPDDModel.Store.Users" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="Versions" EntityType="SWMPDDModel.Store.Versions" store:Type="Tables" Schema="dbo" />
@@ -23,6 +25,14 @@
           <AssociationSet Name="FK_Documents_Versions" Association="SWMPDDModel.Store.FK_Documents_Versions">
             <End Role="Versions" EntitySet="Versions" />
             <End Role="Documents" EntitySet="Documents" />
+          </AssociationSet>
+          <AssociationSet Name="FK_HomeVisits_Clients" Association="SWMPDDModel.Store.FK_HomeVisits_Clients">
+            <End Role="Clients" EntitySet="Clients" />
+            <End Role="HomeVisits" EntitySet="HomeVisits" />
+          </AssociationSet>
+          <AssociationSet Name="FK_HomeVisitServices_HomeVisits" Association="SWMPDDModel.Store.FK_HomeVisitServices_HomeVisits">
+            <End Role="HomeVisits" EntitySet="HomeVisits" />
+            <End Role="HomeVisitServices" EntitySet="HomeVisitServices" />
           </AssociationSet>
           <AssociationSet Name="FK_ProvidersInProgress_Clients" Association="SWMPDDModel.Store.FK_ProvidersInProgress_Clients">
             <End Role="Clients" EntitySet="Clients" />
@@ -113,6 +123,80 @@
           <Property Name="FileName" Type="varchar" Nullable="false" MaxLength="50" />
           <Property Name="Path" Type="varchar" Nullable="false" MaxLength="500" />
         </EntityType>
+        <EntityType Name="HomeVisits">
+          <Key>
+            <PropertyRef Name="VisitId" />
+          </Key>
+          <Property Name="VisitId" Type="varchar" Nullable="false" MaxLength="50" />
+          <Property Name="ClientId" Type="varchar" Nullable="false" MaxLength="50" />
+          <Property Name="DateOfVisit" Type="date" />
+          <Property Name="RS" Type="varchar" MaxLength="50" />
+          <Property Name="LSW" Type="varchar" MaxLength="50" />
+          <Property Name="TypeOfVisit_Monthly" Type="bit" />
+          <Property Name="TypeOfVisit_Quarterly" Type="bit" />
+          <Property Name="TypeOfVisit_RecertificationCompleted" Type="bit" />
+          <Property Name="ClientsAppearance_Clean" Type="bit" />
+          <Property Name="ClientsAppearance_Dirty" Type="bit" />
+          <Property Name="ClientsDress_Appropriate" Type="bit" />
+          <Property Name="ClientsDress_Inappropriate" Type="bit" />
+          <Property Name="ClientsGait_Steady" Type="bit" />
+          <Property Name="ClientsGait_Unsteady" Type="bit" />
+          <Property Name="ClientsGait_Assistance" Type="varchar" MaxLength="200" />
+          <Property Name="ClientsGait_Falls" Type="bit" />
+          <Property Name="CleintsGait_Report" Type="varchar" MaxLength="200" />
+          <Property Name="MentalStatus_Alert" Type="bit" />
+          <Property Name="MentalStatus_Oriented" Type="bit" />
+          <Property Name="MentalStatus_Confused" Type="bit" />
+          <Property Name="MentalStatus_MemoryImpairment" Type="bit" />
+          <Property Name="MentalStatus_Hallucinates" Type="bit" />
+          <Property Name="HomeEnvironment_Clean" Type="bit" />
+          <Property Name="HomeEnvironment_Dirty" Type="bit" />
+          <Property Name="HomeEnvironment_Neat" Type="bit" />
+          <Property Name="HomeEnvironment_Odor" Type="bit" />
+          <Property Name="HomeEnvironment_Safe" Type="bit" />
+          <Property Name="HomeEnvironment_Unsafe" Type="bit" />
+          <Property Name="HomeEnvironment_Cluttered" Type="bit" />
+          <Property Name="HomeEnvironment_Uncluttered" Type="bit" />
+          <Property Name="Present_Caregiver" Type="bit" />
+          <Property Name="Present_Provider" Type="bit" />
+          <Property Name="Present_FamilyFriend" Type="bit" />
+          <Property Name="Present_None" Type="bit" />
+          <Property Name="CaregiverSystem_Supportive" Type="bit" />
+          <Property Name="CaregiverSystem_Adequate" Type="bit" />
+          <Property Name="CaregiverSystem_Strained" Type="bit" />
+          <Property Name="CaregiverSystem_Inadequate" Type="bit" />
+          <Property Name="CaregiverSystem_Other" Type="varchar" MaxLength="200" />
+          <Property Name="Medical_Denies" Type="bit" />
+          <Property Name="Medical_SeenMD" Type="varchar" MaxLength="500" />
+          <Property Name="Medical_Hospitalization" Type="varchar" MaxLength="500" />
+          <Property Name="Medicaid_DeniesMedicaid" Type="bit" />
+          <Property Name="Medicaid_DeniesSS" Type="bit" />
+          <Property Name="Medicaid_Received" Type="varchar" MaxLength="500" />
+          <Property Name="CaseManagerInfo_HasInfo" Type="bit" />
+          <Property Name="CaseManagerInfo_WasProvided" Type="bit" />
+          <Property Name="ReviewOfResults" Type="varchar" MaxLength="500" />
+          <Property Name="ContinuePlanOfCare" Type="bit" />
+          <Property Name="ChangeServices" Type="bit" />
+          <Property Name="ChangeServiceProviders" Type="bit" />
+          <Property Name="PleasedWithServices" Type="bit" />
+          <Property Name="ProblemWith" Type="varchar" MaxLength="1000" />
+          <Property Name="GeneralComments" Type="varchar" MaxLength="5000" />
+          <Property Name="DateSigned" Type="date" />
+        </EntityType>
+        <EntityType Name="HomeVisitServices">
+          <Key>
+            <PropertyRef Name="ServiceId" />
+          </Key>
+          <Property Name="ServiceId" Type="varchar" Nullable="false" MaxLength="50" />
+          <Property Name="VisitId" Type="varchar" Nullable="false" MaxLength="50" />
+          <Property Name="Service" Type="varchar" Nullable="false" MaxLength="50" />
+          <Property Name="Frequency" Type="varchar" MaxLength="50" />
+          <Property Name="Days" Type="varchar" MaxLength="50" />
+          <Property Name="NameOfPerson" Type="varchar" MaxLength="50" />
+          <Property Name="ClientRating" Type="char" MaxLength="1" />
+          <Property Name="MeetsNeed" Type="varchar" MaxLength="100" />
+          <Property Name="ChangesNeeded" Type="varchar" MaxLength="200" />
+        </EntityType>
         <EntityType Name="ProvidersInProgress">
           <Key>
             <PropertyRef Name="ProviderId" />
@@ -200,6 +284,30 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_HomeVisits_Clients">
+          <End Role="Clients" Type="SWMPDDModel.Store.Clients" Multiplicity="1" />
+          <End Role="HomeVisits" Type="SWMPDDModel.Store.HomeVisits" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Clients">
+              <PropertyRef Name="ClientId" />
+            </Principal>
+            <Dependent Role="HomeVisits">
+              <PropertyRef Name="ClientId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_HomeVisitServices_HomeVisits">
+          <End Role="HomeVisits" Type="SWMPDDModel.Store.HomeVisits" Multiplicity="1" />
+          <End Role="HomeVisitServices" Type="SWMPDDModel.Store.HomeVisitServices" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="HomeVisits">
+              <PropertyRef Name="VisitId" />
+            </Principal>
+            <Dependent Role="HomeVisitServices">
+              <PropertyRef Name="VisitId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_ProvidersInProgress_Clients">
           <End Role="Clients" Type="SWMPDDModel.Store.Clients" Multiplicity="1" />
           <End Role="ProvidersInProgress" Type="SWMPDDModel.Store.ProvidersInProgress" Multiplicity="*" />
@@ -238,6 +346,16 @@
           <AssociationSet Name="FK_Documents_Versions" Association="SWMPDDModel.FK_Documents_Versions">
             <End Role="Version" EntitySet="Versions" />
             <End Role="Document" EntitySet="Documents" />
+          </AssociationSet>
+          <EntitySet Name="HomeVisits" EntityType="SWMPDDModel.HomeVisit" />
+          <EntitySet Name="HomeVisitServices" EntityType="SWMPDDModel.HomeVisitService" />
+          <AssociationSet Name="FK_HomeVisits_Clients" Association="SWMPDDModel.FK_HomeVisits_Clients">
+            <End Role="Client" EntitySet="Clients" />
+            <End Role="HomeVisit" EntitySet="HomeVisits" />
+          </AssociationSet>
+          <AssociationSet Name="FK_HomeVisitServices_HomeVisits" Association="SWMPDDModel.FK_HomeVisitServices_HomeVisits">
+            <End Role="HomeVisit" EntitySet="HomeVisits" />
+            <End Role="HomeVisitService" EntitySet="HomeVisitServices" />
           </AssociationSet>
         </EntityContainer>
         <EntityType Name="Client">
@@ -304,6 +422,7 @@
           <NavigationProperty Name="Documents" Relationship="SWMPDDModel.FK_Documents_Clients" FromRole="Client" ToRole="Document" />
           <NavigationProperty Name="ProvidersInProgresses" Relationship="SWMPDDModel.FK_ProvidersInProgress_Clients" FromRole="Client" ToRole="ProvidersInProgress" />
           <Property Type="DateTime" Name="RemovalDate" />
+          <NavigationProperty Name="HomeVisits" Relationship="SWMPDDModel.FK_HomeVisits_Clients" FromRole="Client" ToRole="HomeVisit" />
         </EntityType>
         <EntityType Name="Detail">
           <Key>
@@ -428,6 +547,107 @@
             </Principal>
             <Dependent Role="Document">
               <PropertyRef Name="VersionId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="HomeVisit">
+          <Key>
+            <PropertyRef Name="VisitId" />
+          </Key>
+          <Property Type="String" Name="VisitId" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="ClientId" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="DateTime" Name="DateOfVisit" />
+          <Property Type="String" Name="RS" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="LSW" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="Boolean" Name="TypeOfVisit_Monthly" />
+          <Property Type="Boolean" Name="TypeOfVisit_Quarterly" />
+          <Property Type="Boolean" Name="TypeOfVisit_RecertificationCompleted" />
+          <Property Type="Boolean" Name="ClientsAppearance_Clean" />
+          <Property Type="Boolean" Name="ClientsAppearance_Dirty" />
+          <Property Type="Boolean" Name="ClientsDress_Appropriate" />
+          <Property Type="Boolean" Name="ClientsDress_Inappropriate" />
+          <Property Type="Boolean" Name="ClientsGait_Steady" />
+          <Property Type="Boolean" Name="ClientsGait_Unsteady" />
+          <Property Type="String" Name="ClientsGait_Assistance" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Type="Boolean" Name="ClientsGait_Falls" />
+          <Property Type="String" Name="CleintsGait_Report" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Type="Boolean" Name="MentalStatus_Alert" />
+          <Property Type="Boolean" Name="MentalStatus_Oriented" />
+          <Property Type="Boolean" Name="MentalStatus_Confused" />
+          <Property Type="Boolean" Name="MentalStatus_MemoryImpairment" />
+          <Property Type="Boolean" Name="MentalStatus_Hallucinates" />
+          <Property Type="Boolean" Name="HomeEnvironment_Clean" />
+          <Property Type="Boolean" Name="HomeEnvironment_Dirty" />
+          <Property Type="Boolean" Name="HomeEnvironment_Neat" />
+          <Property Type="Boolean" Name="HomeEnvironment_Odor" />
+          <Property Type="Boolean" Name="HomeEnvironment_Safe" />
+          <Property Type="Boolean" Name="HomeEnvironment_Unsafe" />
+          <Property Type="Boolean" Name="HomeEnvironment_Cluttered" />
+          <Property Type="Boolean" Name="HomeEnvironment_Uncluttered" />
+          <Property Type="Boolean" Name="Present_Caregiver" />
+          <Property Type="Boolean" Name="Present_Provider" />
+          <Property Type="Boolean" Name="Present_FamilyFriend" />
+          <Property Type="Boolean" Name="Present_None" />
+          <Property Type="Boolean" Name="CaregiverSystem_Supportive" />
+          <Property Type="Boolean" Name="CaregiverSystem_Adequate" />
+          <Property Type="Boolean" Name="CaregiverSystem_Strained" />
+          <Property Type="Boolean" Name="CaregiverSystem_Inadequate" />
+          <Property Type="String" Name="CaregiverSystem_Other" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Type="Boolean" Name="Medical_Denies" />
+          <Property Type="String" Name="Medical_SeenMD" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="Medical_Hospitalization" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Type="Boolean" Name="Medicaid_DeniesMedicaid" />
+          <Property Type="Boolean" Name="Medicaid_DeniesSS" />
+          <Property Type="String" Name="Medicaid_Received" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Type="Boolean" Name="CaseManagerInfo_HasInfo" />
+          <Property Type="Boolean" Name="CaseManagerInfo_WasProvided" />
+          <Property Type="String" Name="ReviewOfResults" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Type="Boolean" Name="ContinuePlanOfCare" />
+          <Property Type="Boolean" Name="ChangeServices" />
+          <Property Type="Boolean" Name="ChangeServiceProviders" />
+          <Property Type="Boolean" Name="PleasedWithServices" />
+          <Property Type="String" Name="ProblemWith" MaxLength="1000" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="GeneralComments" MaxLength="5000" FixedLength="false" Unicode="false" />
+          <Property Type="DateTime" Name="DateSigned" />
+          <NavigationProperty Name="Client" Relationship="SWMPDDModel.FK_HomeVisits_Clients" FromRole="HomeVisit" ToRole="Client" />
+          <NavigationProperty Name="HomeVisitServices" Relationship="SWMPDDModel.FK_HomeVisitServices_HomeVisits" FromRole="HomeVisit" ToRole="HomeVisitService" />
+        </EntityType>
+        <EntityType Name="HomeVisitService">
+          <Key>
+            <PropertyRef Name="ServiceId" />
+          </Key>
+          <Property Type="String" Name="ServiceId" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="VisitId" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="Service" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="Frequency" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="Days" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="NameOfPerson" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="ClientRating" MaxLength="1" FixedLength="true" Unicode="false" />
+          <Property Type="String" Name="MeetsNeed" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="ChangesNeeded" MaxLength="200" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="HomeVisit" Relationship="SWMPDDModel.FK_HomeVisitServices_HomeVisits" FromRole="HomeVisitService" ToRole="HomeVisit" />
+        </EntityType>
+        <Association Name="FK_HomeVisits_Clients">
+          <End Type="SWMPDDModel.Client" Role="Client" Multiplicity="1" />
+          <End Type="SWMPDDModel.HomeVisit" Role="HomeVisit" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Client">
+              <PropertyRef Name="ClientId" />
+            </Principal>
+            <Dependent Role="HomeVisit">
+              <PropertyRef Name="ClientId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_HomeVisitServices_HomeVisits">
+          <End Type="SWMPDDModel.HomeVisit" Role="HomeVisit" Multiplicity="1" />
+          <End Type="SWMPDDModel.HomeVisitService" Role="HomeVisitService" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="HomeVisit">
+              <PropertyRef Name="VisitId" />
+            </Principal>
+            <Dependent Role="HomeVisitService">
+              <PropertyRef Name="VisitId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -578,6 +798,82 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="HomeVisits">
+            <EntityTypeMapping TypeName="SWMPDDModel.HomeVisit">
+              <MappingFragment StoreEntitySet="HomeVisits">
+                <ScalarProperty Name="DateSigned" ColumnName="DateSigned" />
+                <ScalarProperty Name="GeneralComments" ColumnName="GeneralComments" />
+                <ScalarProperty Name="ProblemWith" ColumnName="ProblemWith" />
+                <ScalarProperty Name="PleasedWithServices" ColumnName="PleasedWithServices" />
+                <ScalarProperty Name="ChangeServiceProviders" ColumnName="ChangeServiceProviders" />
+                <ScalarProperty Name="ChangeServices" ColumnName="ChangeServices" />
+                <ScalarProperty Name="ContinuePlanOfCare" ColumnName="ContinuePlanOfCare" />
+                <ScalarProperty Name="ReviewOfResults" ColumnName="ReviewOfResults" />
+                <ScalarProperty Name="CaseManagerInfo_WasProvided" ColumnName="CaseManagerInfo_WasProvided" />
+                <ScalarProperty Name="CaseManagerInfo_HasInfo" ColumnName="CaseManagerInfo_HasInfo" />
+                <ScalarProperty Name="Medicaid_Received" ColumnName="Medicaid_Received" />
+                <ScalarProperty Name="Medicaid_DeniesSS" ColumnName="Medicaid_DeniesSS" />
+                <ScalarProperty Name="Medicaid_DeniesMedicaid" ColumnName="Medicaid_DeniesMedicaid" />
+                <ScalarProperty Name="Medical_Hospitalization" ColumnName="Medical_Hospitalization" />
+                <ScalarProperty Name="Medical_SeenMD" ColumnName="Medical_SeenMD" />
+                <ScalarProperty Name="Medical_Denies" ColumnName="Medical_Denies" />
+                <ScalarProperty Name="CaregiverSystem_Other" ColumnName="CaregiverSystem_Other" />
+                <ScalarProperty Name="CaregiverSystem_Inadequate" ColumnName="CaregiverSystem_Inadequate" />
+                <ScalarProperty Name="CaregiverSystem_Strained" ColumnName="CaregiverSystem_Strained" />
+                <ScalarProperty Name="CaregiverSystem_Adequate" ColumnName="CaregiverSystem_Adequate" />
+                <ScalarProperty Name="CaregiverSystem_Supportive" ColumnName="CaregiverSystem_Supportive" />
+                <ScalarProperty Name="Present_None" ColumnName="Present_None" />
+                <ScalarProperty Name="Present_FamilyFriend" ColumnName="Present_FamilyFriend" />
+                <ScalarProperty Name="Present_Provider" ColumnName="Present_Provider" />
+                <ScalarProperty Name="Present_Caregiver" ColumnName="Present_Caregiver" />
+                <ScalarProperty Name="HomeEnvironment_Uncluttered" ColumnName="HomeEnvironment_Uncluttered" />
+                <ScalarProperty Name="HomeEnvironment_Cluttered" ColumnName="HomeEnvironment_Cluttered" />
+                <ScalarProperty Name="HomeEnvironment_Unsafe" ColumnName="HomeEnvironment_Unsafe" />
+                <ScalarProperty Name="HomeEnvironment_Safe" ColumnName="HomeEnvironment_Safe" />
+                <ScalarProperty Name="HomeEnvironment_Odor" ColumnName="HomeEnvironment_Odor" />
+                <ScalarProperty Name="HomeEnvironment_Neat" ColumnName="HomeEnvironment_Neat" />
+                <ScalarProperty Name="HomeEnvironment_Dirty" ColumnName="HomeEnvironment_Dirty" />
+                <ScalarProperty Name="HomeEnvironment_Clean" ColumnName="HomeEnvironment_Clean" />
+                <ScalarProperty Name="MentalStatus_Hallucinates" ColumnName="MentalStatus_Hallucinates" />
+                <ScalarProperty Name="MentalStatus_MemoryImpairment" ColumnName="MentalStatus_MemoryImpairment" />
+                <ScalarProperty Name="MentalStatus_Confused" ColumnName="MentalStatus_Confused" />
+                <ScalarProperty Name="MentalStatus_Oriented" ColumnName="MentalStatus_Oriented" />
+                <ScalarProperty Name="MentalStatus_Alert" ColumnName="MentalStatus_Alert" />
+                <ScalarProperty Name="CleintsGait_Report" ColumnName="CleintsGait_Report" />
+                <ScalarProperty Name="ClientsGait_Falls" ColumnName="ClientsGait_Falls" />
+                <ScalarProperty Name="ClientsGait_Assistance" ColumnName="ClientsGait_Assistance" />
+                <ScalarProperty Name="ClientsGait_Unsteady" ColumnName="ClientsGait_Unsteady" />
+                <ScalarProperty Name="ClientsGait_Steady" ColumnName="ClientsGait_Steady" />
+                <ScalarProperty Name="ClientsDress_Inappropriate" ColumnName="ClientsDress_Inappropriate" />
+                <ScalarProperty Name="ClientsDress_Appropriate" ColumnName="ClientsDress_Appropriate" />
+                <ScalarProperty Name="ClientsAppearance_Dirty" ColumnName="ClientsAppearance_Dirty" />
+                <ScalarProperty Name="ClientsAppearance_Clean" ColumnName="ClientsAppearance_Clean" />
+                <ScalarProperty Name="TypeOfVisit_RecertificationCompleted" ColumnName="TypeOfVisit_RecertificationCompleted" />
+                <ScalarProperty Name="TypeOfVisit_Quarterly" ColumnName="TypeOfVisit_Quarterly" />
+                <ScalarProperty Name="TypeOfVisit_Monthly" ColumnName="TypeOfVisit_Monthly" />
+                <ScalarProperty Name="LSW" ColumnName="LSW" />
+                <ScalarProperty Name="RS" ColumnName="RS" />
+                <ScalarProperty Name="DateOfVisit" ColumnName="DateOfVisit" />
+                <ScalarProperty Name="ClientId" ColumnName="ClientId" />
+                <ScalarProperty Name="VisitId" ColumnName="VisitId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="HomeVisitServices">
+            <EntityTypeMapping TypeName="SWMPDDModel.HomeVisitService">
+              <MappingFragment StoreEntitySet="HomeVisitServices">
+                <ScalarProperty Name="ChangesNeeded" ColumnName="ChangesNeeded" />
+                <ScalarProperty Name="MeetsNeed" ColumnName="MeetsNeed" />
+                <ScalarProperty Name="ClientRating" ColumnName="ClientRating" />
+                <ScalarProperty Name="NameOfPerson" ColumnName="NameOfPerson" />
+                <ScalarProperty Name="Days" ColumnName="Days" />
+                <ScalarProperty Name="Frequency" ColumnName="Frequency" />
+                <ScalarProperty Name="Service" ColumnName="Service" />
+                <ScalarProperty Name="VisitId" ColumnName="VisitId" />
+                <ScalarProperty Name="ServiceId" ColumnName="ServiceId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
@@ -598,7 +894,7 @@
     </Options>
     <!-- Diagram content (shape and connector positions) -->
     <Diagrams>
-      <Diagram Name="SWMPDD" ZoomLevel="73">
+      <Diagram Name="SWMPDD" ZoomLevel="45">
         <EntityTypeShape EntityType="SWMPDDModel.Client" Width="1.5" PointX="0.75" PointY="2" Height="12.364563802083332" />
         <EntityTypeShape EntityType="SWMPDDModel.Detail" Width="1.5" PointX="3" PointY="5.375" Height="2.3648893229166674" />
         <EntityTypeShape EntityType="SWMPDDModel.Document" Width="1.5" PointX="6" PointY="7" Height="2.5571907552083317" />
@@ -610,8 +906,8 @@
           <ConnectorPoint PointX="3" PointY="6.5574446614583337" />
         </AssociationConnector>
         <AssociationConnector Association="SWMPDDModel.FK_Documents_Clients" >
-          <ConnectorPoint PointX="2.25" PointY="8.6797900390625" />
-          <ConnectorPoint PointX="6" PointY="8.6797900390625" />
+          <ConnectorPoint PointX="2.25" PointY="8.9460139680989563" />
+          <ConnectorPoint PointX="6" PointY="8.9460139680989563" />
         </AssociationConnector>
         <AssociationConnector Association="SWMPDDModel.FK_ProvidersInProgress_Clients" >
           <ConnectorPoint PointX="2.25" PointY="13.028595377604166" />
@@ -621,6 +917,17 @@
           <ConnectorPoint PointX="4.90625" PointY="3.6917936197916674" />
           <ConnectorPoint PointX="4.90625" PointY="8.2098371809895827" />
           <ConnectorPoint PointX="6" PointY="8.2098371809895827" />
+        </AssociationConnector>
+        <EntityTypeShape EntityType="SWMPDDModel.HomeVisit" Width="1.5" PointX="3" PointY="15.375" Height="11.979960937500003" />
+        <EntityTypeShape EntityType="SWMPDDModel.HomeVisitService" Width="1.5" PointX="5.25" PointY="19.875" Height="2.9417936197916674" />
+        <AssociationConnector Association="SWMPDDModel.FK_HomeVisits_Clients" >
+          <ConnectorPoint PointX="1.5" PointY="14.749166666666666" />
+          <ConnectorPoint PointX="1.5" PointY="21.36498046875" />
+          <ConnectorPoint PointX="3" PointY="21.36498046875" />
+        </AssociationConnector>
+        <AssociationConnector Association="SWMPDDModel.FK_HomeVisitServices_HomeVisits" >
+          <ConnectorPoint PointX="4.5" PointY="21.345896809895834" />
+          <ConnectorPoint PointX="5.25" PointY="21.345896809895834" />
         </AssociationConnector>
       </Diagram>
     </Diagrams>
