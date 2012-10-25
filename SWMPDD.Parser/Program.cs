@@ -9,6 +9,7 @@ namespace SWMPDD.Parser
     {
         static void Main(string[] args)
         {
+            FileParser.Instance.Parse();
         }
     }
 }
