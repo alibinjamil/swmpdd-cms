@@ -11,6 +11,9 @@
           <EntitySet Name="Documents" EntityType="SWMPDDModel.Store.Documents" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="HomeVisits" EntityType="SWMPDDModel.Store.HomeVisits" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="HomeVisitServices" EntityType="SWMPDDModel.Store.HomeVisitServices" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="PlanOfCare" EntityType="SWMPDDModel.Store.PlanOfCare" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="POCNeed" EntityType="SWMPDDModel.Store.POCNeed" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="POCService" EntityType="SWMPDDModel.Store.POCService" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="ProvidersInProgress" EntityType="SWMPDDModel.Store.ProvidersInProgress" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="Users" EntityType="SWMPDDModel.Store.Users" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="Versions" EntityType="SWMPDDModel.Store.Versions" store:Type="Tables" Schema="dbo" />
@@ -33,6 +36,18 @@
           <AssociationSet Name="FK_HomeVisitServices_HomeVisits" Association="SWMPDDModel.Store.FK_HomeVisitServices_HomeVisits">
             <End Role="HomeVisits" EntitySet="HomeVisits" />
             <End Role="HomeVisitServices" EntitySet="HomeVisitServices" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PlanOfCare_Clients" Association="SWMPDDModel.Store.FK_PlanOfCare_Clients">
+            <End Role="Clients" EntitySet="Clients" />
+            <End Role="PlanOfCare" EntitySet="PlanOfCare" />
+          </AssociationSet>
+          <AssociationSet Name="FK_POCNeed_PlanOfCare" Association="SWMPDDModel.Store.FK_POCNeed_PlanOfCare">
+            <End Role="PlanOfCare" EntitySet="PlanOfCare" />
+            <End Role="POCNeed" EntitySet="POCNeed" />
+          </AssociationSet>
+          <AssociationSet Name="FK_POCService_PlanOfCare" Association="SWMPDDModel.Store.FK_POCService_PlanOfCare">
+            <End Role="PlanOfCare" EntitySet="PlanOfCare" />
+            <End Role="POCService" EntitySet="POCService" />
           </AssociationSet>
           <AssociationSet Name="FK_ProvidersInProgress_Clients" Association="SWMPDDModel.Store.FK_ProvidersInProgress_Clients">
             <End Role="Clients" EntitySet="Clients" />
@@ -130,7 +145,7 @@
           <Property Name="VisitId" Type="varchar" Nullable="false" MaxLength="50" />
           <Property Name="ClientId" Type="varchar" Nullable="false" MaxLength="50" />
           <Property Name="DateOfVisit" Type="date" />
-          <Property Name="RS" Type="varchar" MaxLength="50" />
+          <Property Name="RN" Type="varchar" MaxLength="50" />
           <Property Name="LSW" Type="varchar" MaxLength="50" />
           <Property Name="TypeOfVisit_Monthly" Type="bit" />
           <Property Name="TypeOfVisit_Quarterly" Type="bit" />
@@ -182,6 +197,8 @@
           <Property Name="ProblemWith" Type="varchar" MaxLength="1000" />
           <Property Name="GeneralComments" Type="varchar" MaxLength="5000" />
           <Property Name="DateSigned" Type="date" />
+          <Property Name="CaregiverSystem_ProvideName" Type="varchar" MaxLength="200" />
+          <Property Name="CreationDate" Type="datetime" />
         </EntityType>
         <EntityType Name="HomeVisitServices">
           <Key>
@@ -196,6 +213,66 @@
           <Property Name="ClientRating" Type="char" MaxLength="1" />
           <Property Name="MeetsNeed" Type="varchar" MaxLength="100" />
           <Property Name="ChangesNeeded" Type="varchar" MaxLength="200" />
+          <Property Name="CreationDate" Type="datetime" />
+        </EntityType>
+        <EntityType Name="PlanOfCare">
+          <Key>
+            <PropertyRef Name="POCId" />
+          </Key>
+          <Property Name="POCId" Type="varchar" Nullable="false" MaxLength="50" />
+          <Property Name="ClientId" Type="varchar" Nullable="false" MaxLength="50" />
+          <Property Name="CreationDate" Type="datetime" />
+          <Property Name="CaseNumber" Type="varchar" MaxLength="150" />
+          <Property Name="PANumber" Type="varchar" MaxLength="150" />
+          <Property Name="CertificationDate" Type="date" />
+          <Property Name="MedicalDXProblems" Type="varchar" MaxLength="150" />
+          <Property Name="County" Type="varchar" MaxLength="75" />
+          <Property Name="ProviderNumber" Type="varchar" MaxLength="150" />
+          <Property Name="PrimaryDiagnosisCode" Type="varchar" MaxLength="100" />
+          <Property Name="PrimaryDiagnosisDescription" Type="varchar" MaxLength="150" />
+          <Property Name="PersonalGoal" Type="varchar" MaxLength="250" />
+          <Property Name="SignatureDate1" Type="date" />
+          <Property Name="SignatureDate2" Type="date" />
+          <Property Name="ManagerNameCase1" Type="varchar" MaxLength="150" />
+          <Property Name="ManagerNameCase2" Type="varchar" MaxLength="150" />
+          <Property Name="CaregiverNameIfNotIndicate" Type="varchar" MaxLength="150" />
+          <Property Name="LastQuaterDate1Case1" Type="date" />
+          <Property Name="LastQuaterDate1Case2" Type="date" />
+          <Property Name="LastQuaterDate2Case1" Type="date" />
+          <Property Name="LastQuaterDate2Case2" Type="date" />
+        </EntityType>
+        <EntityType Name="POCNeed">
+          <Key>
+            <PropertyRef Name="NeedId" />
+          </Key>
+          <Property Name="NeedId" Type="varchar" Nullable="false" MaxLength="50" />
+          <Property Name="POCId" Type="varchar" Nullable="false" MaxLength="50" />
+          <Property Name="Problem" Type="varchar" MaxLength="100" />
+          <Property Name="ServiceNeed" Type="varchar" MaxLength="100" />
+          <Property Name="ObjectiveNeed" Type="varchar" MaxLength="100" />
+          <Property Name="CreationDate" Type="datetime" />
+        </EntityType>
+        <EntityType Name="POCService">
+          <Key>
+            <PropertyRef Name="ServiceId" />
+          </Key>
+          <Property Name="ServiceId" Type="varchar" Nullable="false" MaxLength="50" />
+          <Property Name="POCId" Type="varchar" Nullable="false" MaxLength="50" />
+          <Property Name="RevCode" Type="varchar" MaxLength="100" />
+          <Property Name="Type" Type="varchar" MaxLength="50" />
+          <Property Name="Description" Type="varchar" MaxLength="100" />
+          <Property Name="HrsDays" Type="varchar" MaxLength="100" />
+          <Property Name="DaysWk" Type="varchar" MaxLength="100" />
+          <Property Name="HrsMonth" Type="varchar" MaxLength="100" />
+          <Property Name="VisitsWk" Type="varchar" MaxLength="100" />
+          <Property Name="VisitsMonth" Type="varchar" MaxLength="100" />
+          <Property Name="Units" Type="varchar" MaxLength="100" />
+          <Property Name="ProviderNameNumber" Type="varchar" MaxLength="200" />
+          <Property Name="ServiceDate" Type="date" />
+          <Property Name="BeginDate" Type="date" />
+          <Property Name="EndChangeDate" Type="date" />
+          <Property Name="ServiceType" Type="varchar" MaxLength="50" />
+          <Property Name="CreationDate" Type="datetime" />
         </EntityType>
         <EntityType Name="ProvidersInProgress">
           <Key>
@@ -249,7 +326,9 @@
           <Property Name="EndDate" Type="datetime" />
         </EntityType>
         <Association Name="FK_Details_Clients">
-          <End Role="Clients" Type="SWMPDDModel.Store.Clients" Multiplicity="1" />
+          <End Role="Clients" Type="SWMPDDModel.Store.Clients" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
           <End Role="Details" Type="SWMPDDModel.Store.Details" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Clients">
@@ -261,7 +340,9 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Documents_Clients">
-          <End Role="Clients" Type="SWMPDDModel.Store.Clients" Multiplicity="1" />
+          <End Role="Clients" Type="SWMPDDModel.Store.Clients" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
           <End Role="Documents" Type="SWMPDDModel.Store.Documents" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Clients">
@@ -273,7 +354,9 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Documents_Versions">
-          <End Role="Versions" Type="SWMPDDModel.Store.Versions" Multiplicity="1" />
+          <End Role="Versions" Type="SWMPDDModel.Store.Versions" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
           <End Role="Documents" Type="SWMPDDModel.Store.Documents" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Versions">
@@ -285,7 +368,9 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_HomeVisits_Clients">
-          <End Role="Clients" Type="SWMPDDModel.Store.Clients" Multiplicity="1" />
+          <End Role="Clients" Type="SWMPDDModel.Store.Clients" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
           <End Role="HomeVisits" Type="SWMPDDModel.Store.HomeVisits" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Clients">
@@ -297,7 +382,9 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_HomeVisitServices_HomeVisits">
-          <End Role="HomeVisits" Type="SWMPDDModel.Store.HomeVisits" Multiplicity="1" />
+          <End Role="HomeVisits" Type="SWMPDDModel.Store.HomeVisits" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
           <End Role="HomeVisitServices" Type="SWMPDDModel.Store.HomeVisitServices" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="HomeVisits">
@@ -308,8 +395,52 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_PlanOfCare_Clients">
+          <End Role="Clients" Type="SWMPDDModel.Store.Clients" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="PlanOfCare" Type="SWMPDDModel.Store.PlanOfCare" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Clients">
+              <PropertyRef Name="ClientId" />
+            </Principal>
+            <Dependent Role="PlanOfCare">
+              <PropertyRef Name="ClientId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_POCNeed_PlanOfCare">
+          <End Role="PlanOfCare" Type="SWMPDDModel.Store.PlanOfCare" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="POCNeed" Type="SWMPDDModel.Store.POCNeed" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PlanOfCare">
+              <PropertyRef Name="POCId" />
+            </Principal>
+            <Dependent Role="POCNeed">
+              <PropertyRef Name="POCId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_POCService_PlanOfCare">
+          <End Role="PlanOfCare" Type="SWMPDDModel.Store.PlanOfCare" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="POCService" Type="SWMPDDModel.Store.POCService" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PlanOfCare">
+              <PropertyRef Name="POCId" />
+            </Principal>
+            <Dependent Role="POCService">
+              <PropertyRef Name="POCId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_ProvidersInProgress_Clients">
-          <End Role="Clients" Type="SWMPDDModel.Store.Clients" Multiplicity="1" />
+          <End Role="Clients" Type="SWMPDDModel.Store.Clients" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
           <End Role="ProvidersInProgress" Type="SWMPDDModel.Store.ProvidersInProgress" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Clients">
@@ -349,6 +480,21 @@
           </AssociationSet>
           <EntitySet Name="HomeVisits" EntityType="SWMPDDModel.HomeVisit" />
           <EntitySet Name="HomeVisitServices" EntityType="SWMPDDModel.HomeVisitService" />
+          <EntitySet Name="PlanOfCares" EntityType="SWMPDDModel.PlanOfCare" />
+          <EntitySet Name="POCNeeds" EntityType="SWMPDDModel.POCNeed" />
+          <EntitySet Name="POCServices" EntityType="SWMPDDModel.POCService" />
+          <AssociationSet Name="FK_PlanOfCare_Clients" Association="SWMPDDModel.FK_PlanOfCare_Clients">
+            <End Role="Client" EntitySet="Clients" />
+            <End Role="PlanOfCare" EntitySet="PlanOfCares" />
+          </AssociationSet>
+          <AssociationSet Name="FK_POCNeed_PlanOfCare" Association="SWMPDDModel.FK_POCNeed_PlanOfCare">
+            <End Role="PlanOfCare" EntitySet="PlanOfCares" />
+            <End Role="POCNeed" EntitySet="POCNeeds" />
+          </AssociationSet>
+          <AssociationSet Name="FK_POCService_PlanOfCare" Association="SWMPDDModel.FK_POCService_PlanOfCare">
+            <End Role="PlanOfCare" EntitySet="PlanOfCares" />
+            <End Role="POCService" EntitySet="POCServices" />
+          </AssociationSet>
           <AssociationSet Name="FK_HomeVisits_Clients" Association="SWMPDDModel.FK_HomeVisits_Clients">
             <End Role="Client" EntitySet="Clients" />
             <End Role="HomeVisit" EntitySet="HomeVisits" />
@@ -422,6 +568,7 @@
           <NavigationProperty Name="Documents" Relationship="SWMPDDModel.FK_Documents_Clients" FromRole="Client" ToRole="Document" />
           <NavigationProperty Name="ProvidersInProgresses" Relationship="SWMPDDModel.FK_ProvidersInProgress_Clients" FromRole="Client" ToRole="ProvidersInProgress" />
           <Property Type="DateTime" Name="RemovalDate" />
+          <NavigationProperty Name="PlanOfCares" Relationship="SWMPDDModel.FK_PlanOfCare_Clients" FromRole="Client" ToRole="PlanOfCare" />
           <NavigationProperty Name="HomeVisits" Relationship="SWMPDDModel.FK_HomeVisits_Clients" FromRole="Client" ToRole="HomeVisit" />
         </EntityType>
         <EntityType Name="Detail">
@@ -557,7 +704,6 @@
           <Property Type="String" Name="VisitId" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Type="String" Name="ClientId" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Type="DateTime" Name="DateOfVisit" />
-          <Property Type="String" Name="RS" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Type="String" Name="LSW" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Type="Boolean" Name="TypeOfVisit_Monthly" />
           <Property Type="Boolean" Name="TypeOfVisit_Quarterly" />
@@ -609,6 +755,9 @@
           <Property Type="String" Name="ProblemWith" MaxLength="1000" FixedLength="false" Unicode="false" />
           <Property Type="String" Name="GeneralComments" MaxLength="5000" FixedLength="false" Unicode="false" />
           <Property Type="DateTime" Name="DateSigned" />
+          <Property Type="String" Name="RN" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="CaregiverSystem_ProvideName" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Type="DateTime" Name="CreationDate" />
           <NavigationProperty Name="Client" Relationship="SWMPDDModel.FK_HomeVisits_Clients" FromRole="HomeVisit" ToRole="Client" />
           <NavigationProperty Name="HomeVisitServices" Relationship="SWMPDDModel.FK_HomeVisitServices_HomeVisits" FromRole="HomeVisit" ToRole="HomeVisitService" />
         </EntityType>
@@ -625,8 +774,109 @@
           <Property Type="String" Name="ClientRating" MaxLength="1" FixedLength="true" Unicode="false" />
           <Property Type="String" Name="MeetsNeed" MaxLength="100" FixedLength="false" Unicode="false" />
           <Property Type="String" Name="ChangesNeeded" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Type="DateTime" Name="CreationDate" />
           <NavigationProperty Name="HomeVisit" Relationship="SWMPDDModel.FK_HomeVisitServices_HomeVisits" FromRole="HomeVisitService" ToRole="HomeVisit" />
         </EntityType>
+        <EntityType Name="PlanOfCare">
+          <Key>
+            <PropertyRef Name="POCId" />
+          </Key>
+          <Property Type="String" Name="POCId" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="ClientId" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="DateTime" Name="CreationDate" />
+          <Property Type="String" Name="CaseNumber" MaxLength="150" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="PANumber" MaxLength="150" FixedLength="false" Unicode="false" />
+          <Property Type="DateTime" Name="CertificationDate" />
+          <Property Type="String" Name="MedicalDXProblems" MaxLength="150" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="County" MaxLength="75" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="ProviderNumber" MaxLength="150" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="PrimaryDiagnosisCode" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="PrimaryDiagnosisDescription" MaxLength="150" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="PersonalGoal" MaxLength="250" FixedLength="false" Unicode="false" />
+          <Property Type="DateTime" Name="SignatureDate1" />
+          <Property Type="DateTime" Name="SignatureDate2" />
+          <Property Type="String" Name="ManagerNameCase1" MaxLength="150" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="ManagerNameCase2" MaxLength="150" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="CaregiverNameIfNotIndicate" MaxLength="150" FixedLength="false" Unicode="false" />
+          <Property Type="DateTime" Name="LastQuaterDate1Case1" />
+          <Property Type="DateTime" Name="LastQuaterDate1Case2" />
+          <Property Type="DateTime" Name="LastQuaterDate2Case1" />
+          <Property Type="DateTime" Name="LastQuaterDate2Case2" />
+          <NavigationProperty Name="Client" Relationship="SWMPDDModel.FK_PlanOfCare_Clients" FromRole="PlanOfCare" ToRole="Client" />
+          <NavigationProperty Name="POCNeeds" Relationship="SWMPDDModel.FK_POCNeed_PlanOfCare" FromRole="PlanOfCare" ToRole="POCNeed" />
+          <NavigationProperty Name="POCServices" Relationship="SWMPDDModel.FK_POCService_PlanOfCare" FromRole="PlanOfCare" ToRole="POCService" />
+        </EntityType>
+        <EntityType Name="POCNeed">
+          <Key>
+            <PropertyRef Name="NeedId" />
+          </Key>
+          <Property Type="String" Name="NeedId" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="POCId" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="Problem" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="ServiceNeed" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="ObjectiveNeed" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Type="DateTime" Name="CreationDate" />
+          <NavigationProperty Name="PlanOfCare" Relationship="SWMPDDModel.FK_POCNeed_PlanOfCare" FromRole="POCNeed" ToRole="PlanOfCare" />
+        </EntityType>
+        <EntityType Name="POCService">
+          <Key>
+            <PropertyRef Name="ServiceId" />
+          </Key>
+          <Property Type="String" Name="ServiceId" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="POCId" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="RevCode" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="Type" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="Description" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="HrsDays" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="DaysWk" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="HrsMonth" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="VisitsWk" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="VisitsMonth" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="Units" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="ProviderNameNumber" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Type="DateTime" Name="ServiceDate" />
+          <Property Type="DateTime" Name="BeginDate" />
+          <Property Type="DateTime" Name="EndChangeDate" />
+          <Property Type="String" Name="ServiceType" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="DateTime" Name="CreationDate" />
+          <NavigationProperty Name="PlanOfCare" Relationship="SWMPDDModel.FK_POCService_PlanOfCare" FromRole="POCService" ToRole="PlanOfCare" />
+        </EntityType>
+        <Association Name="FK_PlanOfCare_Clients">
+          <End Type="SWMPDDModel.Client" Role="Client" Multiplicity="1" />
+          <End Type="SWMPDDModel.PlanOfCare" Role="PlanOfCare" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Client">
+              <PropertyRef Name="ClientId" />
+            </Principal>
+            <Dependent Role="PlanOfCare">
+              <PropertyRef Name="ClientId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_POCNeed_PlanOfCare">
+          <End Type="SWMPDDModel.PlanOfCare" Role="PlanOfCare" Multiplicity="1" />
+          <End Type="SWMPDDModel.POCNeed" Role="POCNeed" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PlanOfCare">
+              <PropertyRef Name="POCId" />
+            </Principal>
+            <Dependent Role="POCNeed">
+              <PropertyRef Name="POCId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_POCService_PlanOfCare">
+          <End Type="SWMPDDModel.PlanOfCare" Role="PlanOfCare" Multiplicity="1" />
+          <End Type="SWMPDDModel.POCService" Role="POCService" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PlanOfCare">
+              <PropertyRef Name="POCId" />
+            </Principal>
+            <Dependent Role="POCService">
+              <PropertyRef Name="POCId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_HomeVisits_Clients">
           <End Type="SWMPDDModel.Client" Role="Client" Multiplicity="1" />
           <End Type="SWMPDDModel.HomeVisit" Role="HomeVisit" Multiplicity="*" />
@@ -801,6 +1051,9 @@
           <EntitySetMapping Name="HomeVisits">
             <EntityTypeMapping TypeName="SWMPDDModel.HomeVisit">
               <MappingFragment StoreEntitySet="HomeVisits">
+                <ScalarProperty Name="CreationDate" ColumnName="CreationDate" />
+                <ScalarProperty Name="CaregiverSystem_ProvideName" ColumnName="CaregiverSystem_ProvideName" />
+                <ScalarProperty Name="RN" ColumnName="RN" />
                 <ScalarProperty Name="DateSigned" ColumnName="DateSigned" />
                 <ScalarProperty Name="GeneralComments" ColumnName="GeneralComments" />
                 <ScalarProperty Name="ProblemWith" ColumnName="ProblemWith" />
@@ -852,7 +1105,6 @@
                 <ScalarProperty Name="TypeOfVisit_Quarterly" ColumnName="TypeOfVisit_Quarterly" />
                 <ScalarProperty Name="TypeOfVisit_Monthly" ColumnName="TypeOfVisit_Monthly" />
                 <ScalarProperty Name="LSW" ColumnName="LSW" />
-                <ScalarProperty Name="RS" ColumnName="RS" />
                 <ScalarProperty Name="DateOfVisit" ColumnName="DateOfVisit" />
                 <ScalarProperty Name="ClientId" ColumnName="ClientId" />
                 <ScalarProperty Name="VisitId" ColumnName="VisitId" />
@@ -862,6 +1114,7 @@
           <EntitySetMapping Name="HomeVisitServices">
             <EntityTypeMapping TypeName="SWMPDDModel.HomeVisitService">
               <MappingFragment StoreEntitySet="HomeVisitServices">
+                <ScalarProperty Name="CreationDate" ColumnName="CreationDate" />
                 <ScalarProperty Name="ChangesNeeded" ColumnName="ChangesNeeded" />
                 <ScalarProperty Name="MeetsNeed" ColumnName="MeetsNeed" />
                 <ScalarProperty Name="ClientRating" ColumnName="ClientRating" />
@@ -870,6 +1123,68 @@
                 <ScalarProperty Name="Frequency" ColumnName="Frequency" />
                 <ScalarProperty Name="Service" ColumnName="Service" />
                 <ScalarProperty Name="VisitId" ColumnName="VisitId" />
+                <ScalarProperty Name="ServiceId" ColumnName="ServiceId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PlanOfCares">
+            <EntityTypeMapping TypeName="SWMPDDModel.PlanOfCare">
+              <MappingFragment StoreEntitySet="PlanOfCare">
+                <ScalarProperty Name="LastQuaterDate2Case2" ColumnName="LastQuaterDate2Case2" />
+                <ScalarProperty Name="LastQuaterDate2Case1" ColumnName="LastQuaterDate2Case1" />
+                <ScalarProperty Name="LastQuaterDate1Case2" ColumnName="LastQuaterDate1Case2" />
+                <ScalarProperty Name="LastQuaterDate1Case1" ColumnName="LastQuaterDate1Case1" />
+                <ScalarProperty Name="CaregiverNameIfNotIndicate" ColumnName="CaregiverNameIfNotIndicate" />
+                <ScalarProperty Name="ManagerNameCase2" ColumnName="ManagerNameCase2" />
+                <ScalarProperty Name="ManagerNameCase1" ColumnName="ManagerNameCase1" />
+                <ScalarProperty Name="SignatureDate2" ColumnName="SignatureDate2" />
+                <ScalarProperty Name="SignatureDate1" ColumnName="SignatureDate1" />
+                <ScalarProperty Name="PersonalGoal" ColumnName="PersonalGoal" />
+                <ScalarProperty Name="PrimaryDiagnosisDescription" ColumnName="PrimaryDiagnosisDescription" />
+                <ScalarProperty Name="PrimaryDiagnosisCode" ColumnName="PrimaryDiagnosisCode" />
+                <ScalarProperty Name="ProviderNumber" ColumnName="ProviderNumber" />
+                <ScalarProperty Name="County" ColumnName="County" />
+                <ScalarProperty Name="MedicalDXProblems" ColumnName="MedicalDXProblems" />
+                <ScalarProperty Name="CertificationDate" ColumnName="CertificationDate" />
+                <ScalarProperty Name="PANumber" ColumnName="PANumber" />
+                <ScalarProperty Name="CaseNumber" ColumnName="CaseNumber" />
+                <ScalarProperty Name="CreationDate" ColumnName="CreationDate" />
+                <ScalarProperty Name="ClientId" ColumnName="ClientId" />
+                <ScalarProperty Name="POCId" ColumnName="POCId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="POCNeeds">
+            <EntityTypeMapping TypeName="SWMPDDModel.POCNeed">
+              <MappingFragment StoreEntitySet="POCNeed">
+                <ScalarProperty Name="CreationDate" ColumnName="CreationDate" />
+                <ScalarProperty Name="ObjectiveNeed" ColumnName="ObjectiveNeed" />
+                <ScalarProperty Name="ServiceNeed" ColumnName="ServiceNeed" />
+                <ScalarProperty Name="Problem" ColumnName="Problem" />
+                <ScalarProperty Name="POCId" ColumnName="POCId" />
+                <ScalarProperty Name="NeedId" ColumnName="NeedId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="POCServices">
+            <EntityTypeMapping TypeName="SWMPDDModel.POCService">
+              <MappingFragment StoreEntitySet="POCService">
+                <ScalarProperty Name="CreationDate" ColumnName="CreationDate" />
+                <ScalarProperty Name="ServiceType" ColumnName="ServiceType" />
+                <ScalarProperty Name="EndChangeDate" ColumnName="EndChangeDate" />
+                <ScalarProperty Name="BeginDate" ColumnName="BeginDate" />
+                <ScalarProperty Name="ServiceDate" ColumnName="ServiceDate" />
+                <ScalarProperty Name="ProviderNameNumber" ColumnName="ProviderNameNumber" />
+                <ScalarProperty Name="Units" ColumnName="Units" />
+                <ScalarProperty Name="VisitsMonth" ColumnName="VisitsMonth" />
+                <ScalarProperty Name="VisitsWk" ColumnName="VisitsWk" />
+                <ScalarProperty Name="HrsMonth" ColumnName="HrsMonth" />
+                <ScalarProperty Name="DaysWk" ColumnName="DaysWk" />
+                <ScalarProperty Name="HrsDays" ColumnName="HrsDays" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Type" ColumnName="Type" />
+                <ScalarProperty Name="RevCode" ColumnName="RevCode" />
+                <ScalarProperty Name="POCId" ColumnName="POCId" />
                 <ScalarProperty Name="ServiceId" ColumnName="ServiceId" />
               </MappingFragment>
             </EntityTypeMapping>
@@ -894,7 +1209,7 @@
     </Options>
     <!-- Diagram content (shape and connector positions) -->
     <Diagrams>
-      <Diagram Name="SWMPDD" ZoomLevel="45">
+      <Diagram Name="SWMPDD" ZoomLevel="82">
         <EntityTypeShape EntityType="SWMPDDModel.Client" Width="1.5" PointX="0.75" PointY="2" Height="12.364563802083332" />
         <EntityTypeShape EntityType="SWMPDDModel.Detail" Width="1.5" PointX="3" PointY="5.375" Height="2.3648893229166674" />
         <EntityTypeShape EntityType="SWMPDDModel.Document" Width="1.5" PointX="6" PointY="7" Height="2.5571907552083317" />
@@ -918,16 +1233,32 @@
           <ConnectorPoint PointX="4.90625" PointY="8.2098371809895827" />
           <ConnectorPoint PointX="6" PointY="8.2098371809895827" />
         </AssociationConnector>
-        <EntityTypeShape EntityType="SWMPDDModel.HomeVisit" Width="1.5" PointX="3" PointY="15.375" Height="11.979960937500003" />
+        <EntityTypeShape EntityType="SWMPDDModel.HomeVisit" Width="1.5" PointX="3" PointY="15.375" Height="11.787659505208339" />
         <EntityTypeShape EntityType="SWMPDDModel.HomeVisitService" Width="1.5" PointX="5.25" PointY="19.875" Height="2.9417936197916674" />
+        <EntityTypeShape EntityType="SWMPDDModel.PlanOfCare" Width="1.5" PointX="3" PointY="29.625" Height="5.6340136718750067" />
+        <EntityTypeShape EntityType="SWMPDDModel.POCNeed" Width="1.5" PointX="5.25" PointY="28.625" Height="2.3648893229166674" />
+        <EntityTypeShape EntityType="SWMPDDModel.POCService" Width="1.5" PointX="5.25" PointY="31.75" Height="4.4802050781250067" />
+        <AssociationConnector Association="SWMPDDModel.FK_PlanOfCare_Clients" >
+          <ConnectorPoint PointX="1.5" PointY="14.941468098958334" />
+          <ConnectorPoint PointX="1.5" PointY="32.442006835937505" />
+          <ConnectorPoint PointX="3" PointY="32.442006835937505" />
+        </AssociationConnector>
+        <AssociationConnector Association="SWMPDDModel.FK_POCNeed_PlanOfCare" >
+          <ConnectorPoint PointX="4.5" PointY="30.307444661458334" />
+          <ConnectorPoint PointX="5.25" PointY="30.307444661458334" />
+        </AssociationConnector>
+        <AssociationConnector Association="SWMPDDModel.FK_POCService_PlanOfCare" >
+          <ConnectorPoint PointX="4.5" PointY="33.504506835937505" />
+          <ConnectorPoint PointX="5.25" PointY="33.504506835937505" />
+        </AssociationConnector>
         <AssociationConnector Association="SWMPDDModel.FK_HomeVisits_Clients" >
-          <ConnectorPoint PointX="1.5" PointY="14.749166666666666" />
-          <ConnectorPoint PointX="1.5" PointY="21.36498046875" />
-          <ConnectorPoint PointX="3" PointY="21.36498046875" />
+          <ConnectorPoint PointX="1.9062525" PointY="14.941468098958334" />
+          <ConnectorPoint PointX="1.9062525" PointY="21.557281901041669" />
+          <ConnectorPoint PointX="3" PointY="21.557281901041669" />
         </AssociationConnector>
         <AssociationConnector Association="SWMPDDModel.FK_HomeVisitServices_HomeVisits" >
-          <ConnectorPoint PointX="4.5" PointY="21.345896809895834" />
-          <ConnectorPoint PointX="5.25" PointY="21.345896809895834" />
+          <ConnectorPoint PointX="4.5" PointY="21.442047526041669" />
+          <ConnectorPoint PointX="5.25" PointY="21.442047526041669" />
         </AssociationConnector>
       </Diagram>
     </Diagrams>
