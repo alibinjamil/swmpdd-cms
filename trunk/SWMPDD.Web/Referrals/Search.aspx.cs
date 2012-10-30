@@ -41,6 +41,7 @@ namespace SWMPDD.Web.Referrals
                 {
                     Parameter searchStringParameter = new Parameter();
                     searchStringParameter.Name = "SearchString";
+
                     searchStringParameter.DbType = System.Data.DbType.String;
                     searchStringParameter.DefaultValue = "%" + tbSearchBy.Text + "%";
                     edsClients.WhereParameters.Add(searchStringParameter);
