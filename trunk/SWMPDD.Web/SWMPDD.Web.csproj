@@ -68,20 +68,31 @@
     <Content Include="css\redmond\images\ui-icons_d8e7f3_256x240.png" />
     <Content Include="css\redmond\images\ui-icons_f9bd01_256x240.png" />
     <Content Include="css\redmond\jquery-ui-1.8.24.custom.css" />
+    <Content Include="css\swmpdd.login.css" />
     <Content Include="css\swmpdd.main.css" />
     <Content Include="Default.aspx" />
     <Content Include="img\error.png" />
+    <Content Include="img\greater_than.gif" />
     <Content Include="img\Header_05_RMS.png" />
+    <Content Include="img\Header_SWMPDD.gif" />
+    <Content Include="img\Login-bkgrd.gif" />
     <Content Include="img\LogoSWMPDD_05.png" />
     <Content Include="img\success.png" />
+    <Content Include="img\tab-blank-blue.png" />
+    <Content Include="img\tab-blank-grey.png" />
+    <Content Include="img\tab-blue.gif" />
+    <Content Include="img\tab-grey.gif" />
     <Content Include="jqueryTest.html" />
     <Content Include="js\jquery-1.8.2.min.js" />
     <Content Include="js\jquery-ui-1.8.24.custom.min.js" />
+    <Content Include="js\swmpdd.main.js" />
     <Content Include="Login.aspx" />
     <Content Include="Referrals\AddReferral.aspx" />
     <Content Include="Referrals\Dashboard.aspx" />
     <Content Include="Referrals\Search.aspx" />
-    <Content Include="Web.config" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </Content>

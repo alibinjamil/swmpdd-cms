@@ -25,9 +25,13 @@
 }
 #topNavBar .tab a
 {
-  display:inline-block;margin-left:4px;margin-top:6px;
-  font-size:8pt;
-  font-weight:bold;
+    display: inline-block;
+    margin-left: 8px;
+    margin-top: 6px;
+    font-size: 8pt;
+    color: White;
+    text-decoration: none;
+    font-family: Arial, Helvetica, sans-serif;
 }
 #topNavBar .selected
 {
@@ -41,13 +45,14 @@
 }
 #leftMenu
 {
-    width:162px;
+    width:15%;
     float:left;
     background-color:#D3DDE4;
 }
 #content
 { 
     float:left;
+    width:78%;
 }
 #tabBar 
 {
@@ -88,17 +93,18 @@
     background-color: #336699;
     color: #FFFFFF;
     padding:6px;
+    font-family:Verdana, Arial, Myriad, Helvetica, sans-serif;
+    font-size:12px;
 }
 
 #leftMenu .itemImage
 {
     float:left;
-    padding:6px;
-    border: 1px solid #FFFFFF;
-    width:12px;
+    width:10%;
     text-align:center;
     padding-top:11px;
     padding-bottom:11px;
+    border-right:1px solid white;
 }
 
 #leftMenu .itemImage .doubleLine
@@ -112,6 +118,15 @@
 {
     float:left;
     padding:6px;
-    border:1px solid #FFFFFF;    
-    width:121px;
+    width:80%;
+    border-left:1px solid white;
+    margin-left:-1px;
+}
+#leftMenu .mainItem
+{
+    border:1px solid white;    
+}
+.mainGrid
+{
+    width:100%;    
 }

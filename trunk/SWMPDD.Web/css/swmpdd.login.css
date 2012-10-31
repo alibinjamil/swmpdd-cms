@@ -1,9 +1,10 @@
 ﻿/* CSS Document */
 
-	p,td, tr, table, ol, li, ul, h4, h5, h6, label {
+	p,td, div, ol, li, ul, h4, h5, h6, label {
 	font-family: Verdana, Arial, Myriad, Helvetica, sans-serif;
 	font-size: 12px;
    	line-height: 14px;
+   	padding:2px;
 	/* color: #333; */
 	/* background-color: inherit; */
  	/*  max-width: 55em; */
@@ -70,4 +71,34 @@ body
     background-repeat: no-repeat;
     width:551px;
     height:424px;
+    margin:auto;
+}
+#lowerLoginArea
+{
+    width:545px;
+    margin:auto;
+    padding:0px;
+}
+.row
+{
+    padding-top:5px;
+}
+.textRow
+{
+    padding:3px;    
+}
+.col1.col1Text
+{
+    float:right;
+    padding-top:6px;
+}
+.col1
+{
+    float:right;
+}
+
+.col2
+{
+    float:right;
+    width:360px;
 }

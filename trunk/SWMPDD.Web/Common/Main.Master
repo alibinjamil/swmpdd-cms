@@ -1,45 +1,47 @@
 ﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="Main.master.cs" Inherits="SWMPDD.Web.Common.Main" %>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
     <title></title>
     <link type="text/css" href='~/css/redmond/jquery-ui-1.8.24.custom.css' rel="stylesheet" />
     <link type="text/css" href='~/css/swmpdd.main.css' rel="stylesheet" />
-	<script type="text/javascript" src='<%=Page.ResolveClientUrl("~/js/jquery-1.8.2.min.js")%>'></script>
-	<script type="text/javascript" src='<%=Page.ResolveClientUrl("~/js/jquery-ui-1.8.24.custom.min.js")%>'></script>
+    <script type="text/javascript" src='<%=Page.ResolveClientUrl("~/js/jquery-1.8.2.min.js")%>'></script>
+    <script type="text/javascript" src='<%=Page.ResolveClientUrl("~/js/jquery-ui-1.8.24.custom.min.js")%>'></script>
     <script type="text/javascript" src='<%=Page.ResolveClientUrl("~/js/swmpdd.main.js")%>'></script>
     <asp:ContentPlaceHolder ID="HeadContentPlaceHolder" runat="server">
     </asp:ContentPlaceHolder>
 </head>
-<body>    
+<body>
     <form id="form1" runat="server">
     <div id="logoBar">
-        <asp:Image ImageUrl="~/img/Header_SWMPDD.gif" AlternateText="SWMPDD" runat="server"/>
+        <asp:Image ImageUrl="~/img/Header_SWMPDD.gif" AlternateText="SWMPDD" runat="server" />
     </div>
     <div id="contentArea">
         <div id="topNavBar">
             <div>
                 <%=GetTabs()%>
-                <div style="float:right;font-weight:bold;">
-                    <span>User: <%=GetLoggedInUserName()%></span>                
-                    <asp:LinkButton ID="btnSignout" runat="server" onclick="btnSignout_Click">Signout</asp:LinkButton>                
+                <div style="float: right; font-weight: bold;">
+                    <span>User:
+                        <%=GetLoggedInUserName()%></span>
+                    <asp:LinkButton ID="btnSignout" runat="server" OnClick="btnSignout_Click">Signout</asp:LinkButton>
                 </div>
-                <div style="clear:both"></div>
+                <div style="clear: both">
+                </div>
             </div>
-            <div style="height:6px;width:100%;background:#336699">
+            <div style="height: 6px; width: 100%; background: #336699">
             </div>
         </div>
-        <hr width="100%" size="1" noshade="noshade" style="margin-top:6px"/>
+        <hr width="100%" size="1" noshade="noshade" style="margin-top: 6px" />
         <div id="main">
             <div id="leftMenu">
-                <asp:ContentPlaceHolder ID="LeftMenuPlaceHolder" runat="server">        
-                </asp:ContentPlaceHolder>    
+                <asp:ContentPlaceHolder ID="LeftMenuPlaceHolder" runat="server">
+                </asp:ContentPlaceHolder>
             </div>
             <div id="content">
-                <asp:Panel ID="errorPanel" runat="server" CssClass="error" Visible="false" Style="margin-left: 0px;margin-right: auto; margin-top: 5px;" >
-                    <div style="float: left;margin-left: 5px; margin-top: 5px;">
+                <asp:Panel ID="errorPanel" runat="server" CssClass="error" Visible="false" Style="margin-left: 0px;
+                    margin-right: auto; margin-top: 5px;">
+                    <div style="float: left; margin-left: 5px; margin-top: 5px;">
                         <asp:Image ID="Image2" ImageUrl="~/img/error.png" runat="server" />
                     </div>
                     <div style="float: left; margin-left: 5px; margin-top: 5px;">
@@ -48,8 +50,9 @@
                     <div style="clear: both">
                     </div>
                 </asp:Panel>
-                <asp:Panel ID="successPanel" runat="server" CssClass="success" Visible="false" Style="margin-left: 0px;margin-right: auto; margin-top: 5px; ">
-                    <div style="float: left;margin-left: 5px; margin-top: 5px;">
+                <asp:Panel ID="successPanel" runat="server" CssClass="success" Visible="false" Style="margin-left: 0px;
+                    margin-right: auto; margin-top: 5px;">
+                    <div style="float: left; margin-left: 5px; margin-top: 5px;">
                         <asp:Image ID="Image3" ImageUrl="~/img/success.png" runat="server" />
                     </div>
                     <div style="float: left; margin-left: 5px; margin-top: 5px;">
@@ -57,14 +60,14 @@
                     </div>
                     <div style="clear: both">
                     </div>
-                </asp:Panel>   
+                </asp:Panel>
                 <div>
                     <asp:ContentPlaceHolder ID="MainContentPlaceHolder" runat="server">
-                
-                    </asp:ContentPlaceHolder>    
+                    </asp:ContentPlaceHolder>
                 </div>
             </div>
-            <div style="clear:both"></div>
+            <div style="clear: both">
+            </div>
         </div>
     </div>
     </form>
