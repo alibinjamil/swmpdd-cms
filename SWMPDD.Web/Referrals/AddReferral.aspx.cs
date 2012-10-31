@@ -30,6 +30,15 @@ namespace SWMPDD.Web.Referrals
             VerificationDate.Attributes.Add("readonly", "readonly");
 
             client = GetClient();
+            if (ReasonforRemovalCode.SelectedValue == "8") {
+                Code8Other.Enabled = true;
+                rfvCode8Other.Enabled = true;
+            }
+            if (ResidenceCode.SelectedValue == "Other")
+            {
+                OtherInfo.Enabled = true;
+                rfvOtherInfo.Enabled = true;
+            }
             if (IsPostBack == false)
             {
                 if (client != null)
@@ -284,7 +293,7 @@ namespace SWMPDD.Web.Referrals
 
         protected void ReasonforRemovalCode_SelectedIndexChanged(object sender, EventArgs e)
         {
-            rfvCode8Other.Enabled = (ReasonforRemovalCode.SelectedValue == "0");
+            rfvCode8Other.Enabled = (ReasonforRemovalCode.SelectedValue == "8");
         }
 
         protected void btnPertinentInfo_Click(object sender, EventArgs e)

@@ -16,7 +16,7 @@
     </script>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContentPlaceHolder" runat="server">
-    <div>
+    <div style="padding-left:10px;">
         <div>
             <div class="col1">Social Security Number:</div>
             <div class="col2"><asp:TextBox runat="server" ID="SSN" AutoPostBack="True" 
@@ -173,7 +173,7 @@
         </div>
         <div>
             <div class="col1">If "Other", describe:</div>
-            <div class="col2"><asp:TextBox Columns="30" Rows="5" TextMode="MultiLine"  ID="OtherInfo" runat="server"></asp:TextBox></div>
+            <div class="col2"><asp:TextBox Enabled="false" Columns="30" Rows="5" TextMode="MultiLine"  ID="OtherInfo" runat="server"></asp:TextBox></div>
             <div class="col3">
                 <asp:RequiredFieldValidator Enabled="false" CssClass="errorValidator" Display="Dynamic" ID="rfvOtherInfo" ControlToValidate="OtherInfo" runat="server"  SetFocusOnError="true"><span>Other Residence Code is Required</span></asp:RequiredFieldValidator>
             </div>

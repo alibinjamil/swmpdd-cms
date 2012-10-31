@@ -9,28 +9,59 @@
 </head>
 <body>
     <form id="form1" runat="server">
-    <center>
         <div id="loginArea">            
-            <div style="padding-top:108px"><center><b>AUTHORIZED ACCESS ONLY</b></center></div>
+            <div style="padding-top:108px">
+                <center><b>AUTHORIZED ACCESS ONLY</b></center>
+            </div>
             <div>Enter your user name and password, and then click &quot;Sign In&quot; to
           access the Elderly &amp; Disabled Medicaid Waiver Program Case 
           Management System.</div>
-            <div >
-                <asp:Label Text="User Name:" Width="200px" runat="server"></asp:Label>
-                <asp:TextBox runat="server" Width="200px" ID="tbUserName"></asp:TextBox>
+          <div class="row">
+                <div class="row">
+                    <div class="col2"><asp:TextBox runat="server" Width="150px" ID="tbUserName"></asp:TextBox></div>
+                    <div class="col1 col1Text">
+                        <asp:Label Text="User Name:" runat="server"></asp:Label>
+                    </div>
+                    <div style="clear:both"></div>
+                </div>
+                <div>
+                    <div class="col2"><asp:TextBox runat="server" Width="150px" ID="tbPassword" TextMode="Password"></asp:TextBox></div>
+                    <div class="col1 col1Text"><asp:Label ID="Label1" Text="Password:" runat="server"></asp:Label></div>
+                    <div style="clear:both"></div>
+                </div>
+                <div>
+                    <div class="col2"><asp:Button ID="btnLogin" runat="server" Text="Sign In" 
+                        onclick="btnLogin_Click" /></div>
+                    <div class="col1">&nbsp;</div>
+                    <div style="clear:both"></div>
+                </div>
+                <div class="textRow">
+                    <div class="col2">Forgot password? <a href="">Click here</a></div>
+                    <div class="col1">&nbsp;</div>
+                    <div style="clear:both"></div>
+                </div>
+                <div class="textRow">
+                    <div class="col2">Need sign-in credentials? <a href="">Contact us</a></div>
+                    <div class="col1">&nbsp;</div>
+                    <div style="clear:both"></div>
+                </div>
             </div>
-            <div>
-                <asp:Label ID="Label1" Text="Password:" Width="200px" runat="server"></asp:Label>
-                <asp:TextBox runat="server" Width="200px" ID="tbPassword" TextMode="Password"></asp:TextBox>        
+            <div class="textRow">
+                Microsoft® Internet Explorer® 8 or higher preferred. <a href="">Click here</a> for free download.
             </div>
-            <div>
-            
-                <asp:Button ID="btnLogin" runat="server" Text="Login" 
-                    onclick="btnLogin_Click" />
-            
+            <div class="textRow">
+                Adobe Reader® required. <a href="">Click here</a> for free download.</div>
+            <div class="textRow">
+                1024x768 or higher screen resolution preferred. <a href="">Click here</a> for help.
             </div>
         </div>
-    </center>
+        <div id="lowerLoginArea">
+            <div style="float:right;font-size:x:small;padding:0px">
+                <a href="http://www.digiply.com" target="_blank">DigiPly</a>
+            </div>
+            <div style="clear:both">
+            </div>
+        </div>
     </form>
 </body>
 </html>
