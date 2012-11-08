@@ -2,12 +2,14 @@
     CodeBehind="Search.aspx.cs" Inherits="SWMPDD.Web.Referrals.Search" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="HeadContentPlaceHolder" runat="server">
+    
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContentPlaceHolder" runat="server">
     <div style="padding-left:10px;">
         <asp:Label runat="server" ID="whereClause" Visible="false"></asp:Label>
-        <div>
-            <b>REFERRALS</b></div>
+        <div class="heading">
+            REFERRALS
+        </div>
         <div>
             <b>FILTER RESULTS BY:</b></div>
         <div style="width: 75%;">
