@@ -1,0 +1,23 @@
+﻿<%@ Master Language="C#" MasterPageFile="~/Common/Main.Master" AutoEventWireup="true" CodeBehind="Reports.master.cs" Inherits="SWMPDD.Web.Common.Reports" %>
+<asp:Content ID="Content1" ContentPlaceHolderID="HeadContentPlaceHolder" runat="server">
+    <asp:ContentPlaceHolder ID="HeadContentPlaceHolder" runat="server"></asp:ContentPlaceHolder>
+</asp:Content>
+<asp:Content ID="Content2" ContentPlaceHolderID="LeftMenuPlaceHolder" runat="server">
+    <div class="heading">
+        REPORTS
+    </div>
+    <div class="mainItem">
+        <div class="itemImage">
+            <asp:Image ID="Image1" ImageUrl="~/img/greater_than.gif" runat="server" />
+        </div>
+        <div class="itemText" >
+            <asp:HyperLink ID="HyperLink1" NavigateUrl="~/Reports/WaitingList.aspx" runat="server">Waiting List</asp:HyperLink>
+        </div>
+        <div style="clear:both"></div>
+    </div>
+</asp:Content>
+<asp:Content ID="Content3" ContentPlaceHolderID="MainContentPlaceHolder" runat="server">
+    <div style="padding-left:10px;padding-right:10px;">
+        <asp:ContentPlaceHolder ID="MainContentPlaceHolder" runat="server"></asp:ContentPlaceHolder>
+    </div>
+</asp:Content>
