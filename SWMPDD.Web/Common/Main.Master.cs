@@ -6,13 +6,13 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 
 using SWMPDD.Web.Business.Pages;
-
+using SWMPDD.Web.Business.Common;
 namespace SWMPDD.Web.Common
 {
     public partial class Main : System.Web.UI.MasterPage
     {
-        string[] tabTexts = {"HOME","REFERRALS","CASE MANAGEMENT","ADMINSTER","REPORTS","SUPPORT"};
-        string[] tabUrls = { "~/Default.aspx", "~/Referrals/Dashboard.aspx", "~/Default.aspx", "~/Default.aspx", "~/Default.aspx", "~/Default.aspx" };
+        string[] tabTexts = {"HOME","REFERRALS","CASE MANAGEMENT","ADMINISTER","REPORTS","SUPPORT"};
+        string[] tabUrls = { "~/Default.aspx", "~/Referrals/Dashboard.aspx", "~/Default.aspx", "~/Administer/ManageUsers.aspx", "~/Reports/WaitingList.aspx", "~/Default.aspx" };
         protected void Page_Load(object sender, EventArgs e)
         {
             
@@ -42,7 +42,8 @@ namespace SWMPDD.Web.Common
 
         protected void btnSignout_Click(object sender, EventArgs e)
         {
-
+            Session[Constants.Session.LOGGED_IN_USER] = null;
+            Response.Redirect("~/Login.aspx");
         }
     }
 }
