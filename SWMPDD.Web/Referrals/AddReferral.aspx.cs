@@ -10,11 +10,16 @@ using System.Xml.Linq;
 using SWMPDD.Web.Business.Pages;
 using SWMPDD.Data;
 using SWMPDD.Web.Business.Common;
+using System.Web.Script.Serialization;
 
 namespace SWMPDD.Web.Referrals
 {
     public partial class AddReferral : AuthenticatedPage
     {
+        public class DataItem {
+            public string value { get; set; }
+            public string text { get; set; }
+        }
         public override string GetTabName()
         {
             return "REFERRALS";
@@ -39,7 +44,7 @@ namespace SWMPDD.Web.Referrals
                 OtherInfo.Enabled = true;
                 rfvOtherInfo.Enabled = true;
             }
-            if (IsPostBack == false)
+            if (!Page.IsPostBack)
             {
                 if (client != null)
                 {
@@ -48,11 +53,11 @@ namespace SWMPDD.Web.Referrals
                         SetSuccessMessage("Client Saved Successfully");
                     }
                     SSN.Text = client.SSN;
-                    if (client.InTakeDate.HasValue) IntakeDate.Text = client.InTakeDate.Value.ToShortDateString();                    
-                    FirstName.Text = client.FirstName ;
+                    if (client.InTakeDate.HasValue) IntakeDate.Text = client.InTakeDate.Value.ToShortDateString();
+                    FirstName.Text = client.FirstName;
                     MiddleInitial.Text = client.MiddleInitial;
                     LastName.Text = client.LastName;
-                    if (client.DateOfBirth.HasValue) DateOfBirth.Text = client.DateOfBirth.Value.ToShortDateString();                    
+                    if (client.DateOfBirth.HasValue) DateOfBirth.Text = client.DateOfBirth.Value.ToShortDateString();
                     AddressLine1.Text = client.Address1;
                     AddressLine2.Text = client.Address2;
                     City.Text = client.City;
@@ -62,8 +67,8 @@ namespace SWMPDD.Web.Referrals
                     County.SelectedValue = client.County;
                     Email.Text = client.Email;
                     Gender.SelectedValue = client.Gender;
-                    ResidenceCode.SelectedValue = client.PersonResidenceCode ;
-                    OtherInfo.Text  = client.OtherComments;
+                    ResidenceCode.SelectedValue = client.PersonResidenceCode;
+                    OtherInfo.Text = client.OtherComments;
                     Medicaid.Text = client.Medicaid;
                     Medicare.Text = client.Medicare;
                     ContactPerson.Text = client.ContactPerson;
@@ -71,7 +76,7 @@ namespace SWMPDD.Web.Referrals
                     ContactPhone.Text = client.ContactPhone;
                     Directions.Text = client.Direction;
                     ReferralSource.Text = client.ReferralSoruce;
-                    ReferralPhone.Text = client.ReferralPhone ;
+                    ReferralPhone.Text = client.ReferralPhone;
                     Physician.Text = client.Physician;
                     PhysicianPhone.Text = client.PhysicianPhone;
                     PhysicianAddress.Text = client.PhysicianAddress;
@@ -79,18 +84,21 @@ namespace SWMPDD.Web.Referrals
                     PhysicianZip.Text = client.PhysicianZip;
                     Diagnosis.Text = client.Diagnostic;
                     ByWhom.Text = LoggedInUser.Name + " [" + LoggedInUser.UserType + "]";
-                    
-                    foreach (ListItem li in ServicesNeeded.Items)
-                    {
-                        foreach (Detail detail in client.Details)
-                        {
-                            if (detail.Type == Constants.DetailTypes.SERVICES_NEEDED
-                                && li.Text == detail.Text)
-                            {
-                                li.Selected = true;
-                            }
-                        }
+
+                    var clientServices = (from c in DatabaseContext.ClientServices where c.ClientId == client.ClientId select c.ServiceId).ToList();
+                    var clientServicesNotSelected = from s in DatabaseContext.Services where !clientServices.Contains(s.ServiceId) select s;
+                    var clientServicesSelected = from s in DatabaseContext.Services where clientServices.Contains(s.ServiceId) select s;
+                    ServicesNeededLeft.DataSource = clientServicesSelected;
+                    ServicesNeededLeft.DataBind();
+                    ServicesNeededRight.DataSource = clientServicesNotSelected;
+                    ServicesNeededRight.DataBind();
+                    if (clientServicesSelected.Count() == 0) {
+                        ImageButtonRight.ImageUrl = "~/img/Right-Arrow-Disable.gif";
                     }
+                    else if (clientServicesNotSelected.Count() == 0) {
+                        ImageButtonLeft.ImageUrl = "~/img/Left-Arrow-Disable.gif";
+                    }
+
 
                     for (int i = 1; i <= client.ProvidersInProgresses.Count; i++)
                     {
@@ -98,13 +106,13 @@ namespace SWMPDD.Web.Referrals
                         TextBox tbDiscipline = (TextBox)FindControl(pnlCurrentServices, "Descipline" + i);
                         TextBox tbProvider = (TextBox)FindControl(pnlCurrentServices, "Provider" + i);
 
-                        if(tbFrequency != null)     tbFrequency.Text = client.ProvidersInProgresses.ToList()[i - 1].Frequency;
-                        if(tbDiscipline != null)    tbDiscipline.Text = client.ProvidersInProgresses.ToList()[i - 1].Discipline;
-                        if(tbProvider != null)      tbProvider.Text = client.ProvidersInProgresses.ToList()[i - 1].Provider;
+                        if (tbFrequency != null) tbFrequency.Text = client.ProvidersInProgresses.ToList()[i - 1].Frequency;
+                        if (tbDiscipline != null) tbDiscipline.Text = client.ProvidersInProgresses.ToList()[i - 1].Discipline;
+                        if (tbProvider != null) tbProvider.Text = client.ProvidersInProgresses.ToList()[i - 1].Provider;
                     }
 
                     MedicaidStatus.SelectedValue = GetStringFromBool(client.VerificationOfMedicaidStatus);
-                    if (client.VerificationDate.HasValue) VerificationDate.Text = client.VerificationDate.Value.ToShortDateString();                    
+                    if (client.VerificationDate.HasValue) VerificationDate.Text = client.VerificationDate.Value.ToShortDateString();
                     LockInStatus.SelectedValue = GetStringFromBool(client.LockinStatus);
                     MethodofContact.SelectedValue = client.MethodofContact;
                     if (client.DateClientContacted.HasValue) DateClientContacted.Text = client.DateClientContacted.Value.ToShortDateString();
@@ -117,7 +125,15 @@ namespace SWMPDD.Web.Referrals
                     pnlAddAdditionalInfo.Visible = true;
                     pnlAddComment.Visible = true;
                 }
+                else
+                {
+                    var clientServicesNotSelected = from s in DatabaseContext.Services select s;
+                    ServicesNeededRight.DataSource = clientServicesNotSelected;
+                    ServicesNeededRight.DataBind();
+                    ImageButtonRight.ImageUrl = "~/img/Right-Arrow-Disable.gif";
+                }
             }
+            
         }
 
         private void BindGrids()
@@ -181,7 +197,23 @@ namespace SWMPDD.Web.Referrals
             client.PhysicianAddress = PhysicianAddress.Text;
             client.PhysicianCity = PhysicianCity.Text;
             client.PhysicianZip = PhysicianZip.Text;
-            client.Diagnostic = Diagnosis.Text;            
+            client.Diagnostic = Diagnosis.Text;
+            foreach (ClientService clientService in client.ClientServices.ToList())
+            {
+                DatabaseContext.ClientServices.DeleteObject(clientService);
+                DatabaseContext.SaveChanges();
+            }
+            string leftHandItems = ServicesNeededLeftHidden.Value;
+            JavaScriptSerializer json_serializer = new JavaScriptSerializer();
+            List<DataItem> leftHandItemSerialize = (List<DataItem>)Newtonsoft.Json.JsonConvert.DeserializeObject(leftHandItems, typeof(List<DataItem>));
+            foreach (DataItem item in leftHandItemSerialize)
+            {
+                ClientService service = new ClientService { 
+                    ClientServicesId= System.Guid.NewGuid().ToString(),
+                    ServiceId=item.value
+                };
+                client.ClientServices.Add(service);
+            }
             if(update)
             {
                 List<Detail> details = (from d in DatabaseContext.Details where d.Type == Constants.DetailTypes.SERVICES_NEEDED && d.ClientId == client.ClientId select d).ToList();
@@ -190,18 +222,7 @@ namespace SWMPDD.Web.Referrals
                     DatabaseContext.Details.DeleteObject(detail);
                 }
             }                        
-            foreach (ListItem li in ServicesNeeded.Items)
-            {
-                if (li.Selected)
-                {
-                    Detail detail = new Detail();
-                    detail.CreationDate = DateTime.Now;
-                    detail.CreationUser = LoggedInUser.UserName;
-                    detail.Text = li.Text;
-                    detail.Type = Constants.DetailTypes.SERVICES_NEEDED;
-                    client.Details.Add(detail);
-                }
-            }
+
             if (update)
             {
                 List<ProvidersInProgress> providersInProgress = (from p in DatabaseContext.ProvidersInProgresses where p.ClientId == client.ClientId select p).ToList();

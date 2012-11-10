@@ -26,6 +26,42 @@
     </div>
     <div class="mainItem">
         <div class="itemImage">
+            <asp:Image ID="Image4" ImageUrl="~/img/greater_than.gif" runat="server" />
+        </div>
+        <div class="itemText" >
+            <asp:HyperLink ID="HyperLink4" NavigateUrl="~/Administer/AddService.aspx" runat="server">Add Service</asp:HyperLink>
+        </div>
+        <div style="clear:both"></div>
+    </div>
+    <div class="mainItem">
+        <div class="itemImage">
+            <asp:Image ID="Image5" ImageUrl="~/img/greater_than.gif" runat="server" />
+        </div>
+        <div class="itemText" >
+            <asp:HyperLink ID="HyperLink5" NavigateUrl="~/Administer/ManageServices.aspx" runat="server">Manage Services</asp:HyperLink>
+        </div>
+        <div style="clear:both"></div>
+    </div>
+        <div class="mainItem">
+        <div class="itemImage">
+            <asp:Image ID="Image6" ImageUrl="~/img/greater_than.gif" runat="server" />
+        </div>
+        <div class="itemText" >
+            <asp:HyperLink ID="HyperLink6" NavigateUrl="~/Administer/AddProvider.aspx" runat="server">Add Provider</asp:HyperLink>
+        </div>
+        <div style="clear:both"></div>
+    </div>
+    <div class="mainItem">
+        <div class="itemImage">
+            <asp:Image ID="Image7" ImageUrl="~/img/greater_than.gif" runat="server" />
+        </div>
+        <div class="itemText" >
+            <asp:HyperLink ID="HyperLink7" NavigateUrl="~/Administer/ManageProviders.aspx" runat="server">Manage Providers</asp:HyperLink>
+        </div>
+        <div style="clear:both"></div>
+    </div>
+    <div class="mainItem">
+        <div class="itemImage">
             <asp:Image ID="Image3" ImageUrl="~/img/greater_than.gif" runat="server" />
         </div>
         <div class="itemText" >

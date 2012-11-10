@@ -34,6 +34,9 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Newtonsoft.Json">
+      <HintPath>C:\Users\Ahmad Abdullah Saeed\Desktop\Json45r10\Bin\Net40\Newtonsoft.Json.dll</HintPath>
+    </Reference>
     <Reference Include="System.Data.Entity" />
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
@@ -52,6 +55,14 @@
     <Reference Include="System.EnterpriseServices" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Administer\AddProvider.aspx" />
+    <Content Include="Administer\AddService.aspx" />
+    <Content Include="Administer\AddUser.aspx" />
+    <Content Include="Administer\ChangePassword.aspx" />
+    <Content Include="Administer\ChangeUserPassword.aspx" />
+    <Content Include="Administer\ManageProviders.aspx" />
+    <Content Include="Administer\ManageServices.aspx" />
+    <Content Include="Administer\ManageUsers.aspx" />
     <Content Include="css\redmond\images\ui-bg_flat_0_aaaaaa_40x100.png" />
     <Content Include="css\redmond\images\ui-bg_flat_55_fbec88_40x100.png" />
     <Content Include="css\redmond\images\ui-bg_glass_75_d0e5f5_1x400.png" />
@@ -71,12 +82,17 @@
     <Content Include="css\swmpdd.login.css" />
     <Content Include="css\swmpdd.main.css" />
     <Content Include="Default.aspx" />
+    <Content Include="ForgotPassword.aspx" />
     <Content Include="img\error.png" />
     <Content Include="img\greater_than.gif" />
     <Content Include="img\Header_05_RMS.png" />
     <Content Include="img\Header_SWMPDD.gif" />
+    <Content Include="img\Left-Arrow-Disable.gif" />
+    <Content Include="img\Left-Arrow.gif" />
     <Content Include="img\Login-bkgrd.gif" />
     <Content Include="img\LogoSWMPDD_05.png" />
+    <Content Include="img\Right-Arrow-Disable.gif" />
+    <Content Include="img\Right-Arrow.gif" />
     <Content Include="img\success.png" />
     <Content Include="img\tab-blank-blue.png" />
     <Content Include="img\tab-blank-grey.png" />
@@ -90,6 +106,9 @@
     <Content Include="Referrals\AddReferral.aspx" />
     <Content Include="Referrals\Dashboard.aspx" />
     <Content Include="Referrals\Search.aspx" />
+    <Content Include="Reports\Management.aspx" />
+    <Content Include="Reports\State.aspx" />
+    <Content Include="Reports\WaitingList.aspx" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
@@ -101,12 +120,75 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Administer\AddProvider.aspx.cs">
+      <DependentUpon>AddProvider.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Administer\AddProvider.aspx.designer.cs">
+      <DependentUpon>AddProvider.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Administer\AddService.aspx.cs">
+      <DependentUpon>AddService.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Administer\AddService.aspx.designer.cs">
+      <DependentUpon>AddService.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Administer\AddUser.aspx.cs">
+      <DependentUpon>AddUser.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Administer\AddUser.aspx.designer.cs">
+      <DependentUpon>AddUser.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Administer\ChangePassword.aspx.cs">
+      <DependentUpon>ChangePassword.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Administer\ChangePassword.aspx.designer.cs">
+      <DependentUpon>ChangePassword.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Administer\ChangeUserPassword.aspx.cs">
+      <DependentUpon>ChangeUserPassword.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Administer\ChangeUserPassword.aspx.designer.cs">
+      <DependentUpon>ChangeUserPassword.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Administer\ManageProviders.aspx.cs">
+      <DependentUpon>ManageProviders.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Administer\ManageProviders.aspx.designer.cs">
+      <DependentUpon>ManageProviders.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Administer\ManageServices.aspx.cs">
+      <DependentUpon>ManageServices.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Administer\ManageServices.aspx.designer.cs">
+      <DependentUpon>ManageServices.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Administer\ManageUsers.aspx.cs">
+      <DependentUpon>ManageUsers.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Administer\ManageUsers.aspx.designer.cs">
+      <DependentUpon>ManageUsers.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Business\Common\Constants.cs" />
     <Compile Include="Business\Pages\AuthenticatedPage.cs">
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="Business\Pages\GenericPage.cs">
       <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Common\Administer.master.cs">
+      <DependentUpon>Administer.master</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Common\Administer.master.designer.cs">
+      <DependentUpon>Administer.master</DependentUpon>
     </Compile>
     <Compile Include="Common\Main.Master.cs">
       <DependentUpon>Main.Master</DependentUpon>
@@ -122,12 +204,26 @@
     <Compile Include="Common\Referrals.master.designer.cs">
       <DependentUpon>Referrals.master</DependentUpon>
     </Compile>
+    <Compile Include="Common\Reports.master.cs">
+      <DependentUpon>Reports.master</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Common\Reports.master.designer.cs">
+      <DependentUpon>Reports.master</DependentUpon>
+    </Compile>
     <Compile Include="Default.aspx.cs">
       <DependentUpon>Default.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="Default.aspx.designer.cs">
       <DependentUpon>Default.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ForgotPassword.aspx.cs">
+      <DependentUpon>ForgotPassword.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ForgotPassword.aspx.designer.cs">
+      <DependentUpon>ForgotPassword.aspx</DependentUpon>
     </Compile>
     <Compile Include="Login.aspx.cs">
       <DependentUpon>Login.aspx</DependentUpon>
@@ -158,6 +254,27 @@
     <Compile Include="Referrals\Search.aspx.designer.cs">
       <DependentUpon>Search.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Reports\Management.aspx.cs">
+      <DependentUpon>Management.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Reports\Management.aspx.designer.cs">
+      <DependentUpon>Management.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Reports\State.aspx.cs">
+      <DependentUpon>State.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Reports\State.aspx.designer.cs">
+      <DependentUpon>State.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Reports\WaitingList.aspx.cs">
+      <DependentUpon>WaitingList.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Reports\WaitingList.aspx.designer.cs">
+      <DependentUpon>WaitingList.aspx</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Content Include="Common\Referrals.master" />
@@ -170,6 +287,12 @@
       <Project>{91F7FE2A-F5A7-4CF8-B0AE-ED608C351C50}</Project>
       <Name>SWMPDD.Data</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Common\Administer.master" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Common\Reports.master" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" />

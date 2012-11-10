@@ -508,13 +508,58 @@ namespace SWMPDD.Web.Referrals {
         protected global::System.Web.UI.WebControls.RequiredFieldValidator rfvDiagnosis;
         
         /// <summary>
-        /// ServicesNeeded control.
+        /// ServicesNeededLeft control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.CheckBoxList ServicesNeeded;
+        protected global::System.Web.UI.WebControls.ListBox ServicesNeededLeft;
+        
+        /// <summary>
+        /// ServicesNeededLeftHidden control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.HiddenField ServicesNeededLeftHidden;
+        
+        /// <summary>
+        /// ImageButtonLeft control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.ImageButton ImageButtonLeft;
+        
+        /// <summary>
+        /// ImageButtonRight control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.ImageButton ImageButtonRight;
+        
+        /// <summary>
+        /// ServicesNeededRight control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.ListBox ServicesNeededRight;
+        
+        /// <summary>
+        /// ServicesNeededRightHidden control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.HiddenField ServicesNeededRightHidden;
         
         /// <summary>
         /// pnlCurrentServices control.
