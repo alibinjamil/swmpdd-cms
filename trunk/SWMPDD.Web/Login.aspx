@@ -36,7 +36,7 @@
                     <div style="clear:both"></div>
                 </div>
                 <div class="textRow">
-                    <div class="col2">Forgot password? <a href="">Click here</a></div>
+                    <div class="col2">Forgot password? <a href="ForgotPassword.aspx">Click here</a></div>
                     <div class="col1">&nbsp;</div>
                     <div style="clear:both"></div>
                 </div>

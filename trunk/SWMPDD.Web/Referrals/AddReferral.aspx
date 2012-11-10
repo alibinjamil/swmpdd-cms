@@ -1,4 +1,4 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Common/Referrals.master" AutoEventWireup="true" CodeBehind="AddReferral.aspx.cs" Inherits="SWMPDD.Web.Referrals.AddReferral" %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Common/Referrals.master" AutoEventWireup="true" EnableEventValidation="false" CodeBehind="AddReferral.aspx.cs" Inherits="SWMPDD.Web.Referrals.AddReferral" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="HeadContentPlaceHolder" runat="server">
     <style type="text/css">
         .col1{ float:left;width:30%;}
@@ -6,14 +6,115 @@
         .col3{ float:left;width:20%;}
     </style>
     <script type="text/javascript">
+        var leftArray = new Array();
+        var rightArray = new Array();
         $(function () {
             $('#IntakeDate').datepicker();
             $('#DateOfBirth').datepicker();
             $('#VerificationDate').datepicker();
             $('#DateClientContacted').datepicker();
             $('#RemovalDate').datepicker();
+            checkItem();
+            checkMove();
         });
+        function checkItem() {
+            var jsonObject = $.parseJSON($("#<%=ServicesNeededLeftHidden.ClientID%>").val());
+            if (jsonObject != null && jsonObject != "") {
+                leftArray = jsonObject;
+                $.each(leftArray, function (index, item) {
+                    if ($("#<%=ServicesNeededLeft.ClientID%> option[value='" + item.value + "']").length <= 0) {
+                        $("#<%=ServicesNeededLeft.ClientID%>").append("<option value=" + item.value + ">" + item.text + "</option>");
+                    }
+                });
+            }
+            var jsonObject = $.parseJSON($("#<%=ServicesNeededRightHidden.ClientID%>").val());
+            if (jsonObject != null && jsonObject != "") {
+                rightArray = jsonObject;
+                $.each(rightArray, function (index, item) {
+                    if ($("#<%=ServicesNeededRight.ClientID%> option[value='" + item.value + "']").length <= 0) {
+                        $("#<%=ServicesNeededRight.ClientID%>").append("<option value=" + item.value + ">" + item.text + "</option>");
+                    }
+                });
+            }
+            if (leftArray != null) {
+                $.each(leftArray, function (index, item) {
+                    $("#<%=ServicesNeededRight.ClientID%> option[value='" + item.value + "']").remove();
+                });
+            }
+            if (rightArray != null) {
+                $.each(rightArray, function (index, item) {
+                    $("#<%=ServicesNeededLeft.ClientID%> option[value='" + item.value + "']").remove();
+                });
+            }
+        }
+        function checkMove() {
+            if ($("#<%=ServicesNeededRight.ClientID%> option").size() == 0 && $("#<%=ServicesNeededLeft.ClientID%> option").size() == 0) {
+                $("#<%=ImageButtonRight.ClientID%>").attr("src", "../img/Right-Arrow-Disable.gif");
+                $("#<%=ImageButtonLeft.ClientID%>").attr("src", "../img/Left-Arrow-Disable.gif");
+                $("#<%=ImageButtonRight.ClientID%>").attr("disabled", true);
+                $("#<%=ImageButtonLeft.ClientID%>").attr("disabled", true);
+            } else if ($("#<%=ServicesNeededRight.ClientID%> option").size() == 0 && $("#<%=ServicesNeededLeft.ClientID%> option").size() != 0) {
+                $("#<%=ImageButtonRight.ClientID%>").attr("src", "../img/Right-Arrow.gif");
+                $("#<%=ImageButtonLeft.ClientID%>").attr("src", "../img/Left-Arrow-Disable.gif");
+                $("#<%=ImageButtonRight.ClientID%>").attr("disabled", false);
+                $("#<%=ImageButtonLeft.ClientID%>").attr("disabled", true);
+            } else if ($("#<%=ServicesNeededRight.ClientID%> option").size() != 0 && $("#<%=ServicesNeededLeft.ClientID%> option").size() == 0) {
+                $("#<%=ImageButtonRight.ClientID%>").attr("src", "../img/Right-Arrow-Disable.gif");
+                $("#<%=ImageButtonLeft.ClientID%>").attr("src", "../img/Left-Arrow.gif");
+                $("#<%=ImageButtonRight.ClientID%>").attr("disabled", true);
+                $("#<%=ImageButtonLeft.ClientID%>").attr("disabled", false);
+            } else if ($("#<%=ServicesNeededRight.ClientID%> option").size() != 0 && $("#<%=ServicesNeededLeft.ClientID%> option").size() != 0) {
+                $("#<%=ImageButtonRight.ClientID%>").attr("src", "../img/Right-Arrow.gif");
+                $("#<%=ImageButtonLeft.ClientID%>").attr("src", "../img/Left-Arrow.gif");
+                $("#<%=ImageButtonRight.ClientID%>").attr("disabled", false);
+                $("#<%=ImageButtonLeft.ClientID%>").attr("disabled", false);
+            }
+        }
+        
+        function moveLeft() {
+            $("#<%=ServicesNeededRight.ClientID%> option:selected").each(function (index, item) {
+                var data = new Object();
+                data.value = $(item).val();
+                data.text = $(item).text();
+                leftArray.push(data);
+                if (rightArray != null) {
+                    $.each(rightArray, function (i) {
+                        if (rightArray[i].value === data.value) {
+                            rightArray.splice(i, 1);
+                            $("#<%=ServicesNeededRightHidden.ClientID%>").val(JSON.stringify(rightArray));
+                            return false;
+                        }
+                    });
+                }
+                $("#<%=ServicesNeededLeft.ClientID%>").append(item);
+            });
+            $("#<%=ServicesNeededLeftHidden.ClientID%>").val(JSON.stringify(leftArray));
+            checkMove();
+            return false;
+        }
+        function moveRight() {
+            $("#<%=ServicesNeededLeft.ClientID%> option:selected").each(function (index, item) {
+                var data = new Object();
+                data.value = $(item).val();
+                data.text = $(item).text();
+                rightArray.push(data);
+                if (leftArray != null) {
+                    $.each(leftArray, function (i) {
+                        if (leftArray[i].value === data.value){
+                            leftArray.splice(i, 1);
+                            $("#<%=ServicesNeededLeftHidden.ClientID%>").val(JSON.stringify(leftArray));
+                            return false;
+                        }
+                    });
+                }
+                $("#<%=ServicesNeededRight.ClientID%>").append(item);
+            });
+            $("#<%=ServicesNeededRightHidden.ClientID%>").val(JSON.stringify(rightArray));
+            checkMove();
+            return false;
+        }
     </script>
+
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContentPlaceHolder" runat="server">
     <div style="padding-left:10px;">
@@ -282,16 +383,26 @@
         </div>
         <div>
             <div class="col1">Service(s) Needed:</div>
-            <div class="col2">
-                <asp:CheckBoxList ID="ServicesNeeded" RepeatDirection="Horizontal" RepeatColumns="3" runat="server">                
-                    <asp:ListItem value="Homemaker">Homemaker</asp:ListItem>
-                    <asp:ListItem value="Home Delivered Meals">Home Delivered Meals</asp:ListItem>
-                    <asp:ListItem value="In Home Respite">In Home Respite</asp:ListItem>
-                    <asp:ListItem value="Escorted Transportation">Escorted Transportation</asp:ListItem>
-                    <asp:ListItem value="Adult Day Care">Adult Day Care</asp:ListItem>
-                    <asp:ListItem value="Home Health">Home Health</asp:ListItem>
-                    <asp:ListItem value="Institution Respite">Institution Respite</asp:ListItem>
-                </asp:CheckBoxList>
+            <div class="col2" style="width:700px">
+                <div style="width:200px;float:left">
+                    <asp:ListBox ID="ServicesNeededLeft" DataTextField="Name"  DataValueField="ServiceId" SelectionMode="Multiple" RepeatDirection="Horizontal" runat="server" style="min-width:200px;max-width:200px;height:200px;">
+                    </asp:ListBox>
+                    <asp:HiddenField ID="ServicesNeededLeftHidden" runat="server"/>
+                </div>
+                <div style="width:50px;float:left">
+                    <div style="padding:10px;">
+                    <asp:ImageButton ID="ImageButtonLeft" OnClientClick="return moveLeft()" runat="server" ImageUrl="~/img/Left-Arrow.gif" style="width:30px;height:30px"/>
+                    </div>
+                    <div style="padding:10px;">
+                    <asp:ImageButton ID="ImageButtonRight"  OnClientClick="return moveRight()" runat="server" ImageUrl="~/img/Right-Arrow.gif" style="width:30px;height:30px"/>
+                    </div>
+                </div>
+                <div style="width:200px;float:left">
+                    <asp:ListBox ID="ServicesNeededRight" DataTextField="Name"  DataValueField="ServiceId" SelectionMode="Multiple" RepeatDirection="Horizontal" runat="server" style="min-width:200px;max-width:200px;height:200px;">
+                    </asp:ListBox>
+                    <asp:HiddenField ID="ServicesNeededRightHidden" runat="server"/>
+                </div>
+                <div style="clear:both"></div>
             </div>
             <div class="col3"></div>
             <div class="clear"></div>
@@ -565,4 +676,5 @@
             <asp:Button runat="server" ID="btnSave" onclick="btnSave_Click" Text="Save Referral"/>
         </div>
     </div>
+
 </asp:Content>
