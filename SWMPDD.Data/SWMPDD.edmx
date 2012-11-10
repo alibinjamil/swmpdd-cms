@@ -7,6 +7,7 @@
     <Schema Namespace="SWMPDDModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/02/edm/ssdl">
         <EntityContainer Name="SWMPDDModelStoreContainer">
           <EntitySet Name="Clients" EntityType="SWMPDDModel.Store.Clients" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="ClientServices" EntityType="SWMPDDModel.Store.ClientServices" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="Details" EntityType="SWMPDDModel.Store.Details" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="Documents" EntityType="SWMPDDModel.Store.Documents" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="HomeVisits" EntityType="SWMPDDModel.Store.HomeVisits" store:Type="Tables" Schema="dbo" />
@@ -14,9 +15,21 @@
           <EntitySet Name="PlanOfCare" EntityType="SWMPDDModel.Store.PlanOfCare" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="POCNeed" EntityType="SWMPDDModel.Store.POCNeed" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="POCService" EntityType="SWMPDDModel.Store.POCService" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="ProviderCounties" EntityType="SWMPDDModel.Store.ProviderCounties" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="Providers" EntityType="SWMPDDModel.Store.Providers" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="ProviderServices" EntityType="SWMPDDModel.Store.ProviderServices" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="ProvidersInProgress" EntityType="SWMPDDModel.Store.ProvidersInProgress" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="Services" EntityType="SWMPDDModel.Store.Services" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="Users" EntityType="SWMPDDModel.Store.Users" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="Versions" EntityType="SWMPDDModel.Store.Versions" store:Type="Tables" Schema="dbo" />
+          <AssociationSet Name="FK_ClientServices_Clients" Association="SWMPDDModel.Store.FK_ClientServices_Clients">
+            <End Role="Clients" EntitySet="Clients" />
+            <End Role="ClientServices" EntitySet="ClientServices" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ClientServices_Services" Association="SWMPDDModel.Store.FK_ClientServices_Services">
+            <End Role="Services" EntitySet="Services" />
+            <End Role="ClientServices" EntitySet="ClientServices" />
+          </AssociationSet>
           <AssociationSet Name="FK_Details_Clients" Association="SWMPDDModel.Store.FK_Details_Clients">
             <End Role="Clients" EntitySet="Clients" />
             <End Role="Details" EntitySet="Details" />
@@ -48,6 +61,18 @@
           <AssociationSet Name="FK_POCService_PlanOfCare" Association="SWMPDDModel.Store.FK_POCService_PlanOfCare">
             <End Role="PlanOfCare" EntitySet="PlanOfCare" />
             <End Role="POCService" EntitySet="POCService" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ProviderCounties_Providers" Association="SWMPDDModel.Store.FK_ProviderCounties_Providers">
+            <End Role="Providers" EntitySet="Providers" />
+            <End Role="ProviderCounties" EntitySet="ProviderCounties" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ProviderServices_Providers" Association="SWMPDDModel.Store.FK_ProviderServices_Providers">
+            <End Role="Providers" EntitySet="Providers" />
+            <End Role="ProviderServices" EntitySet="ProviderServices" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ProviderServices_Services" Association="SWMPDDModel.Store.FK_ProviderServices_Services">
+            <End Role="Services" EntitySet="Services" />
+            <End Role="ProviderServices" EntitySet="ProviderServices" />
           </AssociationSet>
           <AssociationSet Name="FK_ProvidersInProgress_Clients" Association="SWMPDDModel.Store.FK_ProvidersInProgress_Clients">
             <End Role="Clients" EntitySet="Clients" />
@@ -115,6 +140,14 @@
           <Property Name="StatusText" Type="varchar" MaxLength="500" />
           <Property Name="RemovalDate" Type="date" />
           <Property Name="ParticipantId" Type="int" />
+        </EntityType>
+        <EntityType Name="ClientServices">
+          <Key>
+            <PropertyRef Name="ClientServicesId" />
+          </Key>
+          <Property Name="ClientServicesId" Type="varchar" Nullable="false" MaxLength="50" />
+          <Property Name="ServiceId" Type="varchar" MaxLength="50" />
+          <Property Name="ClientId" Type="varchar" MaxLength="50" />
         </EntityType>
         <EntityType Name="Details">
           <Key>
@@ -274,6 +307,40 @@
           <Property Name="ServiceType" Type="varchar" MaxLength="50" />
           <Property Name="CreationDate" Type="datetime" />
         </EntityType>
+        <EntityType Name="ProviderCounties">
+          <Key>
+            <PropertyRef Name="ProviderCountiesId" />
+          </Key>
+          <Property Name="ProviderCountiesId" Type="varchar" Nullable="false" MaxLength="50" />
+          <Property Name="ProviderId" Type="varchar" MaxLength="50" />
+          <Property Name="County" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="Providers">
+          <Key>
+            <PropertyRef Name="ProviderId" />
+          </Key>
+          <Property Name="ProviderId" Type="varchar" Nullable="false" MaxLength="50" />
+          <Property Name="Name" Type="varchar" MaxLength="50" />
+          <Property Name="Phone" Type="varchar" MaxLength="50" />
+          <Property Name="Fax" Type="varchar" MaxLength="50" />
+          <Property Name="Address" Type="varchar" MaxLength="50" />
+          <Property Name="City" Type="varchar" MaxLength="50" />
+          <Property Name="State" Type="varchar" MaxLength="50" />
+          <Property Name="Zip" Type="varchar" MaxLength="50" />
+          <Property Name="Email" Type="varchar" MaxLength="100" />
+          <Property Name="CreationTime" Type="datetime" />
+          <Property Name="CreationUser" Type="varchar" MaxLength="50" />
+          <Property Name="LastUpdateUser" Type="varchar" MaxLength="50" />
+          <Property Name="LastUpdateTime" Type="datetime" />
+        </EntityType>
+        <EntityType Name="ProviderServices">
+          <Key>
+            <PropertyRef Name="ProviderServiceId" />
+          </Key>
+          <Property Name="ProviderServiceId" Type="varchar" Nullable="false" MaxLength="50" />
+          <Property Name="ProviderId" Type="varchar" MaxLength="50" />
+          <Property Name="ServiceId" Type="varchar" MaxLength="50" />
+        </EntityType>
         <EntityType Name="ProvidersInProgress">
           <Key>
             <PropertyRef Name="ProviderId" />
@@ -285,6 +352,23 @@
           <Property Name="Provider" Type="varchar" MaxLength="50" />
           <Property Name="CreationDate" Type="datetime" Nullable="false" />
           <Property Name="CreationUser" Type="varchar" Nullable="false" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="Services">
+          <Key>
+            <PropertyRef Name="ServiceId" />
+          </Key>
+          <Property Name="ServiceId" Type="varchar" Nullable="false" MaxLength="50" />
+          <Property Name="Name" Type="varchar" MaxLength="50" />
+          <Property Name="WaiverOrNW" Type="bit" />
+          <Property Name="Code" Type="varchar" MaxLength="50" />
+          <Property Name="Type" Type="varchar" MaxLength="50" />
+          <Property Name="Description" Type="varchar" MaxLength="150" />
+          <Property Name="ServiceUCount" Type="varchar" MaxLength="50" />
+          <Property Name="Active" Type="bit" />
+          <Property Name="LastUpdateTime" Type="datetime" />
+          <Property Name="LastUpdateUser" Type="varchar" MaxLength="50" />
+          <Property Name="CreationTime" Type="datetime" />
+          <Property Name="CreationUser" Type="varchar" MaxLength="50" />
         </EntityType>
         <EntityType Name="Users">
           <Key>
@@ -325,6 +409,34 @@
           <Property Name="StartDate" Type="datetime" Nullable="false" />
           <Property Name="EndDate" Type="datetime" />
         </EntityType>
+        <Association Name="FK_ClientServices_Clients">
+          <End Role="Clients" Type="SWMPDDModel.Store.Clients" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="ClientServices" Type="SWMPDDModel.Store.ClientServices" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Clients">
+              <PropertyRef Name="ClientId" />
+            </Principal>
+            <Dependent Role="ClientServices">
+              <PropertyRef Name="ClientId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ClientServices_Services">
+          <End Role="Services" Type="SWMPDDModel.Store.Services" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="ClientServices" Type="SWMPDDModel.Store.ClientServices" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Services">
+              <PropertyRef Name="ServiceId" />
+            </Principal>
+            <Dependent Role="ClientServices">
+              <PropertyRef Name="ServiceId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Details_Clients">
           <End Role="Clients" Type="SWMPDDModel.Store.Clients" Multiplicity="1">
             <OnDelete Action="Cascade" />
@@ -437,6 +549,48 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_ProviderCounties_Providers">
+          <End Role="Providers" Type="SWMPDDModel.Store.Providers" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="ProviderCounties" Type="SWMPDDModel.Store.ProviderCounties" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Providers">
+              <PropertyRef Name="ProviderId" />
+            </Principal>
+            <Dependent Role="ProviderCounties">
+              <PropertyRef Name="ProviderId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ProviderServices_Providers">
+          <End Role="Providers" Type="SWMPDDModel.Store.Providers" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="ProviderServices" Type="SWMPDDModel.Store.ProviderServices" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Providers">
+              <PropertyRef Name="ProviderId" />
+            </Principal>
+            <Dependent Role="ProviderServices">
+              <PropertyRef Name="ProviderId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ProviderServices_Services">
+          <End Role="Services" Type="SWMPDDModel.Store.Services" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="ProviderServices" Type="SWMPDDModel.Store.ProviderServices" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Services">
+              <PropertyRef Name="ServiceId" />
+            </Principal>
+            <Dependent Role="ProviderServices">
+              <PropertyRef Name="ServiceId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_ProvidersInProgress_Clients">
           <End Role="Clients" Type="SWMPDDModel.Store.Clients" Multiplicity="1">
             <OnDelete Action="Cascade" />
@@ -502,6 +656,31 @@
           <AssociationSet Name="FK_HomeVisitServices_HomeVisits" Association="SWMPDDModel.FK_HomeVisitServices_HomeVisits">
             <End Role="HomeVisit" EntitySet="HomeVisits" />
             <End Role="HomeVisitService" EntitySet="HomeVisitServices" />
+          </AssociationSet>
+          <EntitySet Name="ClientServices" EntityType="SWMPDDModel.ClientService" />
+          <EntitySet Name="ProviderCounties" EntityType="SWMPDDModel.ProviderCounty" />
+          <EntitySet Name="Providers" EntityType="SWMPDDModel.Provider" />
+          <EntitySet Name="ProviderServices" EntityType="SWMPDDModel.ProviderService" />
+          <EntitySet Name="Services" EntityType="SWMPDDModel.Service" />
+          <AssociationSet Name="FK_ClientServices_Clients" Association="SWMPDDModel.FK_ClientServices_Clients">
+            <End Role="Client" EntitySet="Clients" />
+            <End Role="ClientService" EntitySet="ClientServices" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ClientServices_Services" Association="SWMPDDModel.FK_ClientServices_Services">
+            <End Role="Service" EntitySet="Services" />
+            <End Role="ClientService" EntitySet="ClientServices" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ProviderCounties_Providers" Association="SWMPDDModel.FK_ProviderCounties_Providers">
+            <End Role="Provider" EntitySet="Providers" />
+            <End Role="ProviderCounty" EntitySet="ProviderCounties" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ProviderServices_Providers" Association="SWMPDDModel.FK_ProviderServices_Providers">
+            <End Role="Provider" EntitySet="Providers" />
+            <End Role="ProviderService" EntitySet="ProviderServices" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ProviderServices_Services" Association="SWMPDDModel.FK_ProviderServices_Services">
+            <End Role="Service" EntitySet="Services" />
+            <End Role="ProviderService" EntitySet="ProviderServices" />
           </AssociationSet>
         </EntityContainer>
         <EntityType Name="Client">
@@ -570,6 +749,7 @@
           <Property Type="DateTime" Name="RemovalDate" />
           <NavigationProperty Name="PlanOfCares" Relationship="SWMPDDModel.FK_PlanOfCare_Clients" FromRole="Client" ToRole="PlanOfCare" />
           <NavigationProperty Name="HomeVisits" Relationship="SWMPDDModel.FK_HomeVisits_Clients" FromRole="Client" ToRole="HomeVisit" />
+          <NavigationProperty Name="ClientServices" Relationship="SWMPDDModel.FK_ClientServices_Clients" FromRole="Client" ToRole="ClientService" />
         </EntityType>
         <EntityType Name="Detail">
           <Key>
@@ -901,6 +1081,134 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="ClientService">
+          <Key>
+            <PropertyRef Name="ClientServicesId" />
+          </Key>
+          <Property Type="String" Name="ClientServicesId" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="ServiceId" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="ClientId" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Client" Relationship="SWMPDDModel.FK_ClientServices_Clients" FromRole="ClientService" ToRole="Client" />
+          <NavigationProperty Name="Service" Relationship="SWMPDDModel.FK_ClientServices_Services" FromRole="ClientService" ToRole="Service" />
+        </EntityType>
+        <EntityType Name="ProviderCounty">
+          <Key>
+            <PropertyRef Name="ProviderCountiesId" />
+          </Key>
+          <Property Type="String" Name="ProviderCountiesId" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="ProviderId" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="County" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Provider" Relationship="SWMPDDModel.FK_ProviderCounties_Providers" FromRole="ProviderCounty" ToRole="Provider" />
+        </EntityType>
+        <EntityType Name="Provider">
+          <Key>
+            <PropertyRef Name="ProviderId" />
+          </Key>
+          <Property Type="String" Name="ProviderId" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="Name" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="Phone" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="Fax" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="Address" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="City" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="State" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="Zip" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="Email" MaxLength="100" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="ProviderCounties" Relationship="SWMPDDModel.FK_ProviderCounties_Providers" FromRole="Provider" ToRole="ProviderCounty" />
+          <NavigationProperty Name="ProviderServices" Relationship="SWMPDDModel.FK_ProviderServices_Providers" FromRole="Provider" ToRole="ProviderService" />
+          <Property Type="DateTime" Name="CreationTime" />
+          <Property Type="String" Name="CreationUser" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="LastUpdateUser" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="DateTime" Name="LastUpdateTime" />
+        </EntityType>
+        <EntityType Name="ProviderService">
+          <Key>
+            <PropertyRef Name="ProviderServiceId" />
+          </Key>
+          <Property Type="String" Name="ProviderServiceId" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="ProviderId" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="ServiceId" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Provider" Relationship="SWMPDDModel.FK_ProviderServices_Providers" FromRole="ProviderService" ToRole="Provider" />
+          <NavigationProperty Name="Service" Relationship="SWMPDDModel.FK_ProviderServices_Services" FromRole="ProviderService" ToRole="Service" />
+        </EntityType>
+        <EntityType Name="Service">
+          <Key>
+            <PropertyRef Name="ServiceId" />
+          </Key>
+          <Property Type="String" Name="ServiceId" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="Name" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="Boolean" Name="WaiverOrNW" />
+          <Property Type="String" Name="Code" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="Type" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="Description" MaxLength="150" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="ServiceUCount" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="Boolean" Name="Active" />
+          <NavigationProperty Name="ClientServices" Relationship="SWMPDDModel.FK_ClientServices_Services" FromRole="Service" ToRole="ClientService" />
+          <NavigationProperty Name="ProviderServices" Relationship="SWMPDDModel.FK_ProviderServices_Services" FromRole="Service" ToRole="ProviderService" />
+          <Property Type="DateTime" Name="LastUpdateTime" />
+          <Property Type="String" Name="LastUpdateUser" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="DateTime" Name="CreationTime" />
+          <Property Type="String" Name="CreationUser" MaxLength="50" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <Association Name="FK_ClientServices_Clients">
+          <End Type="SWMPDDModel.Client" Role="Client" Multiplicity="0..1" />
+          <End Type="SWMPDDModel.ClientService" Role="ClientService" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Client">
+              <PropertyRef Name="ClientId" />
+            </Principal>
+            <Dependent Role="ClientService">
+              <PropertyRef Name="ClientId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ClientServices_Services">
+          <End Type="SWMPDDModel.Service" Role="Service" Multiplicity="0..1" />
+          <End Type="SWMPDDModel.ClientService" Role="ClientService" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Service">
+              <PropertyRef Name="ServiceId" />
+            </Principal>
+            <Dependent Role="ClientService">
+              <PropertyRef Name="ServiceId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ProviderCounties_Providers">
+          <End Type="SWMPDDModel.Provider" Role="Provider" Multiplicity="0..1" />
+          <End Type="SWMPDDModel.ProviderCounty" Role="ProviderCounty" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Provider">
+              <PropertyRef Name="ProviderId" />
+            </Principal>
+            <Dependent Role="ProviderCounty">
+              <PropertyRef Name="ProviderId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ProviderServices_Providers">
+          <End Type="SWMPDDModel.Provider" Role="Provider" Multiplicity="0..1" />
+          <End Type="SWMPDDModel.ProviderService" Role="ProviderService" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Provider">
+              <PropertyRef Name="ProviderId" />
+            </Principal>
+            <Dependent Role="ProviderService">
+              <PropertyRef Name="ProviderId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ProviderServices_Services">
+          <End Type="SWMPDDModel.Service" Role="Service" Multiplicity="0..1" />
+          <End Type="SWMPDDModel.ProviderService" Role="ProviderService" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Service">
+              <PropertyRef Name="ServiceId" />
+            </Principal>
+            <Dependent Role="ProviderService">
+              <PropertyRef Name="ServiceId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -1189,6 +1497,70 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="ClientServices">
+            <EntityTypeMapping TypeName="SWMPDDModel.ClientService">
+              <MappingFragment StoreEntitySet="ClientServices">
+                <ScalarProperty Name="ClientId" ColumnName="ClientId" />
+                <ScalarProperty Name="ServiceId" ColumnName="ServiceId" />
+                <ScalarProperty Name="ClientServicesId" ColumnName="ClientServicesId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ProviderCounties">
+            <EntityTypeMapping TypeName="SWMPDDModel.ProviderCounty">
+              <MappingFragment StoreEntitySet="ProviderCounties">
+                <ScalarProperty Name="County" ColumnName="County" />
+                <ScalarProperty Name="ProviderId" ColumnName="ProviderId" />
+                <ScalarProperty Name="ProviderCountiesId" ColumnName="ProviderCountiesId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Providers">
+            <EntityTypeMapping TypeName="SWMPDDModel.Provider">
+              <MappingFragment StoreEntitySet="Providers">
+                <ScalarProperty Name="LastUpdateTime" ColumnName="LastUpdateTime" />
+                <ScalarProperty Name="LastUpdateUser" ColumnName="LastUpdateUser" />
+                <ScalarProperty Name="CreationUser" ColumnName="CreationUser" />
+                <ScalarProperty Name="CreationTime" ColumnName="CreationTime" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Zip" ColumnName="Zip" />
+                <ScalarProperty Name="State" ColumnName="State" />
+                <ScalarProperty Name="City" ColumnName="City" />
+                <ScalarProperty Name="Address" ColumnName="Address" />
+                <ScalarProperty Name="Fax" ColumnName="Fax" />
+                <ScalarProperty Name="Phone" ColumnName="Phone" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="ProviderId" ColumnName="ProviderId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ProviderServices">
+            <EntityTypeMapping TypeName="SWMPDDModel.ProviderService">
+              <MappingFragment StoreEntitySet="ProviderServices">
+                <ScalarProperty Name="ServiceId" ColumnName="ServiceId" />
+                <ScalarProperty Name="ProviderId" ColumnName="ProviderId" />
+                <ScalarProperty Name="ProviderServiceId" ColumnName="ProviderServiceId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Services">
+            <EntityTypeMapping TypeName="SWMPDDModel.Service">
+              <MappingFragment StoreEntitySet="Services">
+                <ScalarProperty Name="CreationUser" ColumnName="CreationUser" />
+                <ScalarProperty Name="CreationTime" ColumnName="CreationTime" />
+                <ScalarProperty Name="LastUpdateUser" ColumnName="LastUpdateUser" />
+                <ScalarProperty Name="LastUpdateTime" ColumnName="LastUpdateTime" />
+                <ScalarProperty Name="Active" ColumnName="Active" />
+                <ScalarProperty Name="ServiceUCount" ColumnName="ServiceUCount" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Type" ColumnName="Type" />
+                <ScalarProperty Name="Code" ColumnName="Code" />
+                <ScalarProperty Name="WaiverOrNW" ColumnName="WaiverOrNW" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="ServiceId" ColumnName="ServiceId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
@@ -1209,10 +1581,10 @@
     </Options>
     <!-- Diagram content (shape and connector positions) -->
     <Diagrams>
-      <Diagram Name="SWMPDD" ZoomLevel="82">
+      <Diagram Name="SWMPDD" ZoomLevel="67">
         <EntityTypeShape EntityType="SWMPDDModel.Client" Width="1.5" PointX="0.75" PointY="2" Height="12.364563802083332" />
         <EntityTypeShape EntityType="SWMPDDModel.Detail" Width="1.5" PointX="3" PointY="5.375" Height="2.3648893229166674" />
-        <EntityTypeShape EntityType="SWMPDDModel.Document" Width="1.5" PointX="6" PointY="7" Height="2.5571907552083317" />
+        <EntityTypeShape EntityType="SWMPDDModel.Document" Width="1.5" PointX="6.25" PointY="3.875" Height="2.5571907552083317" />
         <EntityTypeShape EntityType="SWMPDDModel.ProvidersInProgress" Width="1.5" PointX="3" PointY="11.75" Height="2.5571907552083317" />
         <EntityTypeShape EntityType="SWMPDDModel.User" Width="1.5" PointX="8.75" PointY="1.375" Height="4.8648079427083317" />
         <EntityTypeShape EntityType="SWMPDDModel.Version" Width="1.5" PointX="3.75" PointY="0.75" Height="2.9417936197916674" />
@@ -1221,17 +1593,17 @@
           <ConnectorPoint PointX="3" PointY="6.5574446614583337" />
         </AssociationConnector>
         <AssociationConnector Association="SWMPDDModel.FK_Documents_Clients" >
-          <ConnectorPoint PointX="2.25" PointY="8.9460139680989563" />
-          <ConnectorPoint PointX="6" PointY="8.9460139680989563" />
+          <ConnectorPoint PointX="2.25" PointY="4.59375" />
+          <ConnectorPoint PointX="6.25" PointY="4.59375" />
         </AssociationConnector>
         <AssociationConnector Association="SWMPDDModel.FK_ProvidersInProgress_Clients" >
           <ConnectorPoint PointX="2.25" PointY="13.028595377604166" />
           <ConnectorPoint PointX="3" PointY="13.028595377604166" />
         </AssociationConnector>
         <AssociationConnector Association="SWMPDDModel.FK_Documents_Versions" >
-          <ConnectorPoint PointX="4.90625" PointY="3.6917936197916674" />
-          <ConnectorPoint PointX="4.90625" PointY="8.2098371809895827" />
-          <ConnectorPoint PointX="6" PointY="8.2098371809895827" />
+          <ConnectorPoint PointX="5.25" PointY="2.2208968098958337" />
+          <ConnectorPoint PointX="7" PointY="2.2208968098958337" />
+          <ConnectorPoint PointX="7" PointY="3.875" />
         </AssociationConnector>
         <EntityTypeShape EntityType="SWMPDDModel.HomeVisit" Width="1.5" PointX="3" PointY="15.375" Height="11.787659505208339" />
         <EntityTypeShape EntityType="SWMPDDModel.HomeVisitService" Width="1.5" PointX="5.25" PointY="19.875" Height="2.9417936197916674" />
@@ -1239,8 +1611,8 @@
         <EntityTypeShape EntityType="SWMPDDModel.POCNeed" Width="1.5" PointX="5.25" PointY="28.625" Height="2.3648893229166674" />
         <EntityTypeShape EntityType="SWMPDDModel.POCService" Width="1.5" PointX="5.25" PointY="31.75" Height="4.4802050781250067" />
         <AssociationConnector Association="SWMPDDModel.FK_PlanOfCare_Clients" >
-          <ConnectorPoint PointX="1.5" PointY="14.941468098958334" />
-          <ConnectorPoint PointX="1.5" PointY="32.442006835937505" />
+          <ConnectorPoint PointX="1.2773446875" PointY="15.13376953125" />
+          <ConnectorPoint PointX="1.2773446875" PointY="32.442006835937505" />
           <ConnectorPoint PointX="3" PointY="32.442006835937505" />
         </AssociationConnector>
         <AssociationConnector Association="SWMPDDModel.FK_POCNeed_PlanOfCare" >
@@ -1252,13 +1624,39 @@
           <ConnectorPoint PointX="5.25" PointY="33.504506835937505" />
         </AssociationConnector>
         <AssociationConnector Association="SWMPDDModel.FK_HomeVisits_Clients" >
-          <ConnectorPoint PointX="1.9062525" PointY="14.941468098958334" />
-          <ConnectorPoint PointX="1.9062525" PointY="21.557281901041669" />
+          <ConnectorPoint PointX="1.79492484375" PointY="15.13376953125" />
+          <ConnectorPoint PointX="1.79492484375" PointY="21.557281901041669" />
           <ConnectorPoint PointX="3" PointY="21.557281901041669" />
         </AssociationConnector>
         <AssociationConnector Association="SWMPDDModel.FK_HomeVisitServices_HomeVisits" >
           <ConnectorPoint PointX="4.5" PointY="21.442047526041669" />
           <ConnectorPoint PointX="5.25" PointY="21.442047526041669" />
+        </AssociationConnector>
+        <EntityTypeShape EntityType="SWMPDDModel.ClientService" Width="1.5" PointX="10.625" PointY="7.625" Height="1.9802864583333317" />
+        <EntityTypeShape EntityType="SWMPDDModel.ProviderCounty" Width="1.5" PointX="10.625" PointY="13.5" Height="1.7879850260416674" />
+        <EntityTypeShape EntityType="SWMPDDModel.Provider" Width="1.5" PointX="8.375" PointY="12.875" Height="3.1340950520833388" />
+        <EntityTypeShape EntityType="SWMPDDModel.ProviderService" Width="1.5" PointX="12.875" PointY="10.75" Height="1.9802864583333388" />
+        <EntityTypeShape EntityType="SWMPDDModel.Service" Width="1.5" PointX="8.375" PointY="9" Height="2.9417936197916674" />
+        <AssociationConnector Association="SWMPDDModel.FK_ClientServices_Clients" >
+          <ConnectorPoint PointX="2.25" PointY="8.3699446614583337" />
+          <ConnectorPoint PointX="10.625" PointY="8.3699446614583337" />
+        </AssociationConnector>
+        <AssociationConnector Association="SWMPDDModel.FK_ClientServices_Services" >
+          <ConnectorPoint PointX="9.875" PointY="9.3026432291666659" />
+          <ConnectorPoint PointX="10.625" PointY="9.3026432291666659" />
+        </AssociationConnector>
+        <AssociationConnector Association="SWMPDDModel.FK_ProviderCounties_Providers" >
+          <ConnectorPoint PointX="9.875" PointY="14.393992513020834" />
+          <ConnectorPoint PointX="10.625" PointY="14.393992513020834" />
+        </AssociationConnector>
+        <AssociationConnector Association="SWMPDDModel.FK_ProviderServices_Providers" >
+          <ConnectorPoint PointX="9.875" PointY="15.679790039062503" />
+          <ConnectorPoint PointX="13.625" PointY="15.679790039062503" />
+          <ConnectorPoint PointX="13.625" PointY="12.730286458333339" />
+        </AssociationConnector>
+        <AssociationConnector Association="SWMPDDModel.FK_ProviderServices_Services" >
+          <ConnectorPoint PointX="9.875" PointY="11.345896809895834" />
+          <ConnectorPoint PointX="12.875" PointY="11.345896809895834" />
         </AssociationConnector>
       </Diagram>
     </Diagrams>
