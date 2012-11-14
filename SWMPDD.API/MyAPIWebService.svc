@@ -1,0 +1,1 @@
+﻿<%@ ServiceHost Language="C#" Debug="true" Service="SWMPDD.API.MyAPIWebService" CodeBehind="MyAPIWebService.svc.cs" %>
