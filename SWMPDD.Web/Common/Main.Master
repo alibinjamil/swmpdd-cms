@@ -21,11 +21,13 @@
         <div id="topNavBar">
             <div>
                 <%=GetTabs()%>
-                <div style="float: right; font-weight: bold;">
-                    <span>User:
-                        <%=GetLoggedInUserName()%></span>
-                    <asp:LinkButton ID="btnSignout" runat="server" OnClick="btnSignout_Click">Signout</asp:LinkButton>
-                </div>
+                <asp:Panel runat="server" ID="UserPanel" Visible="false"> 
+                    <div style="float: right; font-weight: bold;">
+                        <span>User:
+                            <%=GetLoggedInUserName()%></span>
+                        <asp:LinkButton ID="btnSignout" runat="server" OnClick="btnSignout_Click">Signout</asp:LinkButton>
+                    </div>
+                </asp:Panel>
                 <div style="clear: both">
                 </div>
             </div>
@@ -68,6 +70,15 @@
             </div>
             <div style="clear: both">
             </div>
+        </div>
+    </div>
+    <div style="width: 100%; padding-top: 60px;">
+        <hr />
+        <div style="text-align: center">
+            <span style="font-family: Verdana, Geneva, Arial, Helvetica, sans-serif; font-size: 10px;">
+                Developed and supported by</span> <a href="http://www.digiply.com" target="_blank"><span
+                    style="font-family: Verdana, Geneva, Arial, Helvetica, sans-serif; font-size: 10px;">
+                    DigiPly</span></a>
         </div>
     </div>
     </form>

@@ -15,6 +15,7 @@ using SWMPDD.Web.Business.Common;
 
 using System.Collections.Specialized;
 using System.Collections.Generic;
+using System.Net.Mail;
 
 /// <summary>
 /// Summary description for GenericPage
@@ -22,7 +23,13 @@ using System.Collections.Generic;
 namespace SWMPDD.Web.Business.Pages
 {
     public abstract class GenericPage : System.Web.UI.Page
-    {        
+    {
+        abstract public string GetTabName();
+        private static string FROM_ADDRESS = ConfigurationSettings.AppSettings["FromEmailAddress"];
+        private static string To_ADDRESS = ConfigurationSettings.AppSettings["ToEmailAddress"];
+        private static string SMTP_SERVER = "smtp.gmail.com";
+        private static string USER_NAME = "swmpd.district";
+        private static string PASSWORD = "swmpddigiby";
         public static NameValueCollection AppSettings = System.Configuration.ConfigurationManager.AppSettings;
         //private SWMPDD.Data.User loggedInUser = null;
         public GenericPage()
@@ -41,7 +48,30 @@ namespace SWMPDD.Web.Business.Pages
             }*/
             base.OnLoad(e);
         }
+        protected void SendEmail(String messageBody,String subject,String sendEmail)
+        {
 
+            System.Net.Mail.MailMessage message = new System.Net.Mail.MailMessage();
+            message.To.Add(sendEmail);
+            message.Subject = subject;
+            message.From = new System.Net.Mail.MailAddress(FROM_ADDRESS, "SWMPD - Admin");
+            message.Body = messageBody;
+            message.IsBodyHtml = true;
+            System.Net.Mail.SmtpClient smtp = new System.Net.Mail.SmtpClient(SMTP_SERVER);
+            smtp.Port = 587;
+            smtp.EnableSsl = true;
+            System.Net.NetworkCredential SMTPUserInfo = new System.Net.NetworkCredential(USER_NAME, PASSWORD);
+            smtp.UseDefaultCredentials = false;
+            smtp.Credentials = SMTPUserInfo;
+            try
+            {
+                smtp.Send(message);
+            }
+            catch (Exception ex)
+            {
+
+            }
+        }
         protected void SetSuccessMessage(string message)
         {
             SetMessage("error", "", false);
@@ -61,11 +91,17 @@ namespace SWMPDD.Web.Business.Pages
                 panel.Visible = visible;
                 label.Text = message;
             }
+            else {
+                panel = (Panel)FindControl(this.Page, type + "Panel");
+                label = (Label)FindControl(this.Page, type + "Message");
+                if (panel != null && label != null)
+                {
+                    panel.Visible = visible;
+                    label.Text = message;
+                }
+            }
         }
-        
-        
        
-
         protected void RedirectToLogin()
         {
             /*Session[WebConstants.Session.RETURN_URL] = Request.AppRelativeCurrentExecutionFilePath;

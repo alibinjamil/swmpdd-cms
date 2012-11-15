@@ -63,6 +63,7 @@
     <Content Include="Administer\ManageProviders.aspx" />
     <Content Include="Administer\ManageServices.aspx" />
     <Content Include="Administer\ManageUsers.aspx" />
+    <Content Include="bin\Newtonsoft.Json.dll" />
     <Content Include="css\redmond\images\ui-bg_flat_0_aaaaaa_40x100.png" />
     <Content Include="css\redmond\images\ui-bg_flat_55_fbec88_40x100.png" />
     <Content Include="css\redmond\images\ui-bg_glass_75_d0e5f5_1x400.png" />
@@ -81,16 +82,23 @@
     <Content Include="css\redmond\jquery-ui-1.8.24.custom.css" />
     <Content Include="css\swmpdd.login.css" />
     <Content Include="css\swmpdd.main.css" />
+    <Content Include="css\swmpdd.online.css" />
     <Content Include="Default.aspx" />
     <Content Include="ForgotPassword.aspx" />
+    <Content Include="img\bt_add.png" />
+    <Content Include="img\bt_dis_add.png" />
+    <Content Include="img\bt_dis_rem.png" />
+    <Content Include="img\bt_rem.png" />
     <Content Include="img\error.png" />
     <Content Include="img\greater_than.gif" />
     <Content Include="img\Header_05_RMS.png" />
     <Content Include="img\Header_SWMPDD.gif" />
+    <Content Include="img\ImageCode.GIF" />
     <Content Include="img\Left-Arrow-Disable.gif" />
     <Content Include="img\Left-Arrow.gif" />
     <Content Include="img\Login-bkgrd.gif" />
     <Content Include="img\LogoSWMPDD_05.png" />
+    <Content Include="img\logo_swmpdd_blue.gif" />
     <Content Include="img\Right-Arrow-Disable.gif" />
     <Content Include="img\Right-Arrow.gif" />
     <Content Include="img\success.png" />
@@ -103,6 +111,7 @@
     <Content Include="js\jquery-ui-1.8.24.custom.min.js" />
     <Content Include="js\swmpdd.main.js" />
     <Content Include="Login.aspx" />
+    <Content Include="Referrals\OnlineForm.aspx" />
     <Content Include="Referrals\AddReferral.aspx" />
     <Content Include="Referrals\Dashboard.aspx" />
     <Content Include="Referrals\Search.aspx" />
@@ -231,6 +240,13 @@
     </Compile>
     <Compile Include="Login.aspx.designer.cs">
       <DependentUpon>Login.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Referrals\OnlineForm.aspx.cs">
+      <DependentUpon>OnlineForm.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Referrals\OnlineForm.aspx.designer.cs">
+      <DependentUpon>OnlineForm.aspx</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Referrals\AddReferral.aspx.cs">

@@ -2,6 +2,11 @@
 {
     font: 90% "Trebuchet MS", sans-serif; 
 }
+textarea
+{
+    font: 90% "Trebuchet MS", sans-serif;
+    
+}
 #logoBar
 {
     width:100%;
@@ -52,7 +57,7 @@
 #content
 { 
     float:left;
-    width:78%;
+    width:82%;
 }
 #tabBar 
 {
@@ -128,5 +133,21 @@
 }
 .mainGrid
 {
-    width:100%;    
+       
+}
+#mainContentArea .heading h3
+{
+    font-family:Verdana, Geneva, Arial, Helvetica, sans-serif;    
+    font-size:14px;
+    font-weight:bold;
+}
+#mainContentArea div,a,td,th
+{
+    font-family:Verdana, Geneva, Arial, Helvetica, sans-serif;    
+    font-size:12px;
+    line-height:16px;
+}
+.searchGrid
+{
+    width: 100%;   
 }

@@ -6,11 +6,13 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 
 using SWMPDD.Web.Business.Pages;
+using System.Data;
 
 namespace SWMPDD.Web.Referrals
 {
     public partial class Search : AuthenticatedPage
     {
+        protected int TotalRows;
         public override string GetTabName()
         {
             return "REFERRALS";
@@ -91,6 +93,9 @@ namespace SWMPDD.Web.Referrals
         protected void btnSearch_Click(object sender, EventArgs e)
         {            
             gvClients.DataBind();
+        }
+        protected void DataSource_Selected(object sender, EntityDataSourceSelectedEventArgs e) {
+            TotalRows = e.TotalRowCount;
         }
     }
 }

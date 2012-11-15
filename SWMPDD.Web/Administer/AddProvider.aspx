@@ -96,46 +96,46 @@
         }
         function checkCountyMove() {
             if ($("#<%=CountyRight.ClientID%> option").size() == 0 && $("#<%=CountyLeft.ClientID%> option").size() == 0) {
-                $("#<%=CountyRightButton.ClientID%>").attr("src", "../img/Right-Arrow-Disable.gif");
-                $("#<%=CountyLeftButton.ClientID%>").attr("src", "../img/Left-Arrow-Disable.gif");
+                //$("#<%=CountyRightButton.ClientID%>").attr("src", "../img/bt_dis_rem.png");
+                //$("#<%=CountyLeftButton.ClientID%>").attr("src", "../img/bt_dis_add.png");
                 $("#<%=CountyRightButton.ClientID%>").attr("disabled", true);
                 $("#<%=CountyLeftButton.ClientID%>").attr("disabled", true);
             } else if ($("#<%=CountyRight.ClientID%> option").size() == 0 && $("#<%=CountyLeft.ClientID%> option").size() != 0) {
-                $("#<%=CountyRightButton.ClientID%>").attr("src", "../img/Right-Arrow.gif");
-                $("#<%=CountyLeftButton.ClientID%>").attr("src", "../img/Left-Arrow-Disable.gif");
+                //$("#<%=CountyRightButton.ClientID%>").attr("src", "../img/bt_rem.png");
+                //$("#<%=CountyLeftButton.ClientID%>").attr("src", "../img/bt_dis_add.png");
                 $("#<%=CountyRightButton.ClientID%>").attr("disabled", false);
                 $("#<%=CountyLeftButton.ClientID%>").attr("disabled", true);
             } else if ($("#<%=CountyRight.ClientID%> option").size() != 0 && $("#<%=CountyLeft.ClientID%> option").size() == 0) {
-                $("#<%=CountyRightButton.ClientID%>").attr("src", "../img/Right-Arrow-Disable.gif");
-                $("#<%=CountyLeftButton.ClientID%>").attr("src", "../img/Left-Arrow.gif");
+                // $("#<%=CountyRightButton.ClientID%>").attr("src", "../img/bt_dis_rem.png");
+                //$("#<%=CountyLeftButton.ClientID%>").attr("src", "../img/bt_add.png");
                 $("#<%=CountyRightButton.ClientID%>").attr("disabled", true);
                 $("#<%=CountyLeftButton.ClientID%>").attr("disabled", false);
             } else if ($("#<%=CountyRight.ClientID%> option").size() != 0 && $("#<%=CountyLeft.ClientID%> option").size() != 0) {
-                $("#<%=CountyRightButton.ClientID%>").attr("src", "../img/Right-Arrow.gif");
-                $("#<%=CountyLeftButton.ClientID%>").attr("src", "../img/Left-Arrow.gif");
+                // $("#<%=CountyRightButton.ClientID%>").attr("src", "../img/bt_rem.png");
+                // $("#<%=CountyLeftButton.ClientID%>").attr("src", "../img/bt_add.png");
                 $("#<%=CountyRightButton.ClientID%>").attr("disabled", false);
                 $("#<%=CountyLeftButton.ClientID%>").attr("disabled", false);
             }
         }
         function checkMove() {
             if ($("#<%=ServicesNeededRight.ClientID%> option").size() == 0 && $("#<%=ServicesNeededLeft.ClientID%> option").size() == 0) {
-                $("#<%=ImageButtonRight.ClientID%>").attr("src", "../img/Right-Arrow-Disable.gif");
-                $("#<%=ImageButtonLeft.ClientID%>").attr("src", "../img/Left-Arrow-Disable.gif");
+                // $("#<%=ImageButtonRight.ClientID%>").attr("src", "../img/bt_dis_rem.png");
+                // $("#<%=ImageButtonLeft.ClientID%>").attr("src", "../img/bt_dis_add.png");
                 $("#<%=ImageButtonRight.ClientID%>").attr("disabled", true);
                 $("#<%=ImageButtonLeft.ClientID%>").attr("disabled", true);
             } else if ($("#<%=ServicesNeededRight.ClientID%> option").size() == 0 && $("#<%=ServicesNeededLeft.ClientID%> option").size() != 0) {
-                $("#<%=ImageButtonRight.ClientID%>").attr("src", "../img/Right-Arrow.gif");
-                $("#<%=ImageButtonLeft.ClientID%>").attr("src", "../img/Left-Arrow-Disable.gif");
+                // $("#<%=ImageButtonRight.ClientID%>").attr("src", "../img/bt_rem.png");
+                //  $("#<%=ImageButtonLeft.ClientID%>").attr("src", "../img/bt_dis_add.png");
                 $("#<%=ImageButtonRight.ClientID%>").attr("disabled", false);
                 $("#<%=ImageButtonLeft.ClientID%>").attr("disabled", true);
             } else if ($("#<%=ServicesNeededRight.ClientID%> option").size() != 0 && $("#<%=ServicesNeededLeft.ClientID%> option").size() == 0) {
-                $("#<%=ImageButtonRight.ClientID%>").attr("src", "../img/Right-Arrow-Disable.gif");
-                $("#<%=ImageButtonLeft.ClientID%>").attr("src", "../img/Left-Arrow.gif");
+                //  $("#<%=ImageButtonRight.ClientID%>").attr("src", "../img/bt_dis_rem.png");
+                //  $("#<%=ImageButtonLeft.ClientID%>").attr("src", "../img/bt_add.png");
                 $("#<%=ImageButtonRight.ClientID%>").attr("disabled", true);
                 $("#<%=ImageButtonLeft.ClientID%>").attr("disabled", false);
             } else if ($("#<%=ServicesNeededRight.ClientID%> option").size() != 0 && $("#<%=ServicesNeededLeft.ClientID%> option").size() != 0) {
-                $("#<%=ImageButtonRight.ClientID%>").attr("src", "../img/Right-Arrow.gif");
-                $("#<%=ImageButtonLeft.ClientID%>").attr("src", "../img/Left-Arrow.gif");
+                //  $("#<%=ImageButtonRight.ClientID%>").attr("src", "../img/bt_rem.png");
+                //  $("#<%=ImageButtonLeft.ClientID%>").attr("src", "../img/bt_add.png");
                 $("#<%=ImageButtonRight.ClientID%>").attr("disabled", false);
                 $("#<%=ImageButtonLeft.ClientID%>").attr("disabled", false);
             }
@@ -227,9 +227,11 @@
     </script>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContentPlaceHolder" runat="server">
-    <div style="padding-left: 10px;">
-        <h3>
-            ADD/EDIT Provider</h3>
+     <div id="mainContentArea" style="padding-left:10px;">
+        <div class="heading">
+            <h3>ADD/EDIT Provider</h3>
+        </div>
+            
         <div class="row">
             <div class="col1">
                 Provider Name:</div>
@@ -350,12 +352,14 @@
                     </asp:ListBox>
                     <asp:HiddenField ID="ServicesNeededLeftHidden" runat="server"/>
                 </div>
-                <div style="width:50px;float:left">
-                    <div style="padding:10px;">
-                    <asp:ImageButton ID="ImageButtonLeft" OnClientClick="return moveLeft()" runat="server" ImageUrl="~/img/Left-Arrow.gif" style="width:30px;height:30px"/>
+                <div style="width: 80px; float: left">
+                    <div style="padding: 10px;">
+                        <asp:Button runat="server" Text="< Add" ID="ImageButtonLeft" OnClientClick="return moveLeft()"
+                            Style="width: 60px" />
                     </div>
-                    <div style="padding:10px;">
-                    <asp:ImageButton ID="ImageButtonRight"  OnClientClick="return moveRight()" runat="server" ImageUrl="~/img/Right-Arrow.gif" style="width:30px;height:30px"/>
+                    <div style="padding: 10px;">
+                        <asp:Button Text="Rem >" ID="ImageButtonRight" OnClientClick="return moveRight()"
+                            runat="server" Style="width: 60px" />
                     </div>
                 </div>
                 <div style="width:200px;float:left">
@@ -376,12 +380,14 @@
                     </asp:ListBox>
                     <asp:HiddenField ID="CountyLeftHidden" runat="server"/>
                 </div>
-                <div style="width:50px;float:left">
-                    <div style="padding:10px;">
-                    <asp:ImageButton ID="CountyLeftButton" OnClientClick="return moveCountyLeft()" runat="server" ImageUrl="~/img/Left-Arrow.gif" style="width:30px;height:30px"/>
+                <div style="width: 80px; float: left">
+                    <div style="padding: 10px;">
+                        <asp:Button runat="server" Text="< Add" ID="CountyLeftButton" OnClientClick="return moveLeft()"
+                            Style="width: 60px" />
                     </div>
-                    <div style="padding:10px;">
-                    <asp:ImageButton ID="CountyRightButton"  OnClientClick="return moveCountyRight()" runat="server" ImageUrl="~/img/Right-Arrow.gif" style="width:30px;height:30px"/>
+                    <div style="padding: 10px;">
+                        <asp:Button Text="Rem >" ID="CountyRightButton" OnClientClick="return moveRight()"
+                            runat="server" Style="width: 60px" />
                     </div>
                 </div>
                 <div style="width:200px;float:left">
@@ -404,28 +410,56 @@
                 var data = new Object();
                 data.value = $(item).val();
                 data.text = $(item).text();
-                leftArray.push(data);
+                var exist = false;
+                $.each(leftArray, function (arrayIndex, arrayItem) {
+                    if (arrayItem.value == data.value) {
+                        exist = true;
+                    }
+                });
+                if (!exist)
+                    leftArray.push(data);
                 $("#<%=ServicesNeededLeftHidden.ClientID%>").val(JSON.stringify(leftArray));
             });
             $("#<%=ServicesNeededRight.ClientID%> option").each(function (index, item) {
                 var data = new Object();
                 data.value = $(item).val();
                 data.text = $(item).text();
-                rightArray.push(data);
+                var exist = false;
+                $.each(rightArray, function (arrayIndex, arrayItem) {
+                    if (arrayItem.value == data.value) {
+                        exist = true;
+                    }
+                });
+                if (!exist)
+                    rightArray.push(data);
                 $("#<%=ServicesNeededRightHidden.ClientID%>").val(JSON.stringify(rightArray));
             });
             $("#<%=CountyLeft.ClientID%> option").each(function (index, item) {
                 var data = new Object();
                 data.value = $(item).val();
                 data.text = $(item).text();
-                countyLeftArray.push(data);
+                var exist = false;
+                $.each(countyLeftArray, function (arrayIndex, arrayItem) {
+                    if (arrayItem.value == data.value) {
+                        exist = true;
+                    }
+                });
+                if (!exist)
+                    countyLeftArray.push(data);
                 $("#<%=CountyLeftHidden.ClientID%>").val(JSON.stringify(countyLeftArray));
             });
             $("#<%=CountyRight.ClientID%> option").each(function (index, item) {
                 var data = new Object();
                 data.value = $(item).val();
                 data.text = $(item).text();
-                countyRightArray.push(data);
+                var exist = false;
+                $.each(countyRightArray, function (arrayIndex, arrayItem) {
+                    if (arrayItem.value == data.value) {
+                        exist = true;
+                    }
+                });
+                if (!exist)
+                    countyRightArray.push(data);
                 $("#<%=CountyRightHidden.ClientID%>").val(JSON.stringify(countyRightArray));
             });
         });

@@ -4,7 +4,10 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="HeadContentPlaceHolder" runat="server">
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContentPlaceHolder" runat="server">
-    <div style="width: 100%; text-align: center">
+    <div id="mainContentArea" style="padding-left:10px;">
+        <div class="heading">
+            <h3>Home</h3>
+        </div>
         <asp:GridView runat="server" ID="gvDashboard" CellPadding="3" EmptyDataRowStyle-ForeColor="red"
             EmptyDataRowStyle-HorizontalAlign="Center" EmptyDataText="No record(s) found"
             HeaderStyle-BackColor="#7988B7" HeaderStyle-ForeColor="#FFFFFF" HeaderStyle-Font-Names="Arial"

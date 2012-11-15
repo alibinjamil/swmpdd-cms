@@ -25,6 +25,8 @@ namespace SWMPDD.Web.Referrals
             return "REFERRALS";
         }
         Client client = null;
+        protected int commentTotalRows = 0;
+        protected int additionalPertinentInfoTotalRows = 0;
         protected void Page_Load(object sender, EventArgs e)
         {
             //set the readonly attribute of html for date controls. 
@@ -93,10 +95,10 @@ namespace SWMPDD.Web.Referrals
                     ServicesNeededRight.DataSource = clientServicesNotSelected;
                     ServicesNeededRight.DataBind();
                     if (clientServicesSelected.Count() == 0) {
-                        ImageButtonRight.ImageUrl = "~/img/Right-Arrow-Disable.gif";
+                       // ImageButtonRight.ImageUrl = "~/img/bt_dis_rem.png";
                     }
                     else if (clientServicesNotSelected.Count() == 0) {
-                        ImageButtonLeft.ImageUrl = "~/img/Left-Arrow-Disable.gif";
+                        //ImageButtonLeft.ImageUrl = "~/img/bt_dis_add.png";
                     }
 
 
@@ -124,13 +126,18 @@ namespace SWMPDD.Web.Referrals
                     BindGrids();
                     pnlAddAdditionalInfo.Visible = true;
                     pnlAddComment.Visible = true;
+                    btnSave.Visible = true;
+                    btnSubmit.Visible = true;
+                    btnPrintDay.Visible = true;
+                    btnPrintReferral.Visible = true;
                 }
                 else
                 {
                     var clientServicesNotSelected = from s in DatabaseContext.Services select s;
                     ServicesNeededRight.DataSource = clientServicesNotSelected;
                     ServicesNeededRight.DataBind();
-                    ImageButtonRight.ImageUrl = "~/img/Right-Arrow-Disable.gif";
+                    BindGrids();
+                   // ImageButtonRight.ImageUrl = "~/img/bt_dis_rem.png";
                 }
             }
             
@@ -140,12 +147,18 @@ namespace SWMPDD.Web.Referrals
         {
             if (client != null)
             {
-                gvAdditionalPertinentInfo.DataSource = (from d in DatabaseContext.Details where d.ClientId == client.ClientId && d.Type == Constants.DetailTypes.ADDITIONAL_PERTINENT_INFO select d);
-                gvAdditionalPertinentInfo.DataBind();
+                //gvAdditionalPertinentInfo.DataSource = (from d in DatabaseContext.Details where d.ClientId == client.ClientId && d.Type == Constants.DetailTypes.ADDITIONAL_PERTINENT_INFO select d);
+                //gvAdditionalPertinentInfo.DataBind();
 
-                gvComments.DataSource = (from d in DatabaseContext.Details where d.ClientId == client.ClientId && d.Type == Constants.DetailTypes.COMMENTS select d);
+               // gvComments.DataSource = (from d in DatabaseContext.Details where d.ClientId == client.ClientId && d.Type == Constants.DetailTypes.COMMENTS select d);
+                //gvComments.DataBind();
+            }
+            else {
+                gvAdditionalPertinentInfo.DataBind();
                 gvComments.DataBind();
             }
+            //commentTotalRows = gvComments.Rows.Count;
+            //additionalPertinentInfoTotalRows = gvAdditionalPertinentInfo.Rows.Count;
         }
 
         private Client GetClient()
@@ -157,140 +170,7 @@ namespace SWMPDD.Web.Referrals
             }
             return null;
         }
-        protected void btnSave_Click(object sender, EventArgs e)
-        {
-            bool update = true;
-            if (client == null)
-            {
-                client = new Client();
-                client.ClientId = System.Guid.NewGuid().ToString();
-                update = false;
-            }
-
-            client.SSN = SSN.Text;
-            if(IntakeDate.Text.Length > 0) client.InTakeDate = DateTime.Parse(IntakeDate.Text);
-            client.FirstName = FirstName.Text;
-            client.MiddleInitial = MiddleInitial.Text;
-            client.LastName = LastName.Text;
-            if(DateOfBirth.Text.Length > 0) client.DateOfBirth = DateTime.Parse(DateOfBirth.Text);
-            client.Address1 = AddressLine1.Text;
-            client.Address2 = AddressLine2.Text;
-            client.City = City.Text;
-            client.State = "MS";
-            client.Zip = Zip.Text;
-            client.Phone = Phone.Text;
-            client.County = County.SelectedValue;
-            client.Email = Email.Text;
-            client.Gender = Gender.SelectedValue;
-            client.PersonResidenceCode = ResidenceCode.SelectedValue;
-            client.OtherComments = OtherInfo.Text;
-            client.Medicaid = Medicaid.Text;
-            client.Medicare = Medicare.Text;
-            client.ContactPerson = ContactPerson.Text;
-            client.RelationshipToClient = RelationshiptoClient.Text;
-            client.ContactPhone = ContactPhone.Text;
-            client.Direction = Directions.Text;
-            client.ReferralSoruce = ReferralSource.Text;
-            client.ReferralPhone = ReferralPhone.Text;
-            client.Physician = Physician.Text;
-            client.PhysicianPhone = PhysicianPhone.Text;
-            client.PhysicianAddress = PhysicianAddress.Text;
-            client.PhysicianCity = PhysicianCity.Text;
-            client.PhysicianZip = PhysicianZip.Text;
-            client.Diagnostic = Diagnosis.Text;
-            foreach (ClientService clientService in client.ClientServices.ToList())
-            {
-                DatabaseContext.ClientServices.DeleteObject(clientService);
-                DatabaseContext.SaveChanges();
-            }
-            string leftHandItems = ServicesNeededLeftHidden.Value;
-            JavaScriptSerializer json_serializer = new JavaScriptSerializer();
-            List<DataItem> leftHandItemSerialize = (List<DataItem>)Newtonsoft.Json.JsonConvert.DeserializeObject(leftHandItems, typeof(List<DataItem>));
-            foreach (DataItem item in leftHandItemSerialize)
-            {
-                ClientService service = new ClientService { 
-                    ClientServicesId= System.Guid.NewGuid().ToString(),
-                    ServiceId=item.value
-                };
-                client.ClientServices.Add(service);
-            }
-            if(update)
-            {
-                List<Detail> details = (from d in DatabaseContext.Details where d.Type == Constants.DetailTypes.SERVICES_NEEDED && d.ClientId == client.ClientId select d).ToList();
-                foreach(Detail detail in details)
-                {
-                    DatabaseContext.Details.DeleteObject(detail);
-                }
-            }                        
-
-            if (update)
-            {
-                List<ProvidersInProgress> providersInProgress = (from p in DatabaseContext.ProvidersInProgresses where p.ClientId == client.ClientId select p).ToList();
-                foreach (ProvidersInProgress providerInProgress in providersInProgress)
-                {
-                    DatabaseContext.ProvidersInProgresses.DeleteObject(providerInProgress);
-                }
-            }
-            foreach (ProvidersInProgress providerInProgress in client.ProvidersInProgresses)
-            {
-                client.ProvidersInProgresses.Remove(providerInProgress);
-            }
-
-            for (int i = 1; i <= 5; i++)
-            {
-                TextBox tbFrequency = (TextBox)FindControl(pnlCurrentServices,"Frequency" + i);
-                TextBox tbDiscipline = (TextBox)FindControl(pnlCurrentServices, "Descipline" + i);
-                TextBox tbProvider = (TextBox)FindControl(pnlCurrentServices,"Provider" + i);
-
-                ProvidersInProgress providerInProgress = new ProvidersInProgress();
-                bool doAdd = false;
-                if (tbFrequency != null && tbFrequency.Text.Trim().Length > 0)
-                {
-                    providerInProgress.Frequency = tbFrequency.Text;
-                    doAdd = true;
-                }
-                if(tbDiscipline != null && tbDiscipline.Text.Trim().Length > 0)
-                {
-                    providerInProgress.Discipline = tbDiscipline.Text;
-                    doAdd = true;
-                }                    
-                if(tbProvider != null && tbProvider.Text.Trim().Length > 0) 
-                {
-                    providerInProgress.Provider = tbProvider.Text;
-                    doAdd = true;
-                }
-                if (doAdd)
-                {
-                    providerInProgress.CreationDate = DateTime.Now;
-                    providerInProgress.CreationUser = LoggedInUser.UserName;
-                    client.ProvidersInProgresses.Add(providerInProgress);
-                }
-            }
-
-            client.VerificationOfMedicaidStatus = GetBoolFromString(MedicaidStatus.SelectedValue);
-            if (VerificationDate.Text.Length > 0) client.VerificationDate = DateTime.Parse(VerificationDate.Text);
-            client.LockinStatus = GetBoolFromString(LockInStatus.SelectedValue);
-            client.MethodofContact = MethodofContact.SelectedValue;
-            if (DateClientContacted.Text.Length > 0) client.DateClientContacted = DateTime.Parse(DateClientContacted.Text);
-            client.ByWhom = LoggedInUser.UserName;
-            int statusId = int.Parse(ReasonforRemovalCode.SelectedValue);
-            if (statusId > 0) client.StatusId = statusId;
-            client.StatusText = Code8Other.Text;
-            if(RemovalDate.Text.Length > 0) client.RemovalDate = DateTime.Parse(RemovalDate.Text);
-            if (update == false)
-            {
-                DatabaseContext.AddToClients(client);
-            }
-            DatabaseContext.SaveChanges();
-            if (update == false)
-            {
-                Response.Redirect("~/Referrals/AddReferral.aspx?clientId=" + client.ClientId + "&save=true");
-            }
-            else
-            {
-                SetSuccessMessage("Client Updated Successfully.");
-            }
-        }
+        
 
         protected void SSN_TextChanged(object sender, EventArgs e)
         {
@@ -335,11 +215,172 @@ namespace SWMPDD.Web.Referrals
                 DatabaseContext.SaveChanges();
                 BindGrids();
             }
+            else {
+                BindGrids();
+            }
         }
+        protected void SaveReferral() {
+            bool update = true;
+            if (client == null)
+            {
+                client = new Client();
+                client.ClientId = System.Guid.NewGuid().ToString();
+                update = false;
+            }
 
+            client.SSN = SSN.Text;
+            if (IntakeDate.Text.Length > 0) client.InTakeDate = DateTime.Parse(IntakeDate.Text);
+            client.FirstName = FirstName.Text;
+            client.MiddleInitial = MiddleInitial.Text;
+            client.LastName = LastName.Text;
+            if (DateOfBirth.Text.Length > 0) client.DateOfBirth = DateTime.Parse(DateOfBirth.Text);
+            client.Address1 = AddressLine1.Text;
+            client.Address2 = AddressLine2.Text;
+            client.City = City.Text;
+            client.State = "MS";
+            client.Zip = Zip.Text;
+            client.Phone = Phone.Text;
+            client.County = County.SelectedValue;
+            client.Email = Email.Text;
+            client.Gender = Gender.SelectedValue;
+            client.PersonResidenceCode = ResidenceCode.SelectedValue;
+            client.OtherComments = OtherInfo.Text;
+            client.Medicaid = Medicaid.Text;
+            client.Medicare = Medicare.Text;
+            client.ContactPerson = ContactPerson.Text;
+            client.RelationshipToClient = RelationshiptoClient.Text;
+            client.ContactPhone = ContactPhone.Text;
+            client.Direction = Directions.Text;
+            client.ReferralSoruce = ReferralSource.Text;
+            client.ReferralPhone = ReferralPhone.Text;
+            client.Physician = Physician.Text;
+            client.PhysicianPhone = PhysicianPhone.Text;
+            client.PhysicianAddress = PhysicianAddress.Text;
+            client.PhysicianCity = PhysicianCity.Text;
+            client.PhysicianZip = PhysicianZip.Text;
+            client.Diagnostic = Diagnosis.Text;
+            foreach (ClientService clientService in client.ClientServices.ToList())
+            {
+                DatabaseContext.ClientServices.DeleteObject(clientService);
+                DatabaseContext.SaveChanges();
+            }
+            string leftHandItems = ServicesNeededLeftHidden.Value;
+            JavaScriptSerializer json_serializer = new JavaScriptSerializer();
+            List<DataItem> leftHandItemSerialize = (List<DataItem>)Newtonsoft.Json.JsonConvert.DeserializeObject(leftHandItems, typeof(List<DataItem>));
+            if (leftHandItemSerialize != null)
+            {
+                foreach (DataItem item in leftHandItemSerialize)
+                {
+                    ClientService service = new ClientService
+                    {
+                        ClientServicesId = System.Guid.NewGuid().ToString(),
+                        ServiceId = item.value
+                    };
+                    client.ClientServices.Add(service);
+                }
+            }
+            if (update)
+            {
+                List<Detail> details = (from d in DatabaseContext.Details where d.Type == Constants.DetailTypes.SERVICES_NEEDED && d.ClientId == client.ClientId select d).ToList();
+                foreach (Detail detail in details)
+                {
+                    DatabaseContext.Details.DeleteObject(detail);
+                }
+            }
+
+            if (update)
+            {
+                List<ProvidersInProgress> providersInProgress = (from p in DatabaseContext.ProvidersInProgresses where p.ClientId == client.ClientId select p).ToList();
+                foreach (ProvidersInProgress providerInProgress in providersInProgress)
+                {
+                    DatabaseContext.ProvidersInProgresses.DeleteObject(providerInProgress);
+                }
+            }
+            foreach (ProvidersInProgress providerInProgress in client.ProvidersInProgresses)
+            {
+                client.ProvidersInProgresses.Remove(providerInProgress);
+            }
+
+            for (int i = 1; i <= 5; i++)
+            {
+                TextBox tbFrequency = (TextBox)FindControl(pnlCurrentServices, "Frequency" + i);
+                TextBox tbDiscipline = (TextBox)FindControl(pnlCurrentServices, "Descipline" + i);
+                TextBox tbProvider = (TextBox)FindControl(pnlCurrentServices, "Provider" + i);
+
+                ProvidersInProgress providerInProgress = new ProvidersInProgress();
+                bool doAdd = false;
+                if (tbFrequency != null && tbFrequency.Text.Trim().Length > 0)
+                {
+                    providerInProgress.Frequency = tbFrequency.Text;
+                    doAdd = true;
+                }
+                if (tbDiscipline != null && tbDiscipline.Text.Trim().Length > 0)
+                {
+                    providerInProgress.Discipline = tbDiscipline.Text;
+                    doAdd = true;
+                }
+                if (tbProvider != null && tbProvider.Text.Trim().Length > 0)
+                {
+                    providerInProgress.Provider = tbProvider.Text;
+                    doAdd = true;
+                }
+                if (doAdd)
+                {
+                    providerInProgress.CreationDate = DateTime.Now;
+                    providerInProgress.CreationUser = LoggedInUser.UserName;
+                    client.ProvidersInProgresses.Add(providerInProgress);
+                }
+            }
+
+            client.VerificationOfMedicaidStatus = GetBoolFromString(MedicaidStatus.SelectedValue);
+            if (VerificationDate.Text.Length > 0) client.VerificationDate = DateTime.Parse(VerificationDate.Text);
+            client.LockinStatus = GetBoolFromString(LockInStatus.SelectedValue);
+            client.MethodofContact = MethodofContact.SelectedValue;
+            if (DateClientContacted.Text.Length > 0) client.DateClientContacted = DateTime.Parse(DateClientContacted.Text);
+            client.ByWhom = LoggedInUser.UserName;
+            lbllastupdatedBy.Text = "Last updated on " + DateTime.Now + " by " + LoggedInUser.UserName;
+            int statusId = int.Parse(ReasonforRemovalCode.SelectedValue);
+            if (statusId > 0) client.StatusId = statusId;
+            client.StatusText = Code8Other.Text;
+            if (RemovalDate.Text.Length > 0) client.RemovalDate = DateTime.Parse(RemovalDate.Text);
+            if (update == false)
+            {
+                DatabaseContext.AddToClients(client);
+            }
+            DatabaseContext.SaveChanges();
+            if (update == false)
+            {
+                Response.Redirect("~/Referrals/AddReferral.aspx?clientId=" + client.ClientId + "&save=true");
+            }
+            else
+            {
+                SetSuccessMessage("Client Updated Successfully.");
+            }
+        }
         protected void btnAddComment_Click(object sender, EventArgs e)
         {
             SaveDetail(OfficalComments.Text, Constants.DetailTypes.COMMENTS);
+        }
+        
+        protected void btnSubmit_Click(object sender, EventArgs e) {
+            SaveReferral();
+            Response.Redirect("~/Referrals/Search.aspx");
+        }
+        protected void btnSave_Click(object sender, EventArgs e)
+        {
+            SaveReferral();
+        }
+        protected void btnCancel_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("~/Referrals/Search.aspx");
+        }
+        protected void Pertinent_Select(object sender, EntityDataSourceSelectedEventArgs e)
+        {
+            additionalPertinentInfoTotalRows = e.TotalRowCount;
+        }
+        protected void Comment_Select(object sender, EntityDataSourceSelectedEventArgs e)
+        {
+            commentTotalRows = e.TotalRowCount;
         }
     }
 }
