@@ -8,8 +8,11 @@
     </style>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContentPlaceHolder" runat="server">
-    <div style="padding-left:10px;">
-        <h3>ADD/EDIT USER</h3>
+        <div id="mainContentArea" style="padding-left:10px;">
+        <div class="heading">
+            <h3>ADD/EDIT USER</h3>
+        </div>
+        
         <div class="row">
             <div class="col1">User ID:</div>
             <div class="col2"><asp:TextBox runat="server" ID="tbUserId"></asp:TextBox></div>

@@ -19,7 +19,10 @@ namespace SWMPDD.Web
         {
 
         }
-
+        public override string GetTabName()
+        {
+            return "";
+        }
         protected void btnLogin_Click(object sender, EventArgs e)
         {
             User user = (from u in DatabaseContext.Users where u.UserName == tbUserName.Text && u.Password == tbPassword.Text select u).FirstOrDefault();

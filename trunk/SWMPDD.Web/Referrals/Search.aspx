@@ -5,14 +5,15 @@
     
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContentPlaceHolder" runat="server">
-    <div style="padding-left:10px;">
+    <div id="mainContentArea" style="padding-left:10px;">
         <asp:Label runat="server" ID="whereClause" Visible="false"></asp:Label>
         <div class="heading">
-            REFERRALS
+            <h3>REFERRALS</h3>
         </div>
-        <div>
-            <b>FILTER RESULTS BY:</b></div>
-        <div style="width: 75%;">
+        <div style="padding:4px">
+            <b>FILTER RESULTS BY:</b>
+        </div>
+        <div style="width: 68%;padding:4px">
             <div style="float: left; width: 40%;">
                 Client's Last Name, City, Zip, or Phone:<br />
                 <asp:TextBox ID="tbSearchBy" runat="server" Width="260"></asp:TextBox>
@@ -56,7 +57,7 @@
             <div style="clear: both">
             </div>
         </div>
-        <div>
+        <div style="width: 100%;padding-top:30px;">
             <asp:GridView runat="server" ID="gvClients" DataSourceID="edsClients" CellPadding="3"
                 EmptyDataRowStyle-ForeColor="red" EmptyDataRowStyle-HorizontalAlign="Center"
                 EmptyDataText="No record(s) found" HeaderStyle-BackColor="#7988B7" HeaderStyle-ForeColor="#FFFFFF"
@@ -65,13 +66,13 @@
                 AlternatingRowStyle-Font-Names="Arial" AlternatingRowStyle-Font-Size="small "
                 BorderColor="#E0E0E0" AllowPaging="True" PagerSettings-Mode="NextPreviousFirstLast"
                 AutoGenerateColumns="False" PagerStyle-HorizontalAlign="Center" AllowSorting="True"
-                BorderStyle="Solid" BorderWidth="1px" PageSize="15" Width="100%">
+                BorderStyle="Solid" BorderWidth="1px" PageSize="15" CssClass="searchGrid" >
                 <FooterStyle BackColor="White" ForeColor="Silver"></FooterStyle>
                 <RowStyle BackColor="White" BorderStyle="Solid" ForeColor="#333333" BorderWidth="1px"
                     BorderColor="Gray" Wrap="False"></RowStyle>
                 <PagerStyle BackColor="#E0E0E0" ForeColor="Black" Font-Bold="True" HorizontalAlign="Center">
                 </PagerStyle>
-                <HeaderStyle BackColor="#E0E0E0" ForeColor="Black" Font-Size="Small" Font-Names="Arial"
+                <HeaderStyle BackColor="#E0E0E0" ForeColor="Black" Font-Size="Small" Font-Names="Arial" 
                     Font-Bold="False"></HeaderStyle>
                 <AlternatingRowStyle BackColor="Silver" BorderStyle="Solid" BorderWidth="1px" Font-Size="Small"
                     Font-Names="Arial"></AlternatingRowStyle>
@@ -120,8 +121,19 @@
             <div style="clear:both"></div>
         </div>
         <asp:EntityDataSource ID="edsClients" runat="server" ConnectionString="name=SWMPDDEntities"
-            DefaultContainerName="SWMPDDEntities" EnableFlattening="False" EntitySetName="Clients"
+            DefaultContainerName="SWMPDDEntities" EnableFlattening="False" EntitySetName="Clients" OnSelected="DataSource_Selected"
             EntityTypeFilter="Client">
         </asp:EntityDataSource>
+        <div>
+            <div style="float:left; padding:2px;">
+                <asp:Label ID="lblFromCount" runat="server"><%= (gvClients.PageIndex * gvClients.PageSize)+1 %> to</asp:Label>
+            </div>
+            <div style="float:left; padding:2px;">
+                <asp:Label ID="lblCount" runat="server"><%= (gvClients.PageIndex * gvClients.PageSize)+ gvClients.Rows.Count%></asp:Label>
+            </div>
+            <div style="float:left; padding:2px;">
+                <asp:Label ID="lblTotalCount" runat="server">of <%=TotalRows %></asp:Label>
+            </div>
+        </div>
     </div>
 </asp:Content>

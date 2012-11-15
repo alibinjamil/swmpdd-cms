@@ -53,11 +53,11 @@ namespace SWMPDD.Web.Administer
                     ServicesNeededRight.DataBind();
                     if (providerServicesSelected.Count() == 0)
                     {
-                        ImageButtonRight.ImageUrl = "~/img/Right-Arrow-Disable.gif";
+                       // ImageButtonRight.ImageUrl = "~/img/bt_dis_rem.png";
                     }
                     else if (providerServicesNotSelected.Count() == 0)
                     {
-                        ImageButtonLeft.ImageUrl = "~/img/Left-Arrow-Disable.gif";
+                        //ImageButtonLeft.ImageUrl = "~/img/bt_dis_add.png";
                     }
                     var providerCounty = (from c in DatabaseContext.ProviderCounties where c.ProviderId == provider.ProviderId select c.County).ToList();
                     var providerCountyNotSelected = (from c in list where !providerCounty.Contains(c.value) select c).ToList();
@@ -72,11 +72,11 @@ namespace SWMPDD.Web.Administer
                     CountyRight.DataBind();
                     if (providerCountySelected.Count() == 0)
                     {
-                        CountyRightButton.ImageUrl = "~/img/Right-Arrow-Disable.gif";
+                        //CountyRightButton.ImageUrl = "~/img/bt_dis_rem.png";
                     }
                     else if (providerCountyNotSelected.Count() == 0)
                     {
-                        CountyLeftButton.ImageUrl = "~/img/Left-Arrow-Disable.gif";
+                        //CountyLeftButton.ImageUrl = "~/img/bt_dis_adds.png";
                     }
                 }
                 else
@@ -85,11 +85,11 @@ namespace SWMPDD.Web.Administer
                     CountyRight.DataTextField = "text";
                     CountyRight.DataValueField = "value";
                     CountyRight.DataBind();
-                    CountyRightButton.ImageUrl = "~/img/Right-Arrow-Disable.gif";
+                    //CountyRightButton.ImageUrl = "~/img/bt_dis_rem.png";
                     var providerServicesNotSelected = from s in DatabaseContext.Services select s;
                     ServicesNeededRight.DataSource = providerServicesNotSelected;
                     ServicesNeededRight.DataBind();
-                    ImageButtonRight.ImageUrl = "~/img/Right-Arrow-Disable.gif";
+                   // ImageButtonRight.ImageUrl = "~/img/bt_dis_rem.png";
                 }
             }
         }

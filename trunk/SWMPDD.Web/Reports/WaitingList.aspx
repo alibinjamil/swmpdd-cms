@@ -1,12 +1,19 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Common/Reports.master" AutoEventWireup="true" CodeBehind="WaitingList.aspx.cs" Inherits="SWMPDD.Web.Reports.WaitingList" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="HeadContentPlaceHolder" runat="server">
+    <style>
+        .waitingGrid th
+        {
+            font-size: small; 
+        }
+    </style>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContentPlaceHolder" runat="server">
-    <div style="width: 100%; text-align: left">
+    <div id="mainContentArea" style="padding-left:10px;">
         <div class="heading">
-            WAITING LIST REPORT
+            <h3>REPORTS</h3>
         </div>
-        <div>
+            
+        <div style="padding:10px;">
             <span>Select County: </span>          
             <asp:DropDownList ID="ddlCounties" runat="server">          
                 <asp:ListItem value="Adams" Text="Adams"></asp:ListItem>
@@ -45,7 +52,7 @@
 	            BorderColor="#E0E0E0"                 	        
 	            AutogenerateColumns="False"
 	            PagerStyle-HorizontalAlign="Center" Allowsorting="True" borderstyle="Solid" 
-                borderwidth="1px" pagesize="15"  AllowPaging="False" Width="600px">
+                borderwidth="1px" pagesize="15"  AllowPaging="False" CssClass="waitingGrid">
             
                 <FooterStyle   BackColor="White" ForeColor="Silver"></FooterStyle>
 

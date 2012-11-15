@@ -13,6 +13,8 @@ namespace SWMPDD.Web.Common
     {
         string[] tabTexts = {"HOME","REFERRALS","CASE MANAGEMENT","ADMINISTER","REPORTS","SUPPORT"};
         string[] tabUrls = { "~/Default.aspx", "~/Referrals/Dashboard.aspx", "~/Default.aspx", "~/Administer/ManageUsers.aspx", "~/Reports/WaitingList.aspx", "~/Default.aspx" };
+        bool[] authenticPage = { true, true, true, true, true, true };
+        bool[] genericPage = { true, false, false, false, false, true };
         protected void Page_Load(object sender, EventArgs e)
         {
             
@@ -20,24 +22,46 @@ namespace SWMPDD.Web.Common
 
         protected string GetTabs()
         {
-            string currentTab = (MainContentPlaceHolder.Page as AuthenticatedPage).GetTabName();
+            string currentTab = "";
+            bool[] currentAvailableTab;
+            if (MainContentPlaceHolder.Page as AuthenticatedPage != null)
+            {
+                currentTab = (MainContentPlaceHolder.Page as AuthenticatedPage).GetTabName();
+                UserPanel.Visible = true;
+                currentAvailableTab = authenticPage;
+            }
+            else {
+                currentTab = (MainContentPlaceHolder.Page as GenericPage).GetTabName();
+                currentAvailableTab = genericPage;
+            }
+            
             string tabs = "";
             for (int i = 0; i < tabTexts.Length; i++)
             {
-                string url = MainContentPlaceHolder.Page.ResolveClientUrl(tabUrls[i]);
-                tabs += "<div class='tab";
-                if (currentTab == tabTexts[i])
+                if (currentAvailableTab[i])
                 {
-                    tabs += " selected"; 
+                    string url = MainContentPlaceHolder.Page.ResolveClientUrl(tabUrls[i]);
+                    tabs += "<div class='tab";
+                    if (currentTab == tabTexts[i])
+                    {
+                        tabs += " selected";
+                    }
+                    tabs += "'><a href='" + url + "'>" + tabTexts[i] + "</a></div>";
                 }
-                tabs += "'><a href='" + url + "'>" + tabTexts[i] + "</a></div>";
             }
             return tabs;
         }
 
         protected string GetLoggedInUserName()
         {
-            return (MainContentPlaceHolder.Page as AuthenticatedPage).LoggedInUser.Name;
+            if (MainContentPlaceHolder.Page as AuthenticatedPage != null)
+            {
+                return (MainContentPlaceHolder.Page as AuthenticatedPage).LoggedInUser.Name;
+            }
+            else {
+                
+                return "";
+            }
         }
 
         protected void btnSignout_Click(object sender, EventArgs e)

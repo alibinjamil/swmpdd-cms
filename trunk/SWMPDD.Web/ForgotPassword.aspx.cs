@@ -14,10 +14,21 @@ namespace SWMPDD.Web
         {
 
         }
-
+        public override string GetTabName()
+        {
+            return "SUPPORT";
+        }
         protected void btnProceed_Click(object sender, EventArgs e)
         {
-            //Send Email 
+            SWMPDD.Data.User user = (from c in DatabaseContext.Users where c.UserName == tbUserName.Text.Trim() select c).FirstOrDefault();
+            if (user != null)
+            {
+                SendEmail("You Password is : " + user.Password, "Your Password", user.Email);
+                SetSuccessMessage("Email Sent.");
+            }
+            else {
+                SetErrorMessage("Username does not exist.");
+            }
         }
     }
 }

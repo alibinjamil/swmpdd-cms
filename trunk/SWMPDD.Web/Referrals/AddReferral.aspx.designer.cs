@@ -532,7 +532,7 @@ namespace SWMPDD.Web.Referrals {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.ImageButton ImageButtonLeft;
+        protected global::System.Web.UI.WebControls.Button ImageButtonLeft;
         
         /// <summary>
         /// ImageButtonRight control.
@@ -541,7 +541,7 @@ namespace SWMPDD.Web.Referrals {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.ImageButton ImageButtonRight;
+        protected global::System.Web.UI.WebControls.Button ImageButtonRight;
         
         /// <summary>
         /// ServicesNeededRight control.
@@ -713,6 +713,15 @@ namespace SWMPDD.Web.Referrals {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.GridView gvAdditionalPertinentInfo;
+        
+        /// <summary>
+        /// edsPertinent control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.EntityDataSource edsPertinent;
         
         /// <summary>
         /// pnlAddAdditionalInfo control.
@@ -904,6 +913,15 @@ namespace SWMPDD.Web.Referrals {
         protected global::System.Web.UI.WebControls.GridView gvComments;
         
         /// <summary>
+        /// epsComment control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.EntityDataSource epsComment;
+        
+        /// <summary>
         /// pnlAddComment control.
         /// </summary>
         /// <remarks>
@@ -931,6 +949,15 @@ namespace SWMPDD.Web.Referrals {
         protected global::System.Web.UI.WebControls.Button btnAddComment;
         
         /// <summary>
+        /// btnSubmit control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnSubmit;
+        
+        /// <summary>
         /// btnSave control.
         /// </summary>
         /// <remarks>
@@ -938,5 +965,41 @@ namespace SWMPDD.Web.Referrals {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button btnSave;
+        
+        /// <summary>
+        /// btnPrintDay control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnPrintDay;
+        
+        /// <summary>
+        /// btnPrintReferral control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnPrintReferral;
+        
+        /// <summary>
+        /// btnCancel control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnCancel;
+        
+        /// <summary>
+        /// lbllastupdatedBy control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lbllastupdatedBy;
     }
 }

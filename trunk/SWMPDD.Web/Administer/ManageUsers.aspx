@@ -2,12 +2,18 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="HeadContentPlaceHolder" runat="server">
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContentPlaceHolder" runat="server">
-    <div style="padding-left:10px;">
-        <h3>MANAGE USERS<asp:EntityDataSource ID="edsUsers" runat="server" 
+    <div id="mainContentArea" style="padding-left:10px;">
+        <div class="heading">
+                    <h3>MANAGE USERS</h3>
+        </div>
+
+
+        
+        <asp:EntityDataSource ID="edsUsers" runat="server" 
                 ConnectionString="name=SWMPDDEntities" DefaultContainerName="SWMPDDEntities" 
                 EnableFlattening="False" EntitySetName="Users" EntityTypeFilter="User">
             </asp:EntityDataSource>
-        </h3>
+        
         <div>
             <asp:GridView Runat="server"
                 Id="gvUsers"

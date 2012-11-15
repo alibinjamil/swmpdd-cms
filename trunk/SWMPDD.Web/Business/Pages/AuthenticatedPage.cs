@@ -10,7 +10,7 @@ namespace SWMPDD.Web.Business.Pages
 {
     public abstract class AuthenticatedPage : GenericPage
     {
-        abstract public string GetTabName();
+        
         protected override void OnLoad(EventArgs e)
         {
             if (Session[Constants.Session.LOGGED_IN_USER] == null)

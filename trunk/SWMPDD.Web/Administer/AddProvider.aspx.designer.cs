@@ -208,7 +208,7 @@ namespace SWMPDD.Web.Administer {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.ImageButton ImageButtonLeft;
+        protected global::System.Web.UI.WebControls.Button ImageButtonLeft;
         
         /// <summary>
         /// ImageButtonRight control.
@@ -217,7 +217,7 @@ namespace SWMPDD.Web.Administer {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.ImageButton ImageButtonRight;
+        protected global::System.Web.UI.WebControls.Button ImageButtonRight;
         
         /// <summary>
         /// ServicesNeededRight control.
@@ -262,7 +262,7 @@ namespace SWMPDD.Web.Administer {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.ImageButton CountyLeftButton;
+        protected global::System.Web.UI.WebControls.Button CountyLeftButton;
         
         /// <summary>
         /// CountyRightButton control.
@@ -271,7 +271,7 @@ namespace SWMPDD.Web.Administer {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.ImageButton CountyRightButton;
+        protected global::System.Web.UI.WebControls.Button CountyRightButton;
         
         /// <summary>
         /// CountyRight control.

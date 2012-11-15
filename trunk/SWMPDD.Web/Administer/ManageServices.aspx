@@ -4,13 +4,16 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="HeadContentPlaceHolder" runat="server">
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContentPlaceHolder" runat="server">
-    <div style="padding-left: 10px;">
-        <h3>
-            MANAGE SERVICES<asp:EntityDataSource ID="edsServices" runat="server" ConnectionString="name=SWMPDDEntities"
+     <div id="mainContentArea" style="padding-left:10px;">
+        <div class="heading">
+            <h3>MANAGE SERVICES</h3>
+        </div>
+
+            <asp:EntityDataSource ID="edsServices" runat="server" ConnectionString="name=SWMPDDEntities"
                 DefaultContainerName="SWMPDDEntities" EnableFlattening="False" EntitySetName="Services"
                 EntityTypeFilter="Service">
             </asp:EntityDataSource>
-        </h3>
+
         <div>
             <asp:GridView runat="server" ID="gvServices" DataSourceID="edsServices" CellPadding="3"
                 EmptyDataRowStyle-ForeColor="red" EmptyDataRowStyle-HorizontalAlign="Center"

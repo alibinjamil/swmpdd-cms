@@ -16,12 +16,12 @@
             <div style="clear:both"></div>
         </div>        
         <div class="row">
-            <div class="col1"><img src="img/bullet_arrow_right.gif" width="15" height="15" /></div>
-            <div class="col2">Your password will be sent to your email address on record after you enter your user name and click "Retrieve Password" below.</div>
+            <div class="col1"></div>
+            <div class="col2"><img src="img/greater_than.gif" width="15" height="15" />&nbsp;&nbsp;Your password will be sent to your email address on record after you enter your user name and click "Retrieve Password" below.</div>
             <div style="clear:both"></div>
         </div>        
         <div class="row">
-            <div class="col1"></div>
+            <div class="col1">Username: </div>
             <div class="col2"><asp:TextBox ID="tbUserName" runat="server"></asp:TextBox> </div>
             <div style="clear:both"></div>
         </div>        
