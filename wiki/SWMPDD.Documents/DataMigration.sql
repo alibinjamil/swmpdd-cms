@@ -99,7 +99,8 @@ INSERT INTO SWMPDD.dbo.Clients(
 	Zip,
 	ClientId,
 	StatusId,
-	StatusText
+	StatusText,
+	RemovalDate
 )
 SELECT 
 	AdditionalPertinent,
@@ -155,7 +156,8 @@ SELECT
 	zip,
 	NEWID(),
 	(SELECT StatusId FROM @StatusValues WHERE StatusText = ReasonforRemovalCode),
-	Code8Other
+	Code8Other,
+	ReasonforRemovalenteredon
 FROM msdepart.dbo.tblParticipant;
 
 --Add AdditicationalPertinentInformation
